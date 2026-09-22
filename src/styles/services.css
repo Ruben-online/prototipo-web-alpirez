@@ -155,3 +155,64 @@
 .service-link:hover span {
   transform: translateX(4px);
 }
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .services {
+    padding: 80px 0;
+  }
+
+  .services-container {
+    width: min(100% - 40px, 500px);
+  }
+
+  /* Header */
+
+  .services-header {
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  .services-header h2 {
+    font-size: clamp(2.3rem, 11vw, 3rem);
+  }
+
+  .services-header > p {
+    margin-top: 18px;
+
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* Cards */
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .service-card {
+    min-height: 260px;
+    padding: 26px;
+  }
+
+  .service-card-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .service-card-content p {
+    font-size: 0.86rem;
+  }
+
+  /*
+   * En móvil no necesitamos que la tarjeta
+   * se levante demasiado al hacer hover.
+   */
+  .service-card:hover {
+    transform: translateY(-3px);
+  }
+}

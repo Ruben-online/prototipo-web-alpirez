@@ -30,6 +30,7 @@
 
 .treatments-header > p {
   margin-top: 18px;
+
   color: var(--color-text-light);
   font-size: 0.95rem;
   line-height: 1.8;
@@ -107,5 +108,79 @@
 .treatment-item:hover .treatment-arrow {
   background-color: var(--color-primary);
   color: var(--color-white);
+
   transform: translateX(4px);
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .treatments {
+    padding: 80px 0;
+  }
+
+  .treatments-container {
+    width: min(100% - 40px, 500px);
+  }
+
+  /* Header */
+
+  .treatments-header {
+    margin-bottom: 40px;
+  }
+
+  .treatments-header h2 {
+    font-size: clamp(2.3rem, 11vw, 3rem);
+  }
+
+  .treatments-header > p {
+    margin-top: 16px;
+
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* Treatments list */
+
+  .treatment-item {
+    grid-template-columns: 38px 1fr 38px;
+
+    gap: 14px;
+
+    padding: 22px 0;
+  }
+
+  .treatment-item:hover {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .treatment-number {
+    font-size: 0.7rem;
+  }
+
+  .treatment-content h3 {
+    margin-bottom: 4px;
+
+    font-size: 1rem;
+  }
+
+  .treatment-content p {
+    font-size: 0.76rem;
+    line-height: 1.55;
+  }
+
+  .treatment-arrow {
+    width: 34px;
+    height: 34px;
+
+    font-size: 0.9rem;
+  }
+
+  .treatment-item:hover .treatment-arrow {
+    transform: translateX(2px);
+  }
 }

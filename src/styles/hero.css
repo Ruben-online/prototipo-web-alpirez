@@ -252,3 +252,128 @@
   color: var(--color-text-light);
   font-size: 0.72rem;
 }
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .hero {
+    min-height: auto;
+    padding: 110px 0 70px;
+  }
+
+  .hero-container {
+    width: min(100% - 40px, 500px);
+    min-height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 55px;
+  }
+
+  /* Content */
+
+  .hero-content {
+    max-width: none;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 16px;
+
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hero h1 {
+    margin-bottom: 20px;
+
+    font-size: clamp(2.5rem, 12vw, 3.4rem);
+    line-height: 1.05;
+  }
+
+  .hero-content > p {
+    max-width: none;
+    margin-bottom: 28px;
+
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* Buttons */
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+    margin-bottom: 35px;
+  }
+
+  .hero-button-primary,
+  .hero-button-secondary {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  /* Trust */
+
+  .hero-trust {
+    justify-content: center;
+    gap: 22px;
+  }
+
+  .hero-trust-item {
+    text-align: center;
+  }
+
+  .hero-trust-item strong {
+    font-size: 1.1rem;
+  }
+
+  .hero-trust-item span {
+    font-size: 0.7rem;
+  }
+
+  .hero-trust-divider {
+    height: 32px;
+  }
+
+  /* Image */
+
+  .hero-image-wrapper {
+    min-height: 430px;
+  }
+
+  .hero-image-decoration {
+    width: 290px;
+    height: 360px;
+  }
+
+  .hero-image-container {
+    width: min(290px, 82vw);
+    height: 370px;
+
+    border-radius: 160px 160px 25px 25px;
+  }
+
+  /* Floating card */
+
+  .hero-floating-card {
+    left: 50%;
+    bottom: 20px;
+
+    padding: 12px 15px;
+
+    transform: translateX(-50%);
+
+    white-space: nowrap;
+  }
+
+  .hero-floating-icon {
+    width: 34px;
+    height: 34px;
+  }
+}

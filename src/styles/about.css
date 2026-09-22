@@ -13,13 +13,26 @@
 
   display: grid;
   grid-template-columns: 0.85fr 1fr;
+  grid-template-areas:
+    "image intro"
+    "image content";
+
   align-items: center;
-  gap: 100px;
+  column-gap: 100px;
+  row-gap: 10px;
+}
+
+/* Intro */
+
+.about-intro {
+  grid-area: intro;
 }
 
 /* Image */
 
 .about-image-wrapper {
+  grid-area: image;
+
   position: relative;
 
   display: flex;
@@ -102,6 +115,8 @@
 /* Content */
 
 .about-content {
+  grid-area: content;
+
   max-width: 560px;
 }
 
@@ -197,4 +212,109 @@
 
 .about-button:hover span {
   transform: translateX(4px);
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .about {
+    padding: 80px 0;
+  }
+
+  .about-container {
+    width: min(100% - 40px, 500px);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+  }
+
+  /* Intro */
+
+  .about-intro {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  /* Image */
+
+  .about-image-wrapper {
+    width: 100%;
+    min-height: 420px;
+    margin-bottom: 55px;
+  }
+
+  .about-image-decoration {
+    width: 280px;
+    height: 350px;
+  }
+
+  .about-image-container {
+    width: min(275px, 80vw);
+    height: 370px;
+  }
+
+  .about-experience {
+    right: 50%;
+    bottom: 15px;
+
+    transform: translateX(50%);
+
+    padding: 13px 18px;
+  }
+
+  .about-experience strong {
+    font-size: 1.35rem;
+  }
+
+  .about-experience span {
+    font-size: 0.68rem;
+  }
+
+  /* Content */
+
+  .about-content {
+    width: 100%;
+    max-width: none;
+  }
+
+  .about-content h2 {
+    margin-bottom: 20px;
+
+    font-size: clamp(2.3rem, 11vw, 3rem);
+  }
+
+  .about-content > p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* Highlights */
+
+  .about-highlights {
+    gap: 16px;
+    margin: 26px 0;
+  }
+
+  .about-highlight {
+    gap: 10px;
+  }
+
+  .about-highlight > span {
+    width: 28px;
+    height: 28px;
+  }
+
+  .about-highlight strong {
+    font-size: 0.82rem;
+  }
+
+  .about-highlight p {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
 }

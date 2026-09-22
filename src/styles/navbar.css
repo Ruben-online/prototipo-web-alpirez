@@ -156,3 +156,71 @@
   background-color: var(--color-primary);
   color: var(--color-white);
 }
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  .navbar-container {
+    min-height: 68px;
+  }
+
+  .navbar-logo {
+    font-size: 0.82rem;
+  }
+
+  .navbar-logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 78px;
+    left: 4%;
+    right: 4%;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+
+    padding: 10px;
+
+    background-color: var(--color-white);
+    border: 1px solid rgba(124, 58, 237, 0.08);
+    border-radius: 18px;
+
+    box-shadow: 0 15px 35px rgba(39, 35, 45, 0.12);
+  }
+
+  .navbar-links-open {
+    display: flex;
+  }
+
+  .navbar-links a {
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    font-size: 0.88rem;
+  }
+
+  .navbar-links a::after {
+    display: none;
+  }
+
+  .navbar-links a:hover {
+    background-color: var(--color-primary-light);
+  }
+
+  .navbar-appointment {
+    display: none;
+  }
+
+  .navbar-menu-button {
+    display: flex;
+  }
+}

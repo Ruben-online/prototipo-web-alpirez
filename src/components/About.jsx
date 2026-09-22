@@ -3,6 +3,12 @@ function About() {
     <section id="sobre-mi" className="about">
       <div className="about-container">
 
+        <div className="about-intro">
+          <span className="section-eyebrow">
+            CONOCE A LA DOCTORA
+          </span>
+        </div>
+
         <div className="about-image-wrapper">
           <div className="about-image-decoration"></div>
 
@@ -16,14 +22,15 @@ function About() {
 
           <div className="about-experience">
             <strong>+10</strong>
-            <span>Años de<br />experiencia</span>
+            <span>
+              Años de
+              <br />
+              experiencia
+            </span>
           </div>
         </div>
 
         <div className="about-content">
-          <span className="section-eyebrow">
-            CONOCE A LA DOCTORA
-          </span>
 
           <h2>
             Una atención que
@@ -45,27 +52,36 @@ function About() {
           </p>
 
           <div className="about-highlights">
+
             <div className="about-highlight">
               <span>✦</span>
+
               <div>
                 <strong>Atención personalizada</strong>
-                <p>Cada paciente recibe un enfoque individual.</p>
+                <p>
+                  Cada paciente recibe un enfoque individual.
+                </p>
               </div>
             </div>
 
             <div className="about-highlight">
               <span>✦</span>
+
               <div>
                 <strong>Enfoque profesional</strong>
-                <p>Tratamientos basados en valoración especializada.</p>
+                <p>
+                  Tratamientos basados en valoración especializada.
+                </p>
               </div>
             </div>
+
           </div>
 
           <a href="#contacto" className="about-button">
             Conocer más sobre la doctora
             <span>→</span>
           </a>
+
         </div>
 
       </div>
