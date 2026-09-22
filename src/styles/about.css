@@ -1,0 +1,200 @@
+/* =========================
+   ABOUT
+   ========================= */
+
+.about {
+  padding: 120px 0;
+  background-color: var(--color-background);
+}
+
+.about-container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  align-items: center;
+  gap: 100px;
+}
+
+/* Image */
+
+.about-image-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 520px;
+}
+
+.about-image-decoration {
+  position: absolute;
+
+  width: 370px;
+  height: 430px;
+
+  border-radius: 30px 200px 30px 200px;
+
+  background-color: var(--color-primary-light);
+
+  transform: rotate(-6deg);
+}
+
+.about-image-container {
+  position: relative;
+  z-index: 1;
+
+  width: 360px;
+  height: 460px;
+
+  overflow: hidden;
+
+  border-radius: 30px 200px 30px 200px;
+
+  background-color: var(--color-white);
+
+  box-shadow: 0 25px 55px rgba(39, 35, 45, 0.1);
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+/* Experience card */
+
+.about-experience {
+  position: absolute;
+  z-index: 2;
+
+  right: 0;
+  bottom: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px 20px;
+
+  background-color: var(--color-white);
+  border-radius: 14px;
+
+  box-shadow: 0 15px 35px rgba(39, 35, 45, 0.1);
+}
+
+.about-experience strong {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.about-experience span {
+  color: var(--color-text-light);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+/* Content */
+
+.about-content {
+  max-width: 560px;
+}
+
+.about-content h2 {
+  margin-bottom: 24px;
+
+  color: var(--color-text);
+  font-size: clamp(2.3rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.about-content h2 span {
+  color: var(--color-primary);
+}
+
+.about-content > p {
+  margin-bottom: 16px;
+
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Highlights */
+
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  margin: 30px 0;
+}
+
+.about-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.about-highlight > span {
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 0.75rem;
+}
+
+.about-highlight strong {
+  display: block;
+  margin-bottom: 2px;
+
+  color: var(--color-text);
+  font-size: 0.84rem;
+}
+
+.about-highlight p {
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+}
+
+/* Button */
+
+.about-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--color-primary-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  transition: var(--transition-normal);
+}
+
+.about-button span {
+  transition: var(--transition-fast);
+}
+
+.about-button:hover {
+  color: var(--color-primary);
+}
+
+.about-button:hover span {
+  transform: translateX(4px);
+}
