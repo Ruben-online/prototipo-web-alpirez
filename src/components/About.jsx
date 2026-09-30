@@ -1,3 +1,5 @@
+import aboutImage from '../assets/about-doctor.jpg'
+
 function About() {
   return (
     <section id="sobre-mi" className="about">
@@ -8,7 +10,7 @@ function About() {
 
           <div className="about-image-container">
             <img
-              src="/src/assets/about-doctor.jpg"
+              src={aboutImage}
               alt="Atención dermatológica"
               className="about-image"
             />

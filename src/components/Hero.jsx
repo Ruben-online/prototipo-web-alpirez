@@ -1,3 +1,5 @@
+import heroImage from '../assets/hero-dermatology.webp'
+
 function Hero() {
   return (
     <section id="inicio" className="hero">
@@ -50,7 +52,7 @@ function Hero() {
 
           <div className="hero-image-container">
             <img
-              src="/src/assets/hero-dermatology.webp"
+              src={heroImage}
               alt="Atención dermatológica"
               className="hero-image"
             />
