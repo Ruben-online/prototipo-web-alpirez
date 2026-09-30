@@ -22,6 +22,7 @@ function Hero() {
           <div className="hero-actions">
             <a href="#contacto" className="hero-button-primary">
               Agendar una cita
+              <span>→</span>
             </a>
 
             <a href="#servicios" className="hero-button-secondary">
@@ -44,8 +45,8 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero-image-wrapper">
-          <div className="hero-image-decoration"></div>
+        <div className="hero-visual">
+          <div className="hero-visual-background"></div>
 
           <div className="hero-image-container">
             <img
@@ -53,15 +54,31 @@ function Hero() {
               alt="Atención dermatológica"
               className="hero-image"
             />
+
+            <div className="hero-image-gradient"></div>
+
+            <div className="hero-image-caption">
+              <span className="hero-caption-icon">✦</span>
+
+              <div>
+                <strong>Dermatología integral</strong>
+                <span>Salud, belleza y bienestar</span>
+              </div>
+            </div>
           </div>
 
           <div className="hero-floating-card">
-            <div className="hero-floating-icon">✦</div>
+            <span className="hero-floating-icon">✦</span>
 
             <div>
               <strong>Cuidado especializado</strong>
               <span>Para tu piel</span>
             </div>
+          </div>
+
+          <div className="hero-visual-detail">
+            <span>ATENCIÓN</span>
+            <strong>Personalizada</strong>
           </div>
         </div>
 

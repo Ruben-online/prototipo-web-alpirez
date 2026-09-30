@@ -18,7 +18,9 @@ function Footer() {
 
         <div className="footer-links">
           <div>
-            <span className="footer-heading">Navegación</span>
+            <span className="footer-heading">
+              Navegación
+            </span>
 
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
@@ -26,7 +28,9 @@ function Footer() {
           </div>
 
           <div>
-            <span className="footer-heading">Información</span>
+            <span className="footer-heading">
+              Información
+            </span>
 
             <a href="#tratamientos">Tratamientos</a>
             <a href="#contacto">Contacto</a>
@@ -35,7 +39,9 @@ function Footer() {
         </div>
 
         <div className="footer-social">
-          <span className="footer-heading">Síguenos</span>
+          <span className="footer-heading">
+            Síguenos
+          </span>
 
           <div className="footer-social-links">
             <a href="#" aria-label="Instagram">

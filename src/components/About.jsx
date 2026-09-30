@@ -3,14 +3,8 @@ function About() {
     <section id="sobre-mi" className="about">
       <div className="about-container">
 
-        <div className="about-intro">
-          <span className="section-eyebrow">
-            CONOCE A LA DOCTORA
-          </span>
-        </div>
-
-        <div className="about-image-wrapper">
-          <div className="about-image-decoration"></div>
+        <div className="about-visual">
+          <div className="about-image-background"></div>
 
           <div className="about-image-container">
             <img
@@ -18,10 +12,22 @@ function About() {
               alt="Dra. Alpírez"
               className="about-image"
             />
+
+            <div className="about-image-overlay"></div>
+
+            <div className="about-image-label">
+              <span>✦</span>
+
+              <div>
+                <strong>Dra. Alpírez</strong>
+                <small>Dermatología clínica y estética</small>
+              </div>
+            </div>
           </div>
 
           <div className="about-experience">
             <strong>+10</strong>
+
             <span>
               Años de
               <br />
@@ -31,6 +37,9 @@ function About() {
         </div>
 
         <div className="about-content">
+          <span className="section-eyebrow">
+            CONOCE A LA DOCTORA
+          </span>
 
           <h2>
             Una atención que
@@ -54,10 +63,11 @@ function About() {
           <div className="about-highlights">
 
             <div className="about-highlight">
-              <span>✦</span>
+              <span className="about-highlight-icon">✦</span>
 
               <div>
                 <strong>Atención personalizada</strong>
+
                 <p>
                   Cada paciente recibe un enfoque individual.
                 </p>
@@ -65,10 +75,11 @@ function About() {
             </div>
 
             <div className="about-highlight">
-              <span>✦</span>
+              <span className="about-highlight-icon">✦</span>
 
               <div>
                 <strong>Enfoque profesional</strong>
+
                 <p>
                   Tratamientos basados en valoración especializada.
                 </p>
@@ -78,10 +89,12 @@ function About() {
           </div>
 
           <a href="#contacto" className="about-button">
-            Conocer más sobre la doctora
-            <span>→</span>
-          </a>
+            <span>Conocer más sobre la doctora</span>
 
+            <span className="about-button-arrow">
+              ↗
+            </span>
+          </a>
         </div>
 
       </div>

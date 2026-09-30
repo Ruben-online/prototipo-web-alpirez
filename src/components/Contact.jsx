@@ -4,63 +4,81 @@ function Contact() {
       <div className="contact-container">
 
         <div className="contact-content">
-          <span className="section-eyebrow">
-            CONTACTO
-          </span>
+          <div className="contact-content-inner">
+            <span className="section-eyebrow">
+              CONTACTO
+            </span>
 
-          <h2>
-            Hablemos sobre
-            <br />
-            <span>tu piel.</span>
-          </h2>
+            <h2>
+              Hablemos sobre
+              <br />
+              <span>tu piel.</span>
+            </h2>
 
-          <p>
-            Agenda una consulta o escríbenos para obtener más
-            información sobre nuestros servicios y tratamientos.
-          </p>
+            <p>
+              Agenda una consulta o escríbenos para obtener más
+              información sobre nuestros servicios y tratamientos.
+            </p>
 
-          <div className="contact-details">
+            <div className="contact-details">
 
-            <div className="contact-detail">
-              <div className="contact-detail-icon">
-                ✉
+              <a
+                href="mailto:contacto@clinicaalpirez.com"
+                className="contact-detail"
+              >
+                <div className="contact-detail-icon">
+                  ✉
+                </div>
+
+                <div>
+                  <span>Correo electrónico</span>
+                  <strong>contacto@clinicaalpirez.com</strong>
+                </div>
+              </a>
+
+              <a
+                href="tel:+50200000000"
+                className="contact-detail"
+              >
+                <div className="contact-detail-icon">
+                  ☎
+                </div>
+
+                <div>
+                  <span>Teléfono</span>
+                  <strong>+502 0000-0000</strong>
+                </div>
+              </a>
+
+              <div className="contact-detail">
+                <div className="contact-detail-icon">
+                  ◉
+                </div>
+
+                <div>
+                  <span>Ubicación</span>
+                  <strong>Quetzaltenango, Quetzaltenango</strong>
+                </div>
               </div>
 
-              <div>
-                <span>Correo electrónico</span>
-                <strong>contacto@clinicaalpirez.com</strong>
-              </div>
             </div>
 
-            <div className="contact-detail">
-              <div className="contact-detail-icon">
-                ☎
-              </div>
-
-              <div>
-                <span>Teléfono</span>
-                <strong>+502 0000-0000</strong>
-              </div>
+            <div className="contact-content-decoration">
+              ✦
             </div>
-
-            <div className="contact-detail">
-              <div className="contact-detail-icon">
-                ◉
-              </div>
-
-              <div>
-                <span>Ubicación</span>
-                <strong>Quetzaltenango, Quetzaltenango</strong>
-              </div>
-            </div>
-
           </div>
         </div>
 
         <div className="contact-card">
-          <span className="contact-card-label">
-            SOLICITA INFORMACIÓN
-          </span>
+          <div className="contact-card-header">
+            <span className="contact-card-label">
+              SOLICITA INFORMACIÓN
+            </span>
+
+            <span className="contact-card-icon">
+              ✦
+            </span>
+          </div>
 
           <h3>
             ¿Te gustaría agendar
@@ -76,7 +94,10 @@ function Contact() {
           <form className="contact-form">
 
             <div className="contact-form-group">
-              <label htmlFor="name">Nombre</label>
+              <label htmlFor="name">
+                Nombre
+              </label>
+
               <input
                 id="name"
                 type="text"
@@ -85,7 +106,10 @@ function Contact() {
             </div>
 
             <div className="contact-form-group">
-              <label htmlFor="email">Correo electrónico</label>
+              <label htmlFor="email">
+                Correo electrónico
+              </label>
+
               <input
                 id="email"
                 type="email"
@@ -94,7 +118,10 @@ function Contact() {
             </div>
 
             <div className="contact-form-group">
-              <label htmlFor="message">Mensaje</label>
+              <label htmlFor="message">
+                Mensaje
+              </label>
+
               <textarea
                 id="message"
                 rows="4"
@@ -102,7 +129,10 @@ function Contact() {
               ></textarea>
             </div>
 
-            <button type="button" className="contact-submit">
+            <button
+              type="button"
+              className="contact-submit"
+            >
               Enviar solicitud
               <span>→</span>
             </button>

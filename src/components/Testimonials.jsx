@@ -25,15 +25,23 @@ function Testimonials() {
       <div className="testimonials-container">
 
         <div className="testimonials-header">
-          <span className="section-eyebrow">
-            EXPERIENCIAS
-          </span>
+          <div>
+            <span className="section-eyebrow">
+              EXPERIENCIAS
+            </span>
 
-          <h2>
-            Lo que dicen
-            <br />
-            <span>nuestros pacientes</span>
-          </h2>
+            <h2>
+              Lo que dicen
+              <br />
+              <span>nuestros pacientes</span>
+            </h2>
+          </div>
+
+          <p>
+            La confianza de nuestros pacientes refleja una atención
+            cercana, profesional y enfocada en acompañar cada proceso
+            de manera personalizada.
+          </p>
         </div>
 
         <div className="testimonials-grid">
@@ -44,13 +52,27 @@ function Testimonials() {
               }`}
               key={testimonial.name}
             >
-              <div className="testimonial-stars">
-                ★ ★ ★ ★ ★
+              <div className="testimonial-card-top">
+                <div className="testimonial-stars">
+                  ★ ★ ★ ★ ★
+                </div>
+
+                <span className="testimonial-quote-icon">
+                  “
+                </span>
               </div>
 
+              {index === 1 && (
+                <span className="testimonial-featured-label">
+                  EXPERIENCIA DESTACADA
+                </span>
+              )}
+
               <blockquote>
-                “{testimonial.quote}”
+                {testimonial.quote}
               </blockquote>
+
+              <div className="testimonial-divider"></div>
 
               <div className="testimonial-author">
                 <div className="testimonial-avatar">
