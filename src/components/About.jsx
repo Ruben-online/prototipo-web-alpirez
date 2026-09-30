@@ -8,8 +8,8 @@ function About() {
 
           <div className="about-image-container">
             <img
-              src="/src/assets/hero.png"
-              alt="Dra. Alpírez"
+              src="/src/assets/about-doctor.jpg"
+              alt="Atención dermatológica"
               className="about-image"
             />
 

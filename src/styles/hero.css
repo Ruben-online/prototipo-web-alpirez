@@ -297,6 +297,7 @@
   display: block;
 
   object-fit: cover;
+  object-position: center center;
 
   transition: transform 0.7s ease;
 }
@@ -601,6 +602,10 @@
     height: 450px;
 
     border-radius: 22px;
+  }
+
+  .hero-image {
+    object-position: center center;
   }
 
   .hero-image-caption {

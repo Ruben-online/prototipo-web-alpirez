@@ -50,7 +50,7 @@ function Hero() {
 
           <div className="hero-image-container">
             <img
-              src="/src/assets/hero.png"
+              src="/src/assets/hero-dermatology.webp"
               alt="Atención dermatológica"
               className="hero-image"
             />
