@@ -10,6 +10,8 @@ import './styles/treatments.css'
 import './styles/testimonials.css'
 import './styles/contact.css'
 import './styles/footer.css'
+import './styles/login.css'
+import './styles/dashboard.css'
 
 import App from './App.jsx'
 

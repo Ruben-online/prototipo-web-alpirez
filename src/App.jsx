@@ -1,28 +1,18 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Services from './components/Services'
-import About from './components/About'
-import Treatments from './components/Treatments'
-import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   return (
-    <>
-      <Navbar />
-
-      <main>
-        <Hero />
-        <Services />
-        <About />
-        <Treatments />
-        <Testimonials />
-        <Contact />
-      </main>
-
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
