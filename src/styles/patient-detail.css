@@ -1,0 +1,442 @@
+/* =========================================
+   EXPEDIENTE CLÍNICO — DRA. ALPÍREZ
+========================================= */
+
+.patient-detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+.patient-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+
+  color: var(--color-text-light);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: var(--transition-fast);
+}
+
+.patient-detail-back:hover {
+  color: var(--color-primary);
+}
+
+.patient-detail-back svg {
+  transition: transform 0.2s ease;
+}
+
+.patient-detail-back:hover svg {
+  transform: translateX(-3px);
+}
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.patient-detail-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.patient-detail-heading h2 {
+  margin: 9px 0 8px;
+
+  color: var(--color-text);
+  font-size: clamp(25px, 3vw, 32px);
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.patient-detail-heading p {
+  margin: 0;
+  color: var(--color-text-light);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   PERFIL DEL PACIENTE
+========================================= */
+
+.patient-detail-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 28px 30px;
+
+  background: var(--color-white);
+  border: 1px solid #f0e8f2;
+  border-radius: 18px;
+
+  box-shadow: 0 5px 25px rgba(39, 35, 45, 0.025);
+}
+
+.patient-detail-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 72px;
+  height: 72px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    135deg,
+    #f7e8fc 0%,
+    #eed7f5 100%
+  );
+
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.patient-detail-identity {
+  flex: 1;
+  min-width: 0;
+}
+
+.patient-detail-identity h3 {
+  margin: 7px 0 5px;
+
+  color: var(--color-text);
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -0.6px;
+}
+
+.patient-detail-identity p {
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 13px;
+}
+
+.patient-detail-profile > .patients-status {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   TARJETAS GENERALES
+========================================= */
+
+.patient-detail-card {
+  padding: 28px 30px;
+
+  background: var(--color-white);
+  border: 1px solid #f0e8f2;
+  border-radius: 18px;
+
+  box-shadow: 0 5px 25px rgba(39, 35, 45, 0.025);
+}
+
+.patient-detail-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+
+  border-bottom: 1px solid #f3edf5;
+}
+
+.patient-detail-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 46px;
+  height: 46px;
+
+  border-radius: 13px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.patient-detail-card-heading h3 {
+  margin: 6px 0 0;
+
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+/* =========================================
+   INFORMACIÓN PERSONAL
+========================================= */
+
+.patient-detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  row-gap: 28px;
+}
+
+.patient-detail-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.patient-detail-info-item > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--color-text-light);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.patient-detail-info-item > span svg {
+  color: var(--color-primary);
+}
+
+.patient-detail-info-item > strong {
+  overflow-wrap: anywhere;
+
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.patient-detail-info-full {
+  grid-column: 1 / -1;
+}
+
+/* =========================================
+   RESUMEN CLÍNICO
+========================================= */
+
+.patient-detail-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.patient-detail-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  min-height: 108px;
+  padding: 24px;
+
+  background: var(--color-white);
+  border: 1px solid #f0e8f2;
+  border-radius: 16px;
+
+  box-shadow: 0 5px 25px rgba(39, 35, 45, 0.025);
+}
+
+.patient-detail-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 14px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.patient-detail-summary-card > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.patient-detail-summary-card span {
+  color: var(--color-text-light);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.patient-detail-summary-card strong {
+  overflow-wrap: anywhere;
+
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+/* =========================================
+   HISTORIAL CLÍNICO — ESTADO VACÍO
+========================================= */
+
+.patient-detail-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 230px;
+  padding: 28px 20px;
+
+  text-align: center;
+
+  background: #fdfafd;
+  border: 1px dashed #e9d9ee;
+  border-radius: 14px;
+}
+
+.patient-detail-placeholder > svg {
+  margin-bottom: 16px;
+  color: var(--color-primary);
+}
+
+.patient-detail-placeholder h4 {
+  margin: 0 0 9px;
+
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.patient-detail-placeholder p {
+  max-width: 420px;
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   RESPONSIVE — TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+  .patient-detail-page {
+    gap: 20px;
+  }
+
+  .patient-detail-profile,
+  .patient-detail-card {
+    padding: 24px;
+  }
+
+  .patient-detail-info-grid {
+    column-gap: 24px;
+  }
+
+  .patient-detail-summary {
+    gap: 14px;
+  }
+
+  .patient-detail-summary-card {
+    padding: 20px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — MÓVILES
+========================================= */
+
+@media (max-width: 600px) {
+  .patient-detail-page {
+    gap: 18px;
+    padding-bottom: 25px;
+  }
+
+  .patient-detail-heading h2 {
+    font-size: 26px;
+  }
+
+  .patient-detail-profile {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .patient-detail-avatar {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 16px;
+    font-size: 20px;
+  }
+
+  .patient-detail-identity h3 {
+    font-size: 19px;
+  }
+
+  .patient-detail-profile > .patients-status {
+    margin-left: 73px;
+  }
+
+  .patient-detail-card {
+    padding: 20px;
+  }
+
+  .patient-detail-card-heading {
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+  }
+
+  .patient-detail-card-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .patient-detail-card-heading h3 {
+    font-size: 16px;
+  }
+
+  .patient-detail-info-grid {
+    grid-template-columns: 1fr;
+    row-gap: 23px;
+  }
+
+  .patient-detail-info-full {
+    grid-column: auto;
+  }
+
+  .patient-detail-summary {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .patient-detail-summary-card {
+    min-height: 90px;
+    padding: 18px;
+  }
+
+  .patient-detail-summary-card strong {
+    font-size: 20px;
+  }
+
+  .patient-detail-placeholder {
+    min-height: 200px;
+  }
+}
