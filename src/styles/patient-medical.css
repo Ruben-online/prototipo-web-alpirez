@@ -1,0 +1,400 @@
+/* =========================================
+   ANTECEDENTES MÉDICOS
+========================================= */
+
+/* Encabezado de la sección */
+
+.patient-medical-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.patient-medical-heading-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Botón editar antecedentes */
+
+.patient-medical-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  flex-shrink: 0;
+
+  padding: 11px 16px;
+
+  background: var(--color-primary-light);
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.patient-medical-edit-button:hover {
+  background: #efd9f5;
+  border-color: #e4c5ed;
+  transform: translateY(-1px);
+}
+
+.patient-medical-edit-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   TARJETAS DE ANTECEDENTES
+========================================= */
+
+.patient-medical-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.patient-medical-item {
+  min-width: 0;
+  padding: 21px;
+
+  background: #fdfafd;
+  border: 1px solid #f0e8f2;
+  border-radius: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.patient-medical-item:hover {
+  border-color: #e6d0ed;
+  box-shadow: 0 4px 16px rgba(171, 73, 204, 0.04);
+}
+
+/* Última tarjeta a todo lo ancho */
+
+.patient-medical-item:last-child {
+  grid-column: 1 / -1;
+}
+
+.patient-medical-item-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  margin-bottom: 14px;
+}
+
+.patient-medical-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  background: var(--color-primary-light);
+  border-radius: 10px;
+
+  color: var(--color-primary);
+}
+
+.patient-medical-item-heading h4 {
+  margin: 0;
+
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.patient-medical-item p {
+  margin: 0;
+
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.75;
+
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.patient-medical-item p.patient-medical-empty {
+  color: #a29aa6;
+  font-style: italic;
+}
+
+/* =========================================
+   FORMULARIO DE ANTECEDENTES
+========================================= */
+
+.patient-medical-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.patient-medical-form-description {
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.patient-medical-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.patient-medical-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  min-width: 0;
+}
+
+/* Observaciones generales a todo lo ancho */
+
+.patient-medical-form-field:last-child {
+  grid-column: 1 / -1;
+}
+
+.patient-medical-form-field label {
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.patient-medical-form-field textarea {
+  display: block;
+
+  width: 100%;
+  min-height: 105px;
+  padding: 13px 15px;
+
+  background: #fdfafd;
+  border: 1px solid #e9e0ec;
+  border-radius: 11px;
+
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+
+  resize: vertical;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.patient-medical-form-field textarea::placeholder {
+  color: #a9a1ad;
+}
+
+.patient-medical-form-field textarea:hover {
+  border-color: #d8c3df;
+}
+
+.patient-medical-form-field textarea:focus {
+  outline: none;
+
+  background: var(--color-white);
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 3px rgba(171, 73, 204, 0.1);
+}
+
+/* =========================================
+   ACCIONES DEL FORMULARIO
+========================================= */
+
+.patient-medical-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #f0e8f2;
+}
+
+/* Estilos propios para los botones del formulario */
+
+.patient-medical-form-actions .patients-cancel-button,
+.patient-medical-form-actions .dashboard-primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  padding: 11px 19px;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.patient-medical-form-actions .patients-cancel-button {
+  background: var(--color-white);
+  border: 1px solid #e9e0ec;
+  color: var(--color-text-light);
+}
+
+.patient-medical-form-actions .patients-cancel-button:hover {
+  background: #f9f5fa;
+}
+
+.patient-medical-form-actions .dashboard-primary-button {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: #fff;
+}
+
+.patient-medical-form-actions .dashboard-primary-button:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   MENSAJE DE CONFIRMACIÓN
+========================================= */
+
+.patient-detail-page .patients-success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 18px;
+
+  background: #f4fbf6;
+  border: 1px solid #d9eddf;
+  border-radius: 12px;
+
+  color: #287547;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.patient-detail-page .patients-success > span {
+  flex: 1;
+}
+
+.patient-detail-page .patients-success > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+
+  color: inherit;
+  cursor: pointer;
+}
+
+.patient-detail-page .patients-success > button:hover {
+  background: rgba(40, 117, 71, 0.08);
+}
+
+/* =========================================
+   RESPONSIVE — TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+  .patient-medical-grid {
+    gap: 13px;
+  }
+
+  .patient-medical-item {
+    padding: 18px;
+  }
+
+  .patient-medical-form-grid {
+    gap: 18px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — MÓVILES
+========================================= */
+
+@media (max-width: 600px) {
+  .patient-medical-heading {
+    flex-wrap: wrap;
+  }
+
+  .patient-medical-heading-text {
+    flex: 1;
+  }
+
+  .patient-medical-edit-button {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .patient-medical-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .patient-medical-item:last-child {
+    grid-column: auto;
+  }
+
+  .patient-medical-item {
+    padding: 18px;
+  }
+
+  .patient-medical-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .patient-medical-form-field:last-child {
+    grid-column: auto;
+  }
+
+  .patient-medical-form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .patient-medical-form-actions .patients-cancel-button,
+  .patient-medical-form-actions .dashboard-primary-button {
+    width: 100%;
+  }
+}

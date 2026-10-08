@@ -1,0 +1,521 @@
+/* ==========================================================
+   MODAL DE CONFIRMACIÓN - ACTIVAR / DESACTIVAR PACIENTES
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   TARJETA PRINCIPAL
+   ---------------------------------------------------------- */
+
+.patients-status-modal {
+  position: relative;
+
+  width: calc(100% - 32px);
+  max-width: 480px;
+
+  background: #ffffff;
+
+  border: 1px solid #f0e8f2;
+  border-radius: 22px;
+
+  box-shadow:
+    0 24px 70px rgba(35, 20, 43, 0.18),
+    0 8px 24px rgba(35, 20, 43, 0.08);
+
+  overflow: hidden;
+
+  animation: patientsStatusModalEnter 0.25s ease-out;
+}
+
+/* ----------------------------------------------------------
+   ENCABEZADO
+   ---------------------------------------------------------- */
+
+.patients-status-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 28px 28px 0;
+}
+
+/* Ícono principal */
+
+.patients-status-modal-icon {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  flex-shrink: 0;
+}
+
+/* Desactivar: tono cálido de advertencia */
+
+.patients-status-modal-icon.deactivate {
+  color: #b45309;
+  background: #fff4e5;
+  border: 1px solid #fde5bd;
+}
+
+/* Activar: morado corporativo */
+
+.patients-status-modal-icon.activate {
+  color: var(--color-primary, #ab49cc);
+  background: #f7ebfb;
+  border: 1px solid #ecd3f4;
+}
+
+/* Botón de cerrar */
+
+.patients-status-modal-header .patients-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  border: 1px solid #eee8f0;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #77717c;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.patients-status-modal-header .patients-modal-close:hover {
+  background: #faf5fc;
+  color: var(--color-primary, #ab49cc);
+  border-color: #e8d3ef;
+}
+
+/* ----------------------------------------------------------
+   CONTENIDO PRINCIPAL
+   ---------------------------------------------------------- */
+
+.patients-status-modal-content {
+  padding: 20px 28px 28px;
+}
+
+.patients-status-modal-content .dashboard-section-eyebrow {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--color-primary, #ab49cc);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+/* Título */
+
+.patients-status-modal-content h3 {
+  margin: 0 0 12px;
+
+  color: #29232e;
+
+  font-size: 23px;
+  font-weight: 750;
+
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+/* Descripción */
+
+.patients-status-modal-content > p {
+  margin: 0;
+
+  color: #77717d;
+
+  font-size: 13.5px;
+  font-weight: 400;
+
+  line-height: 1.75;
+}
+
+/* ----------------------------------------------------------
+   TARJETA CON INFORMACIÓN DEL PACIENTE
+   ---------------------------------------------------------- */
+
+.patients-status-modal-patient {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 24px;
+  padding: 15px;
+
+  background: #fcf9fd;
+
+  border: 1px solid #f0e7f3;
+  border-radius: 14px;
+}
+
+/* Avatar */
+
+.patients-status-modal-avatar {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background: #f0ddf6;
+  color: var(--color-primary-dark, #8d36aa);
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+}
+
+/* Nombre e ID */
+
+.patients-status-modal-patient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.patients-status-modal-patient-info strong {
+  color: #302a34;
+
+  font-size: 13.5px;
+  font-weight: 700;
+
+  overflow-wrap: anywhere;
+}
+
+.patients-status-modal-patient-info > span {
+  color: #9a929e;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Estado del paciente */
+
+.patients-status-modal-patient .patients-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  flex-shrink: 0;
+
+  font-size: 11px;
+}
+
+/* ----------------------------------------------------------
+   NOTA INFORMATIVA
+   ---------------------------------------------------------- */
+
+.patients-status-modal-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  margin-top: 16px;
+  padding: 14px;
+
+  background: #f8f5fa;
+
+  border: 1px solid #f0e9f2;
+  border-radius: 12px;
+}
+
+.patients-status-modal-note > svg {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+
+  color: var(--color-primary, #ab49cc);
+}
+
+.patients-status-modal-note p {
+  margin: 0;
+
+  color: #746b79;
+
+  font-size: 11.5px;
+  font-weight: 400;
+
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------
+   PIE DEL MODAL
+   ---------------------------------------------------------- */
+
+.patients-status-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  padding: 20px 28px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #f0ebf2;
+}
+
+/* Botón cancelar */
+
+.patients-status-modal-footer .patients-cancel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  padding: 0 20px;
+
+  border: 1px solid #e9e1ec;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #68616e;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.patients-status-modal-footer .patients-cancel-button:hover {
+  background: #f9f5fb;
+  border-color: #dfcce6;
+  color: #4f3e56;
+}
+
+/* ----------------------------------------------------------
+   BOTÓN DE CONFIRMACIÓN
+   ---------------------------------------------------------- */
+
+.patients-status-confirm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 42px;
+  padding: 0 20px;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.patients-status-confirm-button:hover {
+  transform: translateY(-1px);
+}
+
+.patients-status-confirm-button:active {
+  transform: translateY(0);
+}
+
+/* Confirmar desactivación */
+
+.patients-status-confirm-button.deactivate {
+  background: #b45309;
+  color: #ffffff;
+}
+
+.patients-status-confirm-button.deactivate:hover {
+  background: #92400e;
+
+  box-shadow: 0 5px 14px rgba(180, 83, 9, 0.18);
+}
+
+/* Confirmar activación */
+
+.patients-status-confirm-button.activate {
+  background: var(--color-primary, #ab49cc);
+  color: #ffffff;
+}
+
+.patients-status-confirm-button.activate:hover {
+  background: var(--color-primary-dark, #8d36aa);
+
+  box-shadow: 0 5px 14px rgba(171, 73, 204, 0.2);
+}
+
+/* ----------------------------------------------------------
+   BOTONES DE ACTIVAR / DESACTIVAR EN LA TABLA
+   ---------------------------------------------------------- */
+
+.patients-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  flex-shrink: 0;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Desactivar paciente */
+
+.patients-toggle-button.deactivate {
+  background: #fff7ed;
+  border-color: #ffedd5;
+  color: #b45309;
+}
+
+.patients-toggle-button.deactivate:hover {
+  background: #ffedd5;
+  border-color: #fed7aa;
+  color: #92400e;
+
+  transform: translateY(-1px);
+}
+
+/* Activar paciente */
+
+.patients-toggle-button.activate {
+  background: #f6eafa;
+  border-color: #ecd3f4;
+  color: var(--color-primary, #ab49cc);
+}
+
+.patients-toggle-button.activate:hover {
+  background: #efd9f6;
+  border-color: #ddb8e9;
+  color: var(--color-primary-dark, #8d36aa);
+
+  transform: translateY(-1px);
+}
+
+/* Accesibilidad: navegación por teclado */
+
+.patients-toggle-button:focus-visible,
+.patients-status-confirm-button:focus-visible,
+.patients-status-modal-footer .patients-cancel-button:focus-visible,
+.patients-status-modal-header .patients-modal-close:focus-visible {
+  outline: 3px solid rgba(171, 73, 204, 0.3);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------
+   ANIMACIÓN DE ENTRADA
+   ---------------------------------------------------------- */
+
+@keyframes patientsStatusModalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ----------------------------------------------------------
+   DISEÑO RESPONSIVE
+   ---------------------------------------------------------- */
+
+@media (max-width: 520px) {
+  .patients-status-modal {
+    width: calc(100% - 28px);
+    max-width: 100%;
+
+    border-radius: 18px;
+  }
+
+  .patients-status-modal-header {
+    padding: 22px 20px 0;
+  }
+
+  .patients-status-modal-content {
+    padding: 18px 20px 24px;
+  }
+
+  .patients-status-modal-content h3 {
+    font-size: 21px;
+  }
+
+  .patients-status-modal-patient {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .patients-status-modal-footer {
+    padding: 16px 20px;
+
+    gap: 10px;
+  }
+
+  .patients-status-modal-footer .patients-cancel-button,
+  .patients-status-confirm-button {
+    flex: 1;
+
+    padding: 0 12px;
+
+    font-size: 11.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patients-status-modal {
+    animation: none;
+  }
+
+  .patients-toggle-button,
+  .patients-status-confirm-button {
+    transition: none;
+  }
+}

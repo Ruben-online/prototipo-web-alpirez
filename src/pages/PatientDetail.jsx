@@ -25,6 +25,7 @@ import {
 
 import '../styles/patients.css'
 import '../styles/patient-detail.css'
+import '../styles/patient-medical.css'
 
 // ==========================================
 // ESTRUCTURA DE ANTECEDENTES MÉDICOS

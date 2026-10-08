@@ -19,6 +19,8 @@ import {
 } from 'lucide-react'
 
 import '../styles/patients.css'
+import '../styles/patients-form-modal.css'
+import '../styles/patients-status-modal.css'
 
 // ==========================================
 // CONSTANTES
