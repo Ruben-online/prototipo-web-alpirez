@@ -874,3 +874,64 @@
     display: none;
   }
 }
+
+/* =========================
+   DASHBOARD LAYOUT - MOBILE NAVIGATION
+========================= */
+
+.dashboard-sidebar-close {
+  display: none;
+}
+
+.dashboard-sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .dashboard-sidebar.dashboard-sidebar-open {
+    display: flex;
+
+    width: 270px;
+    max-width: 85vw;
+
+    z-index: 101;
+
+    box-shadow: 12px 0 40px rgba(39, 35, 45, 0.12);
+  }
+
+  .dashboard-sidebar-overlay {
+    display: block;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(39, 35, 45, 0.38);
+
+    z-index: 100;
+  }
+
+  .dashboard-sidebar-close {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: auto;
+
+    border-radius: 9px;
+
+    background: #f8f5f9;
+
+    color: var(--color-text-light);
+  }
+
+  .dashboard-sidebar-close:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+}
