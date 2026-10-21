@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { usePatients } from '../context/PatientsContext'
+import { usePatients } from '../hooks/usePatients'
 import PatientStatusModal from '../components/patients/PatientStatusModal'
 import PatientFormModal from '../components/patients/PatientFormModal'
 import PatientsTable from '../components/patients/PatientsTable'
@@ -18,9 +18,9 @@ import {
   X,
 } from 'lucide-react'
 
-import '../styles/patients.css'
-import '../styles/patients-form-modal.css'
-import '../styles/patients-status-modal.css'
+import '../styles/patients/patients.css'
+import '../styles/patients/patients-form-modal.css'
+import '../styles/patients/patients-status-modal.css'
 
 // ==========================================
 // CONSTANTES

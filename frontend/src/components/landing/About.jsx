@@ -1,4 +1,4 @@
-import aboutImage from '../assets/about-doctor.jpg'
+import aboutImage from '../../assets/about-doctor.jpg'
 
 function About() {
   return (

@@ -18,10 +18,10 @@ import {
   X,
 } from 'lucide-react'
 
-import { useAppointments } from '../../context/AppointmentsContext'
+import { useAppointments } from '../../hooks/useAppointments'
 
-import '../../styles/appointments-details-modal.css'
-import '../../styles/appointments-status-actions.css'
+import '../../styles/appointments/appointments-details-modal.css'
+import '../../styles/appointments/appointments-status-actions.css'
 
 // ==========================================
 // ESTADOS DE LAS CITAS
@@ -178,17 +178,6 @@ function AppointmentDetailsModal({
   const selectedAction = pendingAction
     ? statusActions[pendingAction]
     : null
-
-  // ========================================
-  // REINICIAR AL CAMBIAR DE CITA
-  // ========================================
-
-  useEffect(() => {
-    setCurrentView('details')
-    setPendingAction(null)
-    setSuccessMessage('')
-    setErrorMessage('')
-  }, [appointmentId])
 
   // ========================================
   // ENFOCAR EL MODAL

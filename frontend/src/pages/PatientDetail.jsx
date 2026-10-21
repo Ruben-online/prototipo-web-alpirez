@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { usePatients } from '../context/PatientsContext'
+import { usePatients } from '../hooks/usePatients'
 
 import ConsultationHistory from '../components/patients/ConsultationHistory'
 import ConsultationForm from '../components/patients/ConsultationForm'
@@ -23,9 +23,9 @@ import {
   X,
 } from 'lucide-react'
 
-import '../styles/patients.css'
-import '../styles/patient-detail.css'
-import '../styles/patient-medical.css'
+import '../styles/patients/patients.css'
+import '../styles/patients/patient-detail.css'
+import '../styles/patients/patient-medical.css'
 
 // ==========================================
 // ESTRUCTURA DE ANTECEDENTES MÉDICOS

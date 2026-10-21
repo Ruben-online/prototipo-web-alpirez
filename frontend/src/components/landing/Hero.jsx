@@ -1,4 +1,4 @@
-import heroImage from '../assets/hero-dermatology.webp'
+import heroImage from '../../assets/hero-dermatology.webp'
 
 function Hero() {
   return (
