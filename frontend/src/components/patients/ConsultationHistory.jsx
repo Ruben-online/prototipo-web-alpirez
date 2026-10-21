@@ -9,8 +9,8 @@ import {
   Stethoscope,
 } from 'lucide-react'
 
-import { usePatients } from '../../context/PatientsContext'
-import '../../styles/patient-consultations.css'
+import { usePatients } from '../../hooks/usePatients'
+import '../../styles/patients/patient-consultations.css'
 
 // ==========================================
 // FORMATO DE FECHAS

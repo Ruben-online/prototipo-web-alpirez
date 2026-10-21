@@ -1,15 +1,9 @@
 import {
-  createContext,
-  useContext,
   useEffect,
   useState,
 } from 'react'
 
-// ==========================================
-// CONTEXTO DE CITAS
-// ==========================================
-
-const AppointmentsContext = createContext(null)
+import { AppointmentsContext } from './appointmentsContext'
 
 // ==========================================
 // CONFIGURACIÓN
@@ -746,22 +740,4 @@ export function AppointmentsProvider({ children }) {
       {children}
     </AppointmentsContext.Provider>
   )
-}
-
-// ==========================================
-// HOOK PERSONALIZADO
-// ==========================================
-
-export function useAppointments() {
-  const context = useContext(
-    AppointmentsContext
-  )
-
-  if (!context) {
-    throw new Error(
-      'useAppointments debe utilizarse dentro de AppointmentsProvider'
-    )
-  }
-
-  return context
 }

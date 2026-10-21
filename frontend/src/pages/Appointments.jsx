@@ -10,13 +10,13 @@ import {
   Eye,
 } from 'lucide-react'
 
-import { usePatients } from '../context/PatientsContext'
-import { useAppointments } from '../context/AppointmentsContext'
+import { usePatients } from '../hooks/usePatients'
+import { useAppointments } from '../hooks/useAppointments'
 
 import AppointmentFormModal from '../components/appointments/AppointmentFormModal'
 import AppointmentDetailsModal from '../components/appointments/AppointmentDetailsModal'
 
-import '../styles/appointments.css'
+import '../styles/appointments/appointments.css'
 
 // ========================================
 // FUNCIONES AUXILIARES
@@ -697,6 +697,7 @@ function Appointments() {
       ======================================== */}
 
       <AppointmentDetailsModal
+        key={selectedAppointment?.id ?? 'no-appointment'}
         appointment={selectedAppointment}
         patient={selectedPatient}
         onClose={closeDetailsModal}

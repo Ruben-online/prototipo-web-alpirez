@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { CalendarDays, Save, X } from 'lucide-react'
-import { usePatients } from '../../context/PatientsContext'
+import { Save, X } from 'lucide-react'
+import { usePatients } from '../../hooks/usePatients'
 
 const initialForm = {
   date: new Date().toLocaleDateString('en-CA'),

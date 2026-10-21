@@ -11,10 +11,10 @@ import {
   X,
 } from 'lucide-react'
 
-import { usePatients } from '../../context/PatientsContext'
-import { useAppointments } from '../../context/AppointmentsContext'
+import { usePatients } from '../../hooks/usePatients'
+import { useAppointments } from '../../hooks/useAppointments'
 
-import '../../styles/appointments-form-modal.css'
+import '../../styles/appointments/appointments-form-modal.css'
 
 // ==========================================
 // CONFIGURACIÓN DEL FORMULARIO

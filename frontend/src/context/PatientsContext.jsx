@@ -1,6 +1,5 @@
-import { createContext, useContext, useState } from 'react'
-
-const PatientsContext = createContext(null)
+import { useState } from 'react'
+import { PatientsContext } from './patientsContext'
 
 // ==========================================
 // ANTECEDENTES MÉDICOS
@@ -552,20 +551,4 @@ export function PatientsProvider({ children }) {
       {children}
     </PatientsContext.Provider>
   )
-}
-
-// ==========================================
-// HOOK PERSONALIZADO
-// ==========================================
-
-export function usePatients() {
-  const context = useContext(PatientsContext)
-
-  if (!context) {
-    throw new Error(
-      'usePatients debe utilizarse dentro de PatientsProvider'
-    )
-  }
-
-  return context
 }
