@@ -13,8 +13,9 @@ import Appointments from './pages/Appointments'
 
 import DashboardLayout from './layouts/DashboardLayout'
 
-import { PatientsProvider } from './context/PatientsContext'
-import { AppointmentsProvider } from './context/AppointmentsContext'
+import { PatientsProvider } from './context/PatientsContext.jsx'
+import { AppointmentsProvider } from './context/AppointmentsContext.jsx'
+
 
 function App() {
   return (

@@ -73,10 +73,13 @@ function Patients() {
 
   const {
     patients,
+    loading,
+    error: patientsError,
     addPatient,
     updatePatient,
     updatePatientStatus,
   } = usePatients()
+
 
   // ==========================================
   // ESTADOS DE LA INTERFAZ
@@ -302,7 +305,7 @@ function Patients() {
   // GUARDAR PACIENTE
   // ==========================================
 
-  const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
     event.preventDefault()
 
     const name = form.name.trim()
@@ -351,60 +354,79 @@ function Patients() {
     // ACTUALIZAR PACIENTE
     // ==========================================
 
-    if (isEditing) {
-      updatePatient(editingPatientId, {
-        name,
-        initials: getInitials(name),
-        email,
-        phone,
-        birthDate: form.birthDate,
-        sex: form.sex,
-        address: form.address.trim(),
-      })
+    try {
+      if (isEditing) {
+        await updatePatient(editingPatientId, {
+          name,
+          email,
+          phone,
+          birthDate: form.birthDate,
+          sex: form.sex,
+          address: form.address.trim(),
+        })
 
-      setSuccessMessage(
-        `La información de ${name} fue actualizada correctamente.`
-      )
-    } else {
-      // ==========================================
-      // REGISTRAR PACIENTE
-      // ==========================================
+        setSuccessMessage(
+          `La información de ${name} fue actualizada correctamente.`
+        )
+      } else {
+        // ==========================================
+        // REGISTRAR PACIENTE
+        // ==========================================
 
-      const newPatient = {
-        id: Math.max(0, ...patients.map((patient) => patient.id)) + 1,
-        name,
-        initials: getInitials(name),
-        email,
-        phone,
-        birthDate: form.birthDate,
-        sex: form.sex,
-        address: form.address.trim(),
-        lastVisit: 'Sin consultas',
-        status: 'Activo',
-        consultations: 0,
+        await addPatient({
+          name,
+          email,
+          phone,
+          birthDate: form.birthDate,
+          sex: form.sex,
+          address: form.address.trim(),
+        })
+
+        setSearch('')
+        setActiveFilter('Todos')
+        setCurrentPage(1)
+
+        setSuccessMessage(
+          `${name} fue registrado correctamente.`
+        )
       }
 
-      addPatient(newPatient)
-
-      setSearch('')
-      setActiveFilter('Todos')
-      setCurrentPage(1)
-
-      setSuccessMessage(
-        `${name} fue registrado correctamente.`
-      )
+      closeModal()
+      setForm({ ...emptyForm })
+    } catch (err) {
+      setFormError('Error al guardar: ' + err.message)
     }
-
-    closeModal()
-    setForm({ ...emptyForm })
   }
+
 
   // ==========================================
   // INTERFAZ
   // ==========================================
 
+      if (loading) {
+    return (
+      <div className="patients-page">
+        <div style={{ padding: '3rem', textAlign: 'center', color: '#666' }}>
+          <p>Cargando datos desde Supabase...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (patientsError) {
+    return (
+      <div className="patients-page">
+        <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>
+          <p>Error al cargar pacientes: {patientsError}</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
+
     <div className="patients-page">
+
 
       {/* ==========================================
           ENCABEZADO
