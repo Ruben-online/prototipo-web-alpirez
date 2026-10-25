@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Patients from './pages/Patients'
 import PatientDetail from './pages/PatientDetail'
 import Appointments from './pages/Appointments'
+import Inventory from './pages/Inventory'
 
 import DashboardLayout from './layouts/DashboardLayout'
 
@@ -60,6 +61,11 @@ function App() {
               <Route
                 path="citas"
                 element={<Appointments />}
+              />
+
+              <Route
+                path="inventario"
+                element={<Inventory />}
               />
 
             </Route>
