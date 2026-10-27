@@ -6,22 +6,25 @@ import Treatments from '../components/landing/Treatments'
 import Testimonials from '../components/landing/Testimonials'
 import Contact from '../components/landing/Contact'
 import Footer from '../components/landing/Footer'
+import { useLandingData } from '../hooks/useLandingData'
 
 function Home() {
+  const { services, treatments, testimonials, info } = useLandingData()
+
   return (
     <>
-      <Navbar />
+      <Navbar info={info} />
 
       <main>
-        <Hero />
-        <Services />
-        <About />
-        <Treatments />
-        <Testimonials />
-        <Contact />
+        <Hero info={info} />
+        <Services servicesData={services} />
+        <About info={info} />
+        <Treatments treatmentsData={treatments} />
+        <Testimonials testimonialsData={testimonials} />
+        <Contact info={info} />
       </main>
 
-      <Footer />
+      <Footer info={info} />
     </>
   )
 }

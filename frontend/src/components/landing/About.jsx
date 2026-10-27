@@ -1,6 +1,26 @@
 import aboutImage from '../../assets/about-doctor.jpg'
 
-function About() {
+function About({ info }) {
+  const doctor = info?.doctor || {
+    title: 'Dra. Alpírez',
+    specialty: 'Dermatología clínica y estética',
+    experienceYears: 10,
+    bioP1:
+      'La Dra. Alpírez es especialista en dermatología, comprometida con brindar una atención cercana, profesional y personalizada a cada paciente.',
+    bioP2:
+      'Su enfoque combina conocimiento médico, tecnología y una visión integral de la salud de la piel para desarrollar tratamientos adaptados a las necesidades de cada persona.',
+    highlights: [
+      {
+        title: 'Atención personalizada',
+        description: 'Cada paciente recibe un enfoque individual.'
+      },
+      {
+        title: 'Enfoque profesional',
+        description: 'Tratamientos basados en valoración especializada.'
+      }
+    ]
+  }
+
   return (
     <section id="sobre-mi" className="about">
       <div className="about-container">
@@ -21,14 +41,14 @@ function About() {
               <span>✦</span>
 
               <div>
-                <strong>Dra. Alpírez</strong>
-                <small>Dermatología clínica y estética</small>
+                <strong>{doctor.title}</strong>
+                <small>{doctor.specialty}</small>
               </div>
             </div>
           </div>
 
           <div className="about-experience">
-            <strong>+10</strong>
+            <strong>+{doctor.experienceYears}</strong>
 
             <span>
               Años de
@@ -50,44 +70,27 @@ function About() {
           </h2>
 
           <p>
-            La Dra. Alpírez es especialista en dermatología,
-            comprometida con brindar una atención cercana,
-            profesional y personalizada a cada paciente.
+            {doctor.bioP1}
           </p>
 
           <p>
-            Su enfoque combina conocimiento médico, tecnología
-            y una visión integral de la salud de la piel para
-            desarrollar tratamientos adaptados a las necesidades
-            de cada persona.
+            {doctor.bioP2}
           </p>
 
           <div className="about-highlights">
+            {doctor.highlights.map((h, i) => (
+              <div key={i} className="about-highlight">
+                <span className="about-highlight-icon">✦</span>
 
-            <div className="about-highlight">
-              <span className="about-highlight-icon">✦</span>
+                <div>
+                  <strong>{h.title}</strong>
 
-              <div>
-                <strong>Atención personalizada</strong>
-
-                <p>
-                  Cada paciente recibe un enfoque individual.
-                </p>
+                  <p>
+                    {h.description}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="about-highlight">
-              <span className="about-highlight-icon">✦</span>
-
-              <div>
-                <strong>Enfoque profesional</strong>
-
-                <p>
-                  Tratamientos basados en valoración especializada.
-                </p>
-              </div>
-            </div>
-
+            ))}
           </div>
 
           <a href="#contacto" className="about-button">
