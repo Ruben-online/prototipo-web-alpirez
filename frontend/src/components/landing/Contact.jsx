@@ -20,10 +20,10 @@ function Contact({ info }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    // Si es teléfono, permitir sólo dígitos o guiones al escribir
+    // Si es teléfono, permitir estrictamente solo dígitos numéricos y un máximo de 8 dígitos
     if (name === 'phone') {
-      const sanitized = value.replace(/[^\d-]/g, '')
-      setForm((prev) => ({ ...prev, [name]: sanitized }))
+      const onlyDigits = value.replace(/\D/g, '').slice(0, 8)
+      setForm((prev) => ({ ...prev, [name]: onlyDigits }))
     } else {
       setForm((prev) => ({ ...prev, [name]: value }))
     }
@@ -241,7 +241,7 @@ function Contact({ info }) {
                 name="phone"
                 type="tel"
                 placeholder="Ej. 55554444"
-                maxLength="9"
+                maxLength="8"
                 value={form.phone}
                 onChange={handleChange}
                 required

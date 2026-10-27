@@ -26,12 +26,14 @@ export class PreAppointmentController {
     }
   };
 
-  // GET /api/precitas (Para visualización del administrador)
+  // GET /api/precitas (Soporta ?status=PENDING)
   getAll = async (req, res, next) => {
     try {
-      const items = await this.service.getAllPreAppointments();
+      const { status } = req.query;
+      const items = await this.service.getAllPreAppointments(status);
       return res.status(200).json({
         success: true,
+        total: items.length,
         data: items
       });
     } catch (error) {
@@ -74,7 +76,23 @@ export class PreAppointmentController {
       });
     }
   };
+
+  // DELETE /api/precitas/:id
+  delete = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      await this.service.deletePreAppointment(id);
+      return res.status(200).json({
+        success: true,
+        message: 'Pre-cita eliminada correctamente.'
+      });
+    } catch (error) {
+      return res.status(404).json({
+        success: false,
+        message: error.message
+      });
+    }
+  };
 }
 
 export const preAppointmentController = new PreAppointmentController();
-

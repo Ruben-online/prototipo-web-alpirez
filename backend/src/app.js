@@ -9,7 +9,7 @@ const app = express();
 // Configuración de CORS
 app.use(cors({
   origin: '*', // Permitir peticiones desde el frontend de desarrollo y producción
-  methods: ['GET', 'POST', 'PATCH', 'OPTIONS']
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
 }));
 
 // Parseo de cuerpo JSON y URL-encoded

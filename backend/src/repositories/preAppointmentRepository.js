@@ -25,9 +25,15 @@ class PreAppointmentRepository {
     return preAppointment;
   }
 
-  async findAll() {
+  async findAll(statusFilter = null) {
+    let items = [...this.preAppointments];
+    if (statusFilter) {
+      items = items.filter(
+        item => item.status.toUpperCase() === statusFilter.toUpperCase()
+      );
+    }
     // Retorna ordenado de la más reciente a la más antigua
-    return [...this.preAppointments].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 
   async findById(id) {
@@ -41,8 +47,14 @@ class PreAppointmentRepository {
     item.updatedAt = new Date().toISOString();
     return item;
   }
+
+  async delete(id) {
+    const index = this.preAppointments.findIndex(item => item.id === id);
+    if (index === -1) return false;
+    this.preAppointments.splice(index, 1);
+    return true;
+  }
 }
 
 // Singleton para compartir estado en memoria durante la ejecución del servidor
 export const preAppointmentRepository = new PreAppointmentRepository();
-

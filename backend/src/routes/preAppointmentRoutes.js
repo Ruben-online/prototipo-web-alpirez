@@ -8,7 +8,7 @@ const router = Router();
 
 /**
  * Rutas públicas (Landing page):
- * - Rate limiting estricto para evitar ataques de colapso / denegación de servicio.
+ * - Rate limiting para evitar ataques de colapso / denegación de servicio.
  * - Honeypot invisible para interceptar bots automatizados.
  * - Validación exhaustiva de campos y formato de 8 dígitos de teléfono.
  */
@@ -22,13 +22,14 @@ router.post(
 
 /**
  * Rutas administrativas (Dashboard):
- * - Consultar listado de pre-citas para revisión.
- * - Consultar una específica.
+ * - Consultar listado de pre-citas (con filtro opcional ?status=PENDING).
+ * - Consultar detalle por ID.
  * - Actualizar estado a 'CONFIRMED' o 'REJECTED'.
+ * - Eliminar o descartar pre-cita.
  */
 router.get('/', preAppointmentController.getAll);
 router.get('/:id', preAppointmentController.getById);
 router.patch('/:id/status', preAppointmentController.updateStatus);
+router.delete('/:id', preAppointmentController.delete);
 
 export default router;
-

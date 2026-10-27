@@ -10,12 +10,11 @@ export class PreAppointmentService {
   }
 
   async createPreAppointment(data) {
-    // Aquí pueden añadirse reglas de negocio futuras (ej. notificaciones por correo/WhatsApp)
     return await this.repository.create(data);
   }
 
-  async getAllPreAppointments() {
-    return await this.repository.findAll();
+  async getAllPreAppointments(statusFilter = null) {
+    return await this.repository.findAll(statusFilter);
   }
 
   async getPreAppointmentById(id) {
@@ -38,7 +37,14 @@ export class PreAppointmentService {
     }
     return updated;
   }
+
+  async deletePreAppointment(id) {
+    const deleted = await this.repository.delete(id);
+    if (!deleted) {
+      throw new Error('Pre-cita no encontrada para eliminar.');
+    }
+    return true;
+  }
 }
 
 export const preAppointmentService = new PreAppointmentService();
-
