@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.SUPABASE_URL
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
+export const supabaseUrl = process.env.SUPABASE_URL
+export const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('ERROR: Faltan las variables de Supabase en backend/.env')
@@ -13,6 +13,7 @@ export function createSupabaseClient() {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
+      flowType: 'implicit',
     },
   })
 }
