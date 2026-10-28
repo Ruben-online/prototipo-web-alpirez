@@ -1,3 +1,5 @@
+import CreateAttributeModal from '../../context/CreateAttributeModal'
+import { useInventory } from '../../hooks/useInventory'
 import { useEffect, useState } from 'react'
 
 import {
@@ -16,29 +18,13 @@ import '../../styles/inventory/inventory-form-modal.css'
 const emptyForm = {
   code: '',
   name: '',
-  category: '',
-  brand: '',
-  unit: '',
+  categoryId: '',
+  brandId: '',
+  unitId: '',
+  stock: '0', 
   minStock: '',
   price: '',
 }
-
-const categories = [
-  'Dermatológicos',
-  'Insumos médicos',
-  'Productos para procedimientos',
-]
-
-const units = [
-  'Unidad',
-  'Caja',
-  'Paquete',
-  'Frasco',
-  'Tubo',
-  'Ampolla',
-  'Mililitro',
-  'Gramo',
-]
 
 // ==========================================
 // COMPONENTE PRINCIPAL
@@ -50,16 +36,16 @@ function InventoryFormModal({
   onClose,
   onSubmit,
 }) {
-
-  // ==========================================
-  // MODO DEL FORMULARIO
-  // ==========================================
+  const { 
+    categories, 
+    brands, 
+    units, 
+    refreshCategories, 
+    refreshBrands, 
+    refreshUnits 
+  } = useInventory()
 
   const isEditing = Boolean(product)
-
-  // ==========================================
-  // ESTADOS
-  // ==========================================
 
   const [form, setForm] = useState(emptyForm)
   const [formError, setFormError] = useState('')
@@ -76,11 +62,12 @@ function InventoryFormModal({
       setForm({
         code: product.code || '',
         name: product.name || '',
-        category: product.category || '',
-        brand: product.brand || '',
-        unit: product.unit || '',
+        categoryId: product.categoryId || '',
+        brandId: product.brandId || '',
+        unitId: product.unitId || '',
+        stock: String(product.stock ?? '0'),
         minStock: String(product.minStock ?? ''),
-        price: String(product.price ?? ''),
+        price: String(product.unitPrice ?? ''),
       })
     } else {
       setForm({ ...emptyForm })
@@ -98,7 +85,6 @@ function InventoryFormModal({
     if (!isOpen) return
 
     const previousOverflow = document.body.style.overflow
-
     document.body.style.overflow = 'hidden'
 
     const handleEscape = (event) => {
@@ -133,15 +119,15 @@ function InventoryFormModal({
   }
 
   // ==========================================
-  // VALIDACIÓN DEL FORMULARIO
+  // VALIDACIÓN Y ENVÍO
   // ==========================================
 
   const validateForm = () => {
     if (
       !form.code.trim() ||
       !form.name.trim() ||
-      !form.category ||
-      !form.unit ||
+      !form.categoryId ||
+      !form.unitId ||
       form.minStock === ''
     ) {
       return 'Completa todos los campos obligatorios.'
@@ -151,33 +137,16 @@ function InventoryFormModal({
       return 'Ingresa un nombre de producto válido.'
     }
 
-    if (
-      !Number.isInteger(Number(form.minStock)) ||
-      !Number.isFinite(Number(form.minStock))
-    ) {
-      return 'El stock mínimo debe ser un número entero.'
+    if (!Number.isInteger(Number(form.minStock)) || Number(form.minStock) < 0) {
+      return 'El stock mínimo debe ser un número entero válido.'
     }
 
-    if (Number(form.minStock) < 0) {
-      return 'El stock mínimo no puede ser negativo.'
-    }
-
-    if (
-      form.price !== '' &&
-      (
-        !Number.isFinite(Number(form.price)) ||
-        Number(form.price) < 0
-      )
-    ) {
+    if (form.price !== '' && (!Number.isFinite(Number(form.price)) || Number(form.price) < 0)) {
       return 'Ingresa un precio válido.'
     }
 
     return ''
   }
-
-  // ==========================================
-  // ENVÍO DEL FORMULARIO
-  // ==========================================
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -185,7 +154,6 @@ function InventoryFormModal({
     if (isSubmitting) return
 
     const error = validateForm()
-
     if (error) {
       setFormError(error)
       return
@@ -194,50 +162,26 @@ function InventoryFormModal({
     const productData = {
       code: form.code.trim(),
       name: form.name.trim(),
-      category: form.category,
-      brand: form.brand.trim(),
-      unit: form.unit,
+      categoryId: form.categoryId,
+      brandId: form.brandId || null,
+      unitId: form.unitId,
+      stock: Number(form.stock),
       minStock: Number(form.minStock),
-      price: form.price === ''
-        ? null
-        : Number(form.price),
+      unitPrice: form.price === '' ? 0 : Number(form.price),
     }
 
     try {
       setIsSubmitting(true)
       setFormError('')
-
-      // ==========================================
-      // ENTREGA DE DATOS AL COMPONENTE PADRE
-      // ==========================================
-
-      // El formulario no almacena información.
-      // Únicamente entrega los datos mediante onSubmit.
-      // La página principal administra la demostración.
-      // La integración real corresponde al backend.
-
       await onSubmit(productData)
-
     } catch (error) {
-
-      // ==========================================
-      // MOSTRAR ERRORES ESPECÍFICOS
-      // ==========================================
-
       setFormError(
-        error instanceof Error
-          ? error.message
-          : 'No se pudo completar la operación. Inténtalo nuevamente.'
+        error instanceof Error ? error.message : 'No se pudo completar la operación.'
       )
-
     } finally {
       setIsSubmitting(false)
     }
   }
-
-  // ==========================================
-  // RENDERIZADO
-  // ==========================================
 
   if (!isOpen) return null
 
@@ -245,338 +189,113 @@ function InventoryFormModal({
     <div
       className="inventory-form-overlay"
       onMouseDown={(event) => {
-        if (
-          event.target === event.currentTarget &&
-          !isSubmitting
-        ) {
-          onClose()
-        }
+        if (event.target === event.currentTarget && !isSubmitting) onClose()
       }}
     >
-
-      <section
-        className="inventory-form-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="inventory-form-title"
-      >
-
-        {/* ==========================================
-            ENCABEZADO
-        ========================================== */}
-
+      <section className="inventory-form-modal" role="dialog">
         <header className="inventory-form-header">
-
           <div className="inventory-form-heading">
-
             <div className="inventory-form-icon">
-
-              {isEditing ? (
-                <Pencil size={22} strokeWidth={1.8} />
-              ) : (
-                <PackagePlus size={22} strokeWidth={1.8} />
-              )}
-
+              {isEditing ? <Pencil size={22} /> : <PackagePlus size={22} />}
             </div>
-
             <div>
-
-              <span className="dashboard-panel-eyebrow">
-                GESTIÓN DE INVENTARIO
-              </span>
-
-              <h2 id="inventory-form-title">
-                {isEditing
-                  ? 'Editar producto'
-                  : 'Nuevo producto'}
-              </h2>
-
+              <span className="dashboard-panel-eyebrow">GESTIÓN DE INVENTARIO</span>
+              <h2>{isEditing ? 'Editar producto' : 'Nuevo producto'}</h2>
             </div>
-
           </div>
-
-          <button
-            type="button"
-            className="inventory-form-close"
-            aria-label="Cerrar formulario"
-            onClick={onClose}
-            disabled={isSubmitting}
-          >
+          <button type="button" className="inventory-form-close" onClick={onClose} disabled={isSubmitting}>
             <X size={20} />
           </button>
-
         </header>
 
-        {/* ==========================================
-            FORMULARIO
-        ========================================== */}
-
-        <form
-          id="inventory-product-form"
-          onSubmit={handleSubmit}
-          className="inventory-form-body"
-        >
-
-          <p className="inventory-form-description">
-            {isEditing
-              ? 'Modifica la información general del producto.'
-              : 'Completa la información para registrar un nuevo producto en el inventario.'}
-          </p>
-
-          {/* ==========================================
-              INFORMACIÓN GENERAL
-          ========================================== */}
-
+        <form id="inventory-product-form" onSubmit={handleSubmit} className="inventory-form-body">
+          
+          {/* SECCIÓN GENERAL */}
           <div className="inventory-form-section">
-
             <h3>Información general</h3>
-
             <div className="inventory-form-grid">
-
-              {/* CÓDIGO */}
-
+              
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-code">
-                  Código <span>*</span>
-                </label>
-
-                <input
-                  id="inventory-code"
-                  type="text"
-                  name="code"
-                  value={form.code}
-                  onChange={handleChange}
-                  placeholder="Ej. PROD-001"
-                  maxLength={30}
-                  required
-                />
-
+                <label>Código <span>*</span></label>
+                <input type="text" name="code" value={form.code} onChange={handleChange} required />
               </div>
 
-              {/* NOMBRE */}
-
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-name">
-                  Nombre del producto <span>*</span>
-                </label>
-
-                <input
-                  id="inventory-name"
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Nombre del producto"
-                  required
-                />
-
+                <label>Nombre del producto <span>*</span></label>
+                <input type="text" name="name" value={form.name} onChange={handleChange} required />
               </div>
 
-              {/* CATEGORÍA */}
-
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-category-field">
-                  Categoría <span>*</span>
-                </label>
-
-                <select
-                  id="inventory-category-field"
-                  name="category"
-                  value={form.category}
-                  onChange={handleChange}
-                  required
-                >
-
-                  <option value="">
-                    Seleccionar categoría
-                  </option>
-
-                  {categories.map((category) => (
-                    <option
-                      key={category}
-                      value={category}
-                    >
-                      {category}
-                    </option>
-                  ))}
-
-                </select>
-
+                <label>Categoría <span>*</span></label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <select name="categoryId" value={form.categoryId} onChange={handleChange} required style={{ flex: 1 }}>
+                    <option value="">Seleccionar</option>
+                    {categories?.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                  </select>
+                  <CreateAttributeModal type="categories" title="Categoría" onSuccess={refreshCategories} />
+                </div>
               </div>
 
-              {/* MARCA */}
-
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-brand">
-                  Marca
-                </label>
-
-                <input
-                  id="inventory-brand"
-                  type="text"
-                  name="brand"
-                  value={form.brand}
-                  onChange={handleChange}
-                  placeholder="Marca del producto"
-                />
-
+                <label>Marca</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <select name="brandId" value={form.brandId} onChange={handleChange} style={{ flex: 1 }}>
+                    <option value="">Seleccionar (Opcional)</option>
+                    {brands?.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+                  </select>
+                  <CreateAttributeModal type="brands" title="Marca" onSuccess={refreshBrands} />
+                </div>
               </div>
 
             </div>
-
           </div>
 
-          {/* ==========================================
-              INFORMACIÓN DE INVENTARIO
-          ========================================== */}
-
+          {/* SECCIÓN INVENTARIO */}
           <div className="inventory-form-section">
-
             <h3>Información de inventario</h3>
-
             <div className="inventory-form-grid">
-
-              {/* UNIDAD DE MEDIDA */}
-
+              
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-unit">
-                  Unidad de medida <span>*</span>
-                </label>
-
-                <select
-                  id="inventory-unit"
-                  name="unit"
-                  value={form.unit}
-                  onChange={handleChange}
-                  required
-                >
-
-                  <option value="">
-                    Seleccionar unidad
-                  </option>
-
-                  {units.map((unit) => (
-                    <option
-                      key={unit}
-                      value={unit}
-                    >
-                      {unit}
-                    </option>
-                  ))}
-
-                </select>
-
+                <label>Unidad de medida <span>*</span></label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <select name="unitId" value={form.unitId} onChange={handleChange} required style={{ flex: 1 }}>
+                    <option value="">Seleccionar unidad</option>
+                    {units?.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+                  </select>
+                  <CreateAttributeModal type="units" title="Unidad" onSuccess={refreshUnits} />
+                </div>
               </div>
 
-              {/* STOCK MÍNIMO */}
-
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-min-stock">
-                  Stock mínimo <span>*</span>
-                </label>
-
-                <input
-                  id="inventory-min-stock"
-                  type="number"
-                  name="minStock"
-                  value={form.minStock}
-                  onChange={handleChange}
-                  placeholder="Ej. 5"
-                  min="0"
-                  step="1"
-                  required
-                />
-
+                <label>Stock inicial (Opcional)</label>
+                <input type="number" name="stock" value={form.stock} onChange={handleChange} min="0" step="1" />
               </div>
 
-              {/* PRECIO */}
+              <div className="inventory-form-field">
+                <label>Stock mínimo <span>*</span></label>
+                <input type="number" name="minStock" value={form.minStock} onChange={handleChange} min="0" step="1" required />
+              </div>
 
               <div className="inventory-form-field">
-
-                <label htmlFor="inventory-price">
-                  Precio unitario (Q)
-                </label>
-
-                <input
-                  id="inventory-price"
-                  type="number"
-                  name="price"
-                  value={form.price}
-                  onChange={handleChange}
-                  placeholder="Ej. 185.00"
-                  min="0"
-                  step="0.01"
-                />
-
+                <label>Precio unitario (Q)</label>
+                <input type="number" name="price" value={form.price} onChange={handleChange} min="0" step="0.01" />
               </div>
 
             </div>
-
           </div>
 
-          {/* ==========================================
-              MENSAJE DE ERROR
-          ========================================== */}
-
-          {formError && (
-            <div
-              className="inventory-form-error"
-              role="alert"
-            >
-              {formError}
-            </div>
-          )}
-
-          {/* ==========================================
-              NOTA
-          ========================================== */}
-
-          <p className="inventory-form-note">
-            Los campos marcados con * son obligatorios.
-          </p>
-
+          {formError && <div className="inventory-form-error" role="alert">{formError}</div>}
+          <p className="inventory-form-note">Los campos marcados con * son obligatorios.</p>
         </form>
 
-        {/* ==========================================
-            ACCIONES
-        ========================================== */}
-
         <footer className="inventory-form-footer">
-
-          <button
-            type="button"
-            className="inventory-form-cancel"
-            onClick={onClose}
-            disabled={isSubmitting}
-          >
-            Cancelar
-          </button>
-
-          <button
-            type="submit"
-            form="inventory-product-form"
-            className="inventory-form-submit"
-            disabled={isSubmitting}
-          >
+          <button type="button" className="inventory-form-cancel" onClick={onClose} disabled={isSubmitting}>Cancelar</button>
+          <button type="submit" form="inventory-product-form" className="inventory-form-submit" disabled={isSubmitting}>
             <Save size={17} strokeWidth={1.8} />
-
-            {isSubmitting
-              ? 'Procesando...'
-              : isEditing
-                ? 'Guardar cambios'
-                : 'Registrar producto'}
+            {isSubmitting ? 'Procesando...' : isEditing ? 'Guardar cambios' : 'Registrar producto'}
           </button>
-
         </footer>
-
       </section>
-
     </div>
   )
 }

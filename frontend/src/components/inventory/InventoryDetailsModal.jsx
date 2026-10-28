@@ -21,7 +21,7 @@ const formatCurrency = (value) =>
   new Intl.NumberFormat('es-GT', {
     style: 'currency',
     currency: 'GTQ',
-  }).format(value)
+  }).format(value || 0)
 
 // ==========================================
 // COMPONENTE PRINCIPAL
@@ -72,27 +72,21 @@ function InventoryDetailsModal({ product, onClose }) {
         aria-modal="true"
         aria-labelledby="inventory-details-title"
       >
-
         {/* ENCABEZADO */}
-
         <header className="inventory-details-header">
-
           <div className="inventory-details-heading">
             <div className="inventory-details-icon">
               <Package size={23} strokeWidth={1.8} />
             </div>
-
             <div>
               <span className="dashboard-panel-eyebrow">
                 INFORMACIÓN DEL PRODUCTO
               </span>
-
               <h2 id="inventory-details-title">
                 Detalles del producto
               </h2>
             </div>
           </div>
-
           <button
             type="button"
             className="inventory-details-close"
@@ -101,96 +95,72 @@ function InventoryDetailsModal({ product, onClose }) {
           >
             <X size={20} />
           </button>
-
         </header>
 
         {/* CONTENIDO */}
-
         <div className="inventory-details-body">
-
           <div className="inventory-details-product">
-
             <div>
               <span className="inventory-details-code">
                 {product.code}
               </span>
-
               <h3>{product.name}</h3>
-
-              <p>{product.category}</p>
+              <p>{product.categoryName}</p> {/* <-- CORREGIDO */}
             </div>
-
             <span className={`inventory-status ${status.type}`}>
               <span className="inventory-status-dot" />
               {status.label}
             </span>
-
           </div>
 
           {/* INFORMACIÓN GENERAL */}
-
           <div className="inventory-details-section">
-
             <div className="inventory-details-section-title">
               <Tag size={17} />
               <h4>Información general</h4>
             </div>
-
             <div className="inventory-details-grid">
-
               <div>
                 <span>Código</span>
                 <strong>{product.code}</strong>
               </div>
-
               <div>
                 <span>Categoría</span>
-                <strong>{product.category}</strong>
+                <strong>{product.categoryName}</strong> {/* <-- CORREGIDO */}
               </div>
-
               <div>
                 <span>Marca</span>
-                <strong>{product.brand || 'No especificada'}</strong>
+                <strong>{product.brandName || 'No especificada'}</strong> {/* <-- CORREGIDO */}
               </div>
-
               <div>
                 <span>Unidad de medida</span>
-                <strong>{product.unit}</strong>
+                <strong>{product.unitName}</strong> {/* <-- CORREGIDO */}
               </div>
-
             </div>
-
           </div>
 
           {/* EXISTENCIAS */}
-
           <div className="inventory-details-section">
-
             <div className="inventory-details-section-title">
               <Boxes size={17} />
               <h4>Control de existencias</h4>
             </div>
-
             <div className="inventory-details-grid">
-
               <div>
                 <span>Existencias disponibles</span>
                 <strong>
-                  {product.stock} {product.unit}
+                  {product.stock} {product.unitName} {/* <-- CORREGIDO */}
                 </strong>
               </div>
-
               <div>
                 <span>Stock mínimo</span>
                 <strong>{product.minStock}</strong>
               </div>
-
             </div>
 
             {status.type !== 'available' && (
               <div className="inventory-details-warning">
                 <AlertTriangle size={17} />
-
                 <span>
                   {status.type === 'out'
                     ? 'Este producto no tiene existencias disponibles.'
@@ -198,37 +168,28 @@ function InventoryDetailsModal({ product, onClose }) {
                 </span>
               </div>
             )}
-
           </div>
 
           {/* PRECIO */}
-
           <div className="inventory-details-section">
-
             <div className="inventory-details-section-title">
               <Wallet size={17} />
               <h4>Información comercial</h4>
             </div>
-
             <div className="inventory-details-grid">
-
               <div>
                 <span>Precio unitario</span>
                 <strong>
-                  {product.price == null
+                  {product.unitPrice == null // <-- CORREGIDO
                     ? 'No especificado'
-                    : formatCurrency(product.price)}
+                    : formatCurrency(product.unitPrice)} {/* <-- CORREGIDO */}
                 </strong>
               </div>
-
             </div>
-
           </div>
-
         </div>
 
         {/* PIE */}
-
         <footer className="inventory-details-footer">
           <button
             type="button"
@@ -238,7 +199,6 @@ function InventoryDetailsModal({ product, onClose }) {
             Cerrar
           </button>
         </footer>
-
       </section>
     </div>
   )

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
+import { useInventory } from '../hooks/useInventory'
 
 import {
   Package,
@@ -18,7 +19,6 @@ import InventoryDetailsModal from '../components/inventory/InventoryDetailsModal
 import InventoryFormModal from '../components/inventory/InventoryFormModal'
 
 import {
-  inventoryMock,
   getInventoryStatus,
 } from '../data/inventoryMock'
 
@@ -56,15 +56,17 @@ function normalizeText(value) {
 function Inventory() {
 
   // ==========================================
-  // PRODUCTOS DE DEMOSTRACIÓN
+  // DATOS DE SUPABASE
   // ==========================================
 
-  // Estado temporal exclusivo del frontend.
-  // No se conecta a Supabase ni a localStorage.
+  const {
+    items: products,
+    loading,
+    error,
+    addItem,
+    updateItem,
+  } = useInventory()
 
-  const [products, setProducts] = useState(
-    () => inventoryMock.map((product) => ({ ...product }))
-  )
 
   // ==========================================
   // ESTADOS DE LA INTERFAZ
@@ -96,7 +98,7 @@ function Inventory() {
       'Todas',
       ...new Set(
         products
-          .map((product) => product.category)
+          .map((product) => product.categoryName) // <-- Ajustado para usar la propiedad real
           .filter(Boolean)
       ),
     ]
@@ -114,8 +116,8 @@ function Inventory() {
       const searchableText = normalizeText([
         product.name,
         product.code,
-        product.category,
-        product.brand,
+        product.categoryName, // <-- Ajustado
+        product.brandName,    // <-- Ajustado
       ].filter(Boolean).join(' '))
 
       const matchesSearch =
@@ -140,7 +142,7 @@ function Inventory() {
 
       const matchesCategory =
         selectedCategory === 'Todas' ||
-        product.category === selectedCategory
+        product.categoryName === selectedCategory // <-- Ajustado
 
       return (
         matchesSearch &&
@@ -207,14 +209,13 @@ function Inventory() {
       getInventoryStatus(product).type === 'out'
   ).length
 
-  // Pendiente de información real de vencimientos.
   const expiringProducts = null
 
   const stats = [
     {
       label: 'Total de productos',
       value: totalProducts,
-      description: 'Productos de demostración',
+      description: 'Productos registrados',
       icon: Package,
       type: 'primary',
     },
@@ -242,7 +243,7 @@ function Inventory() {
   ]
 
   // ==========================================
-  // BÚSQUEDA Y FILTROS
+  // BÚSQUEDA Y FILTROS EVENTOS
   // ==========================================
 
   const handleSearch = (event) => {
@@ -289,7 +290,7 @@ function Inventory() {
   }
 
   // ==========================================
-  // MODAL DE DETALLES
+  // MODALES
   // ==========================================
 
   const handleViewProduct = (product) => {
@@ -300,18 +301,10 @@ function Inventory() {
     setSelectedProduct(null)
   }
 
-  // ==========================================
-  // MODAL DE REGISTRO
-  // ==========================================
-
   const openCreateModal = () => {
     setEditingProduct(null)
     setIsFormOpen(true)
   }
-
-  // ==========================================
-  // MODAL DE EDICIÓN
-  // ==========================================
 
   const handleEditProduct = (product) => {
     setSelectedProduct(null)
@@ -319,112 +312,95 @@ function Inventory() {
     setIsFormOpen(true)
   }
 
-  // ==========================================
-  // CERRAR FORMULARIO
-  // ==========================================
-
   const closeFormModal = () => {
     setIsFormOpen(false)
     setEditingProduct(null)
   }
 
   // ==========================================
-  // SIMULACIÓN LOCAL DE REGISTRO Y EDICIÓN
+  // 🔥 SOLUCIÓN: ENVÍO REAL A LA BASE DE DATOS
   // ==========================================
 
   const handleSubmitProduct = async (productData) => {
-
-    // Evitamos códigos duplicados durante la demostración.
-
-    const duplicateCode = products.some(
-      (product) =>
-        normalizeText(product.code) ===
-          normalizeText(productData.code) &&
-        product.id !== editingProduct?.id
-    )
-
-    if (duplicateCode) {
-      throw new Error(
-        'Ya existe un producto con ese código.'
-      )
-    }
-
-    if (editingProduct) {
-
-      // EDICIÓN TEMPORAL
-
-      setProducts((previous) =>
-        previous.map((product) =>
-          product.id === editingProduct.id
-            ? { ...product, ...productData }
-            : product
-        )
-      )
-
-      setDemoMessage(
-        'Cambios aplicados únicamente en esta demostración. No se guardaron en la base de datos.'
-      )
-
-    } else {
-
-      // REGISTRO TEMPORAL
-
-      const newProduct = {
-        ...productData,
-        id: crypto.randomUUID(),
-
-        // Las existencias reales serán administradas
-        // por el backend.
-        stock: 0,
+    try {
+      if (editingProduct) {
+        // Enviar con los nombres exactos que el Contexto espera
+        await updateItem(editingProduct.id, {
+          code: productData.code,
+          name: productData.name,
+          categoryId: productData.categoryId,
+          brandId: productData.brandId,
+          unitId: productData.unitId,
+          stock: productData.stock,
+          minStock: productData.minStock,
+          unitPrice: productData.unitPrice // <-- Antes pasabas `productData.price`
+        })
+        setDemoMessage('Producto actualizado correctamente en la base de datos.')
+      } else {
+        await addItem({
+          code: productData.code,
+          name: productData.name,
+          categoryId: productData.categoryId,
+          brandId: productData.brandId,
+          unitId: productData.unitId,
+          stock: productData.stock || 0,
+          minStock: productData.minStock,
+          unitPrice: productData.unitPrice // <-- Antes pasabas `productData.price`
+        })
+        setDemoMessage('Producto registrado correctamente en la base de datos.')
       }
 
-      setProducts((previous) => [
-        newProduct,
-        ...previous,
-      ])
-
-      setDemoMessage(
-        'Producto agregado únicamente a la demostración. No se guardó en la base de datos.'
-      )
-
+      setSearch('')
+      setActiveFilter('Todos')
+      setSelectedCategory('Todas')
+      setCurrentPage(1)
+      closeFormModal()
+    } catch (err) {
+      console.error('Error saving product:', err)
+      alert('Error al guardar: ' + err.message)
     }
-
-    // Restablecer filtros para visualizar los cambios.
-
-    setSearch('')
-    setActiveFilter('Todos')
-    setSelectedCategory('Todas')
-    setCurrentPage(1)
-
-    closeFormModal()
   }
+
 
   // ==========================================
   // INTERFAZ
   // ==========================================
 
+  if (loading) {
+    return (
+      <div className="inventory-page">
+        <div style={{ padding: '3rem', textAlign: 'center', color: '#666' }}>
+          <p>Cargando inventario desde Supabase...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="inventory-page">
+        <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>
+          <p>Error al cargar inventario: {error}</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="inventory-page">
 
-      {/* ==========================================
-          ENCABEZADO
-      ========================================== */}
-
+      {/* ENCABEZADO */}
       <section className="inventory-heading">
-
         <div>
           <span className="dashboard-section-eyebrow">
             GESTIÓN DE INVENTARIO
           </span>
-
           <h2>Control de inventario</h2>
-
           <p>
             Administra los productos dermatológicos,
             insumos médicos y materiales de la clínica.
           </p>
         </div>
-
         <button
           type="button"
           className="dashboard-primary-button"
@@ -433,290 +409,139 @@ function Inventory() {
           <Plus size={18} strokeWidth={1.8} />
           <span>Nuevo producto</span>
         </button>
-
       </section>
 
-      {/* ==========================================
-          MENSAJE DE DEMOSTRACIÓN
-      ========================================== */}
-
+      {/* MENSAJE DE ÉXITO */}
       {demoMessage && (
-        <div
-          className="inventory-demo-message"
-          role="status"
-        >
+        <div className="inventory-demo-message" role="status">
           <span>{demoMessage}</span>
-
-          <button
-            type="button"
-            aria-label="Cerrar mensaje"
-            onClick={() => setDemoMessage('')}
-          >
+          <button type="button" aria-label="Cerrar mensaje" onClick={() => setDemoMessage('')}>
             <X size={16} />
           </button>
         </div>
       )}
 
-      {/* ==========================================
-          ESTADÍSTICAS
-      ========================================== */}
-
+      {/* ESTADÍSTICAS */}
       <section className="inventory-stats">
-
         {stats.map((stat) => {
           const Icon = stat.icon
-
           return (
-            <article
-              key={stat.label}
-              className={`inventory-stat-card ${stat.type}`}
-            >
-
+            <article key={stat.label} className={`inventory-stat-card ${stat.type}`}>
               <div className="inventory-stat-icon">
                 <Icon size={22} strokeWidth={1.8} />
               </div>
-
               <div className="inventory-stat-info">
-
                 <span>{stat.label}</span>
-
                 <strong>{stat.value}</strong>
-
                 <small>{stat.description}</small>
-
               </div>
-
             </article>
           )
         })}
-
       </section>
 
-      {/* ==========================================
-          CATÁLOGO DE PRODUCTOS
-      ========================================== */}
-
+      {/* CATÁLOGO DE PRODUCTOS */}
       <section className="inventory-catalog">
-
         <div className="inventory-catalog-header">
-
           <div>
-            <span className="dashboard-panel-eyebrow">
-              CATÁLOGO
-            </span>
-
+            <span className="dashboard-panel-eyebrow">CATÁLOGO</span>
             <h3>Productos e insumos</h3>
-
-            <p>
-              Consulta y administra los productos
-              registrados en el inventario.
-            </p>
+            <p>Consulta y administra los productos registrados en el inventario.</p>
           </div>
-
           <span className="inventory-total-badge">
-            {totalProducts}{' '}
-            {totalProducts === 1 ? 'producto' : 'productos'}
+            {totalProducts} {totalProducts === 1 ? 'producto' : 'productos'}
           </span>
-
         </div>
 
-        {/* ==========================================
-            BUSCADOR Y FILTROS
-        ========================================== */}
-
+        {/* BUSCADOR Y FILTROS */}
         <div className="inventory-toolbar">
-
           <div className="inventory-search">
-
             <Search size={18} strokeWidth={1.8} />
-
             <input
               type="search"
               placeholder="Buscar por nombre, código, categoría o marca..."
-              aria-label="Buscar productos"
               value={search}
               onChange={handleSearch}
             />
-
             {search && (
-              <button
-                type="button"
-                className="inventory-search-clear"
-                aria-label="Limpiar búsqueda"
-                onClick={() => {
-                  setSearch('')
-                  setCurrentPage(1)
-                }}
-              >
+              <button type="button" className="inventory-search-clear" onClick={() => { setSearch(''); setCurrentPage(1) }}>
                 <X size={16} />
               </button>
             )}
-
           </div>
 
-          {/* FILTROS POR DISPONIBILIDAD */}
-
           <div className="inventory-filter-group">
-
             <div className="inventory-filter-label">
-
-              <SlidersHorizontal
-                size={17}
-                strokeWidth={1.8}
-              />
-
+              <SlidersHorizontal size={17} strokeWidth={1.8} />
               <span>Filtrar:</span>
-
             </div>
-
             <div className="inventory-filters">
-
               {availabilityFilters.map((filter) => (
                 <button
                   key={filter}
                   type="button"
-                  className={`inventory-filter ${
-                    activeFilter === filter ? 'active' : ''
-                  }`}
-                  aria-pressed={activeFilter === filter}
-                  onClick={() =>
-                    handleAvailabilityFilter(filter)
-                  }
+                  className={`inventory-filter ${activeFilter === filter ? 'active' : ''}`}
+                  onClick={() => handleAvailabilityFilter(filter)}
                 >
                   {filter}
                 </button>
               ))}
-
             </div>
-
           </div>
 
-          {/* FILTRO POR CATEGORÍA */}
-
           <div className="inventory-category-filter">
-
-            <label htmlFor="inventory-category">
-              Categoría
-            </label>
-
-            <select
-              id="inventory-category"
-              value={selectedCategory}
-              onChange={handleCategoryFilter}
-            >
+            <label htmlFor="inventory-category">Categoría</label>
+            <select id="inventory-category" value={selectedCategory} onChange={handleCategoryFilter}>
               {categories.map((category) => (
-                <option
-                  key={category}
-                  value={category}
-                >
-                  {category === 'Todas'
-                    ? 'Todas las categorías'
-                    : category}
+                <option key={category} value={category}>
+                  {category === 'Todas' ? 'Todas las categorías' : category}
                 </option>
               ))}
             </select>
-
           </div>
-
         </div>
 
-        {/* ==========================================
-            RESULTADOS
-        ========================================== */}
-
+        {/* RESULTADOS */}
         <div className="inventory-results">
-
           <span>
-            Mostrando{' '}
-            <strong>{totalFilteredProducts}</strong>{' '}
-            de <strong>{totalProducts}</strong>{' '}
-            {totalProducts === 1
-              ? 'producto'
-              : 'productos'}
+            Mostrando <strong>{totalFilteredProducts}</strong> de <strong>{totalProducts}</strong> {totalProducts === 1 ? 'producto' : 'productos'}
           </span>
-
           {hasActiveFilters && (
-            <button
-              type="button"
-              className="inventory-clear-filters"
-              onClick={clearFilters}
-            >
-              <X size={15} />
-              Limpiar filtros
+            <button type="button" className="inventory-clear-filters" onClick={clearFilters}>
+              <X size={15} /> Limpiar filtros
             </button>
           )}
-
         </div>
 
-        {/* ==========================================
-            TABLA DE PRODUCTOS
-        ========================================== */}
-
+        {/* TABLA DE PRODUCTOS */}
         <InventoryTable
           products={visibleProducts}
           onView={handleViewProduct}
           onEdit={handleEditProduct}
         />
 
-        {/* ==========================================
-            PAGINACIÓN
-        ========================================== */}
-
+        {/* PAGINACIÓN */}
         <div className="inventory-pagination">
-
           <p>
-            Mostrando{' '}
-            <strong>
-              {firstVisibleProduct}-{lastVisibleProduct}
-            </strong>{' '}
-            de <strong>{totalFilteredProducts}</strong>{' '}
-            {totalFilteredProducts === 1
-              ? 'producto'
-              : 'productos'}
+            Mostrando <strong>{firstVisibleProduct}-{lastVisibleProduct}</strong> de <strong>{totalFilteredProducts}</strong> {totalFilteredProducts === 1 ? 'producto' : 'productos'}
           </p>
-
           <div className="inventory-pagination-actions">
-
-            <button
-              type="button"
-              aria-label="Página anterior"
-              disabled={safeCurrentPage === 1}
-              onClick={goToPreviousPage}
-            >
+            <button type="button" disabled={safeCurrentPage === 1} onClick={goToPreviousPage}>
               <ChevronLeft size={17} />
             </button>
-
-            <span>
-              Página {safeCurrentPage} de {totalPages}
-            </span>
-
-            <button
-              type="button"
-              aria-label="Página siguiente"
-              disabled={safeCurrentPage === totalPages}
-              onClick={goToNextPage}
-            >
+            <span>Página {safeCurrentPage} de {totalPages}</span>
+            <button type="button" disabled={safeCurrentPage === totalPages} onClick={goToNextPage}>
               <ChevronRight size={17} />
             </button>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* ==========================================
-          MODAL DE DETALLES
-      ========================================== */}
-
+      {/* MODALES */}
       <InventoryDetailsModal
         product={selectedProduct}
         onClose={closeDetailsModal}
       />
-
-      {/* ==========================================
-          MODAL DE REGISTRO Y EDICIÓN
-      ========================================== */}
 
       <InventoryFormModal
         isOpen={isFormOpen}

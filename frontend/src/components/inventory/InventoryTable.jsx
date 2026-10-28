@@ -16,7 +16,7 @@ const formatCurrency = (value) =>
   new Intl.NumberFormat('es-GT', {
     style: 'currency',
     currency: 'GTQ',
-  }).format(value)
+  }).format(value || 0) // <-- Aseguramos que siempre formatee un número
 
 // ==========================================
 // COMPONENTE PRINCIPAL
@@ -31,12 +31,8 @@ function InventoryTable({
     return (
       <div className="inventory-table-empty">
         <Package size={32} strokeWidth={1.5} />
-
         <h4>No se encontraron productos</h4>
-
-        <p>
-          No hay productos que coincidan con tu búsqueda.
-        </p>
+        <p>No hay productos que coincidan con tu búsqueda.</p>
       </div>
     )
   }
@@ -46,11 +42,8 @@ function InventoryTable({
       {/* ==========================================
           TABLA - ESCRITORIO
       ========================================== */}
-
       <div className="inventory-table-wrapper">
-
         <table className="inventory-table">
-
           <thead>
             <tr>
               <th>PRODUCTO</th>
@@ -62,50 +55,41 @@ function InventoryTable({
               <th>ACCIONES</th>
             </tr>
           </thead>
-
           <tbody>
             {products.map((product) => {
               const status = getInventoryStatus(product)
 
               return (
                 <tr key={product.id}>
-
                   {/* PRODUCTO */}
-
                   <td>
                     <div className="inventory-product">
-
                       <div className="inventory-product-icon">
                         <Package size={19} strokeWidth={1.8} />
                       </div>
-
                       <div className="inventory-product-info">
                         <strong>{product.name}</strong>
                         <span>{product.code}</span>
                       </div>
-
                     </div>
                   </td>
 
                   {/* CATEGORÍA */}
-
                   <td>
                     <span className="inventory-category">
-                      {product.category}
+                      {product.categoryName} {/* <-- CORREGIDO */}
                     </span>
                   </td>
 
                   {/* EXISTENCIAS */}
-
                   <td>
                     <div className="inventory-stock">
                       <strong>{product.stock}</strong>
-                      <span>{product.unit}</span>
+                      <span>{product.unitName}</span> {/* <-- CORREGIDO */}
                     </div>
                   </td>
 
                   {/* STOCK MÍNIMO */}
-
                   <td>
                     <span className="inventory-min-stock">
                       {product.minStock}
@@ -113,29 +97,23 @@ function InventoryTable({
                   </td>
 
                   {/* PRECIO */}
-
                   <td>
                     <span className="inventory-price">
-                      {formatCurrency(product.price)}
+                      {formatCurrency(product.unitPrice)} {/* <-- CORREGIDO */}
                     </span>
                   </td>
 
                   {/* ESTADO */}
-
                   <td>
-                    <span
-                      className={`inventory-status ${status.type}`}
-                    >
+                    <span className={`inventory-status ${status.type}`}>
                       <span className="inventory-status-dot" />
                       {status.label}
                     </span>
                   </td>
 
                   {/* ACCIONES */}
-
                   <td>
                     <div className="inventory-row-actions">
-
                       <button
                         type="button"
                         className="inventory-action-button"
@@ -155,105 +133,67 @@ function InventoryTable({
                       >
                         <Pencil size={16} strokeWidth={1.8} />
                       </button>
-
                     </div>
                   </td>
-
                 </tr>
               )
             })}
           </tbody>
-
         </table>
-
       </div>
 
       {/* ==========================================
           TARJETAS - MÓVIL
       ========================================== */}
-
       <div className="inventory-mobile-list">
-
         {products.map((product) => {
           const status = getInventoryStatus(product)
 
           return (
-            <article
-              className="inventory-mobile-card"
-              key={product.id}
-            >
-
+            <article className="inventory-mobile-card" key={product.id}>
               <div className="inventory-mobile-card-header">
-
                 <div className="inventory-product-icon">
                   <Package size={19} />
                 </div>
-
-                <span
-                  className={`inventory-status ${status.type}`}
-                >
+                <span className={`inventory-status ${status.type}`}>
                   <span className="inventory-status-dot" />
                   {status.label}
                 </span>
-
               </div>
 
               <h4>{product.name}</h4>
-
-              <span className="inventory-mobile-code">
-                {product.code}
-              </span>
+              <span className="inventory-mobile-code">{product.code}</span>
 
               <div className="inventory-mobile-details">
-
                 <div>
                   <span>Categoría</span>
-                  <strong>{product.category}</strong>
+                  <strong>{product.categoryName}</strong> {/* <-- CORREGIDO */}
                 </div>
-
                 <div>
                   <span>Existencias</span>
-                  <strong>
-                    {product.stock} {product.unit}
-                  </strong>
+                  <strong>{product.stock} {product.unitName}</strong> {/* <-- CORREGIDO */}
                 </div>
-
                 <div>
                   <span>Stock mínimo</span>
                   <strong>{product.minStock}</strong>
                 </div>
-
                 <div>
                   <span>Precio</span>
-                  <strong>{formatCurrency(product.price)}</strong>
+                  <strong>{formatCurrency(product.unitPrice)}</strong> {/* <-- CORREGIDO */}
                 </div>
-
               </div>
 
               <div className="inventory-mobile-actions">
-
-                <button
-                  type="button"
-                  onClick={() => onView(product)}
-                >
-                  <Eye size={16} />
-                  Ver detalles
+                <button type="button" onClick={() => onView(product)}>
+                  <Eye size={16} /> Ver detalles
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => onEdit(product)}
-                >
-                  <Pencil size={16} />
-                  Editar
+                <button type="button" onClick={() => onEdit(product)}>
+                  <Pencil size={16} /> Editar
                 </button>
-
               </div>
-
             </article>
           )
         })}
-
       </div>
     </>
   )

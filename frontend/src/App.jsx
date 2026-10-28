@@ -16,6 +16,8 @@ import DashboardLayout from './layouts/DashboardLayout'
 
 import { PatientsProvider } from './context/PatientsContext.jsx'
 import { AppointmentsProvider } from './context/AppointmentsContext.jsx'
+import { InventoryProvider } from './context/InventoryContext.jsx'
+
 
 
 function App() {
@@ -26,7 +28,10 @@ function App() {
 
         <AppointmentsProvider>
 
-          <Routes>
+          <InventoryProvider>
+
+            <Routes>
+
 
             <Route
               path="/"
@@ -72,9 +77,12 @@ function App() {
 
           </Routes>
 
+          </InventoryProvider>
+
         </AppointmentsProvider>
 
       </PatientsProvider>
+
 
     </BrowserRouter>
   )
