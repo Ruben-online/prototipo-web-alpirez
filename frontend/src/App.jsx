@@ -11,13 +11,13 @@ import Patients from './pages/Patients'
 import PatientDetail from './pages/PatientDetail'
 import Appointments from './pages/Appointments'
 import Inventory from './pages/Inventory'
+import Reports from './pages/Reports'
 
 import DashboardLayout from './layouts/DashboardLayout'
 
 import { PatientsProvider } from './context/PatientsContext.jsx'
 import { AppointmentsProvider } from './context/AppointmentsContext.jsx'
 import { InventoryProvider } from './context/InventoryContext.jsx'
-
 
 
 function App() {
@@ -71,6 +71,11 @@ function App() {
               <Route
                 path="inventario"
                 element={<Inventory />}
+              />
+
+              <Route
+                path="reportes"
+                element={<Reports />}
               />
 
             </Route>

@@ -1,0 +1,193 @@
+/* ==========================================
+   REPORT EXPORT ACTIONS
+========================================== */
+
+.report-export-actions {
+  min-width: 0;
+  margin-top: 24px;
+  padding: 26px 28px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 20px;
+
+  background: #ffffff;
+}
+
+.report-export-actions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.report-export-actions-header h3 {
+  margin: 8px 0;
+  font-size: 22px;
+  line-height: 1.3;
+  color: #29232e;
+}
+
+.report-export-actions-header p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6f6875;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.report-export-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.report-export-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 47px;
+  padding: 12px 18px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.report-export-button.pdf {
+  background: #ab49cc;
+  color: #ffffff;
+}
+
+.report-export-button.pdf:hover:not(:disabled) {
+  background: #9137b0;
+}
+
+.report-export-button.excel {
+  border-color: #c9e5d2;
+  background: #edf8f0;
+  color: #287348;
+}
+
+.report-export-button.excel:hover:not(:disabled) {
+  background: #def1e4;
+}
+
+.report-export-button:focus-visible {
+  outline: 3px solid #d8a4e9;
+  outline-offset: 3px;
+}
+
+.report-export-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   MESSAGES
+========================================== */
+
+.report-export-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 18px;
+  padding: 12px 15px;
+
+  border-radius: 11px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.report-export-message.success {
+  background: #eff9f3;
+  color: #348456;
+}
+
+.report-export-message.error {
+  background: #fff0f0;
+  color: #c74747;
+}
+
+.report-export-disabled {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6f6875;
+}
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.report-export-spinner {
+  animation: report-export-spin 1s linear infinite;
+}
+
+@keyframes report-export-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 760px) {
+  .report-export-actions {
+    padding: 22px;
+  }
+
+  .report-export-actions-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .report-export-actions-header h3 {
+    font-size: 20px;
+  }
+
+  .report-export-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .report-export-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .report-export-actions {
+    padding: 18px;
+  }
+
+  .report-export-actions-header p {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-export-spinner {
+    animation: none;
+  }
+}

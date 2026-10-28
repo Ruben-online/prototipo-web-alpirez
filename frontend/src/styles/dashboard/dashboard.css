@@ -181,18 +181,17 @@
   margin-left: 270px;
 }
 
-
 /* =========================
    HEADER
 ========================= */
 
 .dashboard-header {
-  height: 86px;
+  height: 92px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
+  gap: 24px;
 
   padding: 0 38px;
 
@@ -200,27 +199,34 @@
   border-bottom: 1px solid #eee9f0;
 }
 
+/* =========================
+   HEADER - LEFT
+========================= */
+
 .dashboard-header-left {
   display: flex;
   align-items: center;
   gap: 16px;
+
+  min-width: 0;
 }
 
 .dashboard-header-eyebrow {
   display: block;
 
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
 
   color: var(--color-primary);
 }
 
 .dashboard-header-left h1 {
-  font-size: 21px;
-  line-height: 1.2;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
 
   color: var(--color-text);
 }
@@ -231,36 +237,67 @@
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 11px;
+
   background: transparent;
   color: var(--color-text);
 }
+
+.dashboard-mobile-menu:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* =========================
+   HEADER - ACTIONS
+========================= */
 
 .dashboard-header-actions {
   display: flex;
   align-items: center;
   gap: 12px;
+
+  flex-shrink: 0;
 }
 
+/* =========================
+   HEADER - SEARCH
+========================= */
+
 .dashboard-search {
-  width: 240px;
-  height: 42px;
+  width: 260px;
+  height: 46px;
 
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 11px;
 
-  padding: 0 13px;
+  padding: 0 14px;
 
   border: 1px solid #eae5ec;
   border-radius: 12px;
 
   background: #faf9fb;
+  color: #8d8592;
 
-  color: #aaa3ad;
+  transition: var(--transition-fast);
+}
+
+.dashboard-search:focus-within {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(171, 73, 204, 0.08);
 }
 
 .dashboard-search input {
   width: 100%;
+  min-width: 0;
 
   border: none;
   outline: none;
@@ -268,31 +305,45 @@
   background: transparent;
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
 
   color: var(--color-text);
 }
 
 .dashboard-search input::placeholder {
-  color: #aaa3ad;
+  color: #8d8592;
 }
+
+/* =========================
+   HEADER - NOTIFICATIONS
+========================= */
 
 .dashboard-notification {
   position: relative;
 
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
   border: 1px solid #eae5ec;
   border-radius: 12px;
 
   background: var(--color-white);
-
   color: var(--color-text-light);
+
+  transition: var(--transition-fast);
+}
+
+.dashboard-notification:hover {
+  border-color: rgba(171, 73, 204, 0.3);
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .dashboard-notification-dot {
@@ -300,8 +351,8 @@
   top: 9px;
   right: 10px;
 
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   border: 2px solid var(--color-white);
   border-radius: 50%;
@@ -309,14 +360,18 @@
   background: var(--color-primary);
 }
 
+/* =========================
+   HEADER - PROFILE
+========================= */
+
 .dashboard-profile {
-  min-height: 46px;
+  min-height: 48px;
 
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 
-  padding: 4px 8px 4px 5px;
+  padding: 5px 10px 5px 6px;
 
   border-radius: 14px;
 
@@ -330,40 +385,48 @@
 }
 
 .dashboard-avatar {
-  width: 37px;
-  height: 37px;
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 11px;
+  flex-shrink: 0;
+
+  border-radius: 12px;
 
   background: var(--color-primary-light);
-
   color: var(--color-primary);
 
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .dashboard-profile-info {
   display: flex;
   flex-direction: column;
+  gap: 3px;
 
   text-align: left;
 }
 
 .dashboard-profile-info strong {
-  font-size: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+
+  white-space: nowrap;
+
   color: var(--color-text);
 }
 
 .dashboard-profile-info span {
-  font-size: 9px;
+  font-size: 12px;
+  line-height: 1.3;
+
   color: var(--color-text-light);
 }
-
 
 /* =========================
    CONTENT
