@@ -16,6 +16,8 @@ import {
   X,
 } from 'lucide-react'
 
+import { useAuth } from '../hooks/useAuth'
+
 const navigation = [
   {
     label: 'Resumen',
@@ -48,6 +50,7 @@ const navigation = [
 function DashboardLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const { logout } = useAuth()
 
   const currentSection =
     [...navigation, {
@@ -149,13 +152,14 @@ function DashboardLayout() {
             <span>Configuración</span>
           </NavLink>
 
-          <NavLink
-            to="/login"
+          <button
+            type="button"
             className="dashboard-logout"
+            onClick={logout}
           >
             <LogOut size={18} strokeWidth={1.8} />
             <span>Cerrar sesión</span>
-          </NavLink>
+          </button>
 
         </div>
 

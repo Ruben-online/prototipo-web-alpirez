@@ -1,153 +1,145 @@
-import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Eye, LockKeyhole, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { Link, Navigate, useLocation } from 'react-router-dom'
+import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail } from 'lucide-react'
+
+import AuthLayout from '../components/auth/AuthLayout'
+import { useAuth } from '../hooks/useAuth'
 
 function Login() {
-  const navigate = useNavigate()
+  const { session, loading, login } = useAuth()
+  const location = useLocation()
 
-  const handleSubmit = (event) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [remember, setRemember] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  // Mensaje que llega después de cambiar la contraseña
+  const successMessage = location.state?.message
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    setError('')
+    setSubmitting(true)
 
-    // Autenticación simulada por ahora.
-    // Más adelante aquí conectaremos el login real con JWT.
-    navigate('/dashboard')
+    try {
+      await login(email, password, remember)
+    } catch (err) {
+      setError(err.message)
+      setSubmitting(false)
+    }
+  }
+
+  // Si ya tiene sesión abierta, lo manda directo al panel
+  if (!loading && session) {
+    return <Navigate to="/dashboard" replace />
   }
 
   return (
-    <main className="login-page">
-      <div className="login-container">
+    <AuthLayout>
+      <div className="login-heading">
+        <span className="login-eyebrow">
+          ACCESO ADMINISTRATIVO
+        </span>
 
-        <section className="login-brand-panel">
-          <div className="login-brand-decoration login-brand-decoration-one"></div>
-          <div className="login-brand-decoration login-brand-decoration-two"></div>
+        <h2>Bienvenido de nuevo.</h2>
 
-          <a href="/" className="login-back-link">
-            <ArrowLeft size={17} strokeWidth={1.8} />
-            Volver al sitio
-          </a>
-
-          <div className="login-brand-content">
-            <div className="login-brand-mark">
-              <span>DA</span>
-            </div>
-
-            <span className="login-brand-eyebrow">
-              DRA. ALPÍREZ
-            </span>
-
-            <h1>
-              El cuidado de tus pacientes,
-              <span> en un solo lugar.</span>
-            </h1>
-
-            <p>
-              Accede al panel administrativo para gestionar pacientes,
-              citas, inventario y la operación diaria de la clínica.
-            </p>
-          </div>
-
-          <div className="login-brand-footer">
-            <span className="login-brand-footer-icon">✦</span>
-
-            <div>
-              <strong>Dermatología integral</strong>
-              <span>Salud, belleza y bienestar</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="login-form-panel">
-          <div className="login-form-wrapper">
-
-            <div className="login-mobile-brand">
-              <div className="login-brand-mark">
-                <span>DA</span>
-              </div>
-
-              <span>DRA. ALPÍREZ</span>
-            </div>
-
-            <div className="login-heading">
-              <span className="login-eyebrow">
-                ACCESO ADMINISTRATIVO
-              </span>
-
-              <h2>Bienvenido de nuevo.</h2>
-
-              <p>
-                Ingresa tus credenciales para acceder al panel de administración.
-              </p>
-            </div>
-
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div className="login-field">
-                <label htmlFor="email">
-                  Correo electrónico
-                </label>
-
-                <div className="login-input-wrapper">
-                  <Mail size={19} strokeWidth={1.8} />
-
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="correo@ejemplo.com"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="login-field">
-                <div className="login-password-label">
-                  <label htmlFor="password">
-                    Contraseña
-                  </label>
-
-                  <button type="button" className="login-forgot-password">
-                    ¿Olvidaste tu contraseña?
-                  </button>
-                </div>
-
-                <div className="login-input-wrapper">
-                  <LockKeyhole size={19} strokeWidth={1.8} />
-
-                  <input
-                    id="password"
-                    type="password"
-                    placeholder="Ingresa tu contraseña"
-                    required
-                  />
-
-                  <button
-                    type="button"
-                    className="login-password-toggle"
-                    aria-label="Mostrar contraseña"
-                  >
-                    <Eye size={19} strokeWidth={1.8} />
-                  </button>
-                </div>
-              </div>
-
-              <label className="login-remember">
-                <input type="checkbox" />
-                <span>Recordar sesión</span>
-              </label>
-
-              <button type="submit" className="login-submit">
-                <span>Iniciar sesión</span>
-                <ArrowRight size={19} strokeWidth={1.8} />
-              </button>
-            </form>
-
-            <div className="login-help">
-              <span>¿Necesitas ayuda para ingresar?</span>
-              <a href="#contacto">Contactar soporte</a>
-            </div>
-
-          </div>
-        </section>
-
+        <p>
+          Ingresa tus credenciales para acceder al panel de administración.
+        </p>
       </div>
-    </main>
+
+      <form className="login-form" onSubmit={handleSubmit}>
+        {successMessage && !error && (
+          <p className="login-alert login-alert-success">
+            {successMessage}
+          </p>
+        )}
+
+        {error && (
+          <p className="login-alert login-alert-error">
+            {error}
+          </p>
+        )}
+
+        <div className="login-field">
+          <label htmlFor="email">
+            Correo electrónico
+          </label>
+
+          <div className="login-input-wrapper">
+            <Mail size={19} strokeWidth={1.8} />
+
+            <input
+              id="email"
+              type="email"
+              placeholder="correo@ejemplo.com"
+              autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="login-field">
+          <div className="login-password-label">
+            <label htmlFor="password">
+              Contraseña
+            </label>
+
+            <Link to="/recuperar-contrasena" className="login-forgot-password">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+
+          <div className="login-input-wrapper">
+            <LockKeyhole size={19} strokeWidth={1.8} />
+
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Ingresa tu contraseña"
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+
+            <button
+              type="button"
+              className="login-password-toggle"
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword
+                ? <EyeOff size={19} strokeWidth={1.8} />
+                : <Eye size={19} strokeWidth={1.8} />}
+            </button>
+          </div>
+        </div>
+
+        <label className="login-remember">
+          <input
+            type="checkbox"
+            checked={remember}
+            onChange={(event) => setRemember(event.target.checked)}
+          />
+          <span>Recordar sesión</span>
+        </label>
+
+        <button
+          type="submit"
+          className="login-submit"
+          disabled={submitting}
+        >
+          <span>{submitting ? 'Ingresando...' : 'Iniciar sesión'}</span>
+          <ArrowRight size={19} strokeWidth={1.8} />
+        </button>
+      </form>
+    </AuthLayout>
   )
 }
 
