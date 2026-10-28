@@ -1,0 +1,284 @@
+/* ==========================================
+   GENERAL REPORTS - PREVIEW
+========================================== */
+
+.general-reports-preview {
+  min-width: 0;
+  margin-top: 24px;
+  overflow: hidden;
+
+  border: 1px solid #ece7ee;
+  border-radius: 20px;
+
+  background: var(--color-white);
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.general-reports-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 28px;
+  border-bottom: 1px solid #f1edf2;
+}
+
+.general-reports-preview-heading h3 {
+  margin: 7px 0 8px;
+  font-size: 22px;
+  color: var(--color-text);
+}
+
+.general-reports-preview-heading p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+}
+
+.general-reports-preview-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+
+  padding: 11px 15px;
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==========================================
+   SECTIONS
+========================================== */
+
+.general-reports-sections {
+  display: grid;
+  gap: 26px;
+  padding: 28px;
+}
+
+.general-report-section {
+  min-width: 0;
+}
+
+.general-report-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 17px;
+}
+
+.general-report-section-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.general-report-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.general-report-section-title h4 {
+  margin-bottom: 5px;
+  font-size: 19px;
+  color: var(--color-text);
+}
+
+.general-report-section-title p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-light);
+}
+
+.general-report-demo-badge {
+  padding: 8px 11px;
+  border-radius: 20px;
+
+  background: #fff6e8;
+  color: #956116;
+
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.general-report-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.general-report-stat {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  min-width: 0;
+  padding: 19px 16px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 15px;
+
+  background: #fdfcfe;
+}
+
+.general-report-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.general-report-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.general-report-stat-info span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-light);
+}
+
+.general-report-stat-info strong {
+  font-size: 27px;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+/* ==========================================
+   NOTE
+========================================== */
+
+.general-report-note {
+  padding: 17px 20px;
+
+  border: 1px solid #e6d5ef;
+  border-radius: 13px;
+
+  background: #fcf5ff;
+  color: #8136a0;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   LOADING / ERROR
+========================================== */
+
+.general-report-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+
+  padding: 65px 24px;
+
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.general-report-message.error {
+  color: #c74747;
+}
+
+.general-report-message h4 {
+  font-size: 19px;
+  color: var(--color-text);
+}
+
+.general-report-message p {
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1250px) {
+  .general-report-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .general-reports-preview-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .general-reports-preview-heading h3 {
+    font-size: 20px;
+  }
+
+  .general-reports-sections {
+    gap: 24px;
+    padding: 22px;
+  }
+
+  .general-report-section-heading {
+    flex-wrap: wrap;
+  }
+
+  .general-report-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .general-reports-preview-heading,
+  .general-reports-sections {
+    padding: 18px;
+  }
+
+  .general-report-stat {
+    padding: 17px;
+  }
+
+  .general-report-stat-info strong {
+    font-size: 25px;
+  }
+
+  .general-report-note {
+    font-size: 13px;
+  }
+}

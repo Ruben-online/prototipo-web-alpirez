@@ -1,0 +1,418 @@
+/* ==========================================
+   APPOINTMENT REPORTS - PREVIEW
+========================================== */
+
+.appointment-reports-preview {
+  min-width: 0;
+  margin-top: 24px;
+
+  overflow: hidden;
+
+  border: 1px solid #ece7ee;
+  border-radius: 20px;
+
+  background: var(--color-white);
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.appointment-reports-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 28px;
+}
+
+.appointment-reports-preview-heading h3 {
+  margin-bottom: 8px;
+
+  font-size: 22px;
+  color: var(--color-text);
+}
+
+.appointment-reports-preview-heading p {
+  font-size: 15px;
+  color: var(--color-text-light);
+}
+
+.appointment-reports-counter {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  flex-shrink: 0;
+
+  padding: 11px 15px;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==========================================
+   DESKTOP TABLE
+========================================== */
+
+.appointment-reports-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.appointment-reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.appointment-reports-table thead {
+  background: #faf9fb;
+}
+
+.appointment-reports-table th {
+  padding: 17px 18px;
+
+  border-top: 1px solid #f1edf2;
+  border-bottom: 1px solid #f1edf2;
+
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  color: #655d6b;
+}
+
+.appointment-reports-table td {
+  padding: 19px 18px;
+
+  border-bottom: 1px solid #f1edf2;
+
+  font-size: 14px;
+  line-height: 1.6;
+  vertical-align: middle;
+
+  color: var(--color-text);
+}
+
+.appointment-reports-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.appointment-reports-table tbody tr:hover {
+  background: #fdfbfe;
+}
+
+/* ==========================================
+   PATIENT
+========================================== */
+
+.appointment-report-patient {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 160px;
+}
+
+.appointment-report-patient strong {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.appointment-report-patient span {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.appointment-report-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 11px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.appointment-report-status-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+.appointment-report-status.confirmed {
+  background: #eef5ff;
+  color: #426fa9;
+}
+
+.appointment-report-status.completed {
+  background: #eff9f3;
+  color: #348456;
+}
+
+.appointment-report-status.cancelled {
+  background: #fff0f0;
+  color: #c74747;
+}
+
+.appointment-report-status.missed {
+  background: #fff6e8;
+  color: #a56a18;
+}
+
+/* ==========================================
+   EMPTY AND LOADING
+========================================== */
+
+.appointment-reports-empty,
+.appointment-reports-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 65px 24px;
+
+  border-top: 1px solid #f1edf2;
+
+  text-align: center;
+}
+
+.appointment-reports-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 76px;
+  height: 76px;
+
+  margin-bottom: 20px;
+
+  border-radius: 20px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.appointment-reports-empty h4 {
+  margin-bottom: 10px;
+
+  font-size: 19px;
+  color: var(--color-text);
+}
+
+.appointment-reports-empty p,
+.appointment-reports-loading p {
+  max-width: 400px;
+
+  font-size: 14px;
+  line-height: 1.75;
+
+  color: var(--color-text-light);
+}
+
+.appointment-reports-loading {
+  gap: 15px;
+  color: var(--color-primary);
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.appointment-reports-preview-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 19px 28px;
+
+  border-top: 1px solid #f1edf2;
+
+  background: #fdfcfe;
+}
+
+.appointment-reports-preview-footer span {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+.appointment-reports-preview-footer strong {
+  color: var(--color-text);
+}
+
+/* ==========================================
+   MOBILE CARDS
+========================================== */
+
+.appointment-reports-mobile-list {
+  display: none;
+}
+
+.appointment-reports-mobile-card {
+  min-width: 0;
+  padding: 20px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 16px;
+
+  background: var(--color-white);
+}
+
+.appointment-reports-mobile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.appointment-reports-mobile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.appointment-reports-mobile-card h4 {
+  font-size: 18px;
+  line-height: 1.4;
+
+  color: var(--color-text);
+}
+
+.appointment-reports-mobile-service {
+  margin-top: 7px;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: var(--color-text-light);
+}
+
+.appointment-reports-mobile-details {
+  display: grid;
+  gap: 15px;
+
+  margin-top: 20px;
+  padding-top: 18px;
+
+  border-top: 1px solid #f1edf2;
+}
+
+.appointment-reports-mobile-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.appointment-reports-mobile-details span {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+.appointment-reports-mobile-details strong {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+
+  color: var(--color-text);
+}
+
+/* ==========================================
+   RESPONSIVE - 760px
+========================================== */
+
+@media (max-width: 760px) {
+  .appointment-reports-preview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+
+    padding: 22px;
+  }
+
+  .appointment-reports-preview-heading h3 {
+    font-size: 20px;
+  }
+
+  .appointment-reports-table-wrapper {
+    display: none;
+  }
+
+  .appointment-reports-mobile-list {
+    display: grid;
+    gap: 14px;
+
+    padding: 0 18px 20px;
+  }
+
+  .appointment-reports-preview-footer {
+    flex-direction: column;
+    padding: 18px 22px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - 520px
+========================================== */
+
+@media (max-width: 520px) {
+  .appointment-reports-preview-heading {
+    padding: 19px;
+  }
+
+  .appointment-reports-mobile-list {
+    padding: 0 14px 16px;
+  }
+
+  .appointment-reports-mobile-card {
+    padding: 17px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - 380px
+========================================== */
+
+@media (max-width: 380px) {
+  .appointment-reports-mobile-card {
+    padding: 15px;
+  }
+
+  .appointment-reports-mobile-heading {
+    flex-wrap: wrap;
+  }
+
+  .appointment-reports-mobile-details strong {
+    overflow-wrap: anywhere;
+  }
+}
