@@ -19,7 +19,6 @@ import { PatientsProvider } from './context/PatientsContext.jsx'
 import { AppointmentsProvider } from './context/AppointmentsContext.jsx'
 import { InventoryProvider } from './context/InventoryContext.jsx'
 
-
 function App() {
   return (
     <BrowserRouter>
