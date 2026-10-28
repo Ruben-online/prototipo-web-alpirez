@@ -1,0 +1,90 @@
+/* ==========================================
+   APPOINTMENT REPORTS - DATE FILTER
+========================================== */
+
+.reports-filter-date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 0;
+  min-height: 48px;
+
+  padding: 0 14px;
+
+  border: 1px solid #eae5ec;
+  border-radius: 12px;
+
+  background: var(--color-white);
+  color: #8d8592;
+}
+
+.reports-filter-date input {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  color: var(--color-text);
+  color-scheme: light;
+}
+
+.reports-filter-date:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   APPOINTMENT REPORTS - VALIDATION
+========================================== */
+
+.appointment-reports-date-error,
+.appointment-reports-date-hint {
+  margin-top: 18px;
+  padding: 13px 16px;
+
+  border-radius: 11px;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.appointment-reports-date-error {
+  border: 1px solid #f3d0d0;
+
+  background: #fff4f4;
+  color: #b43f3f;
+}
+
+.appointment-reports-date-hint {
+  border: 1px solid #e6d5ef;
+
+  background: #fcf5ff;
+  color: #8136a0;
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+========================================== */
+
+@media (max-width: 760px) {
+  .reports-filter-date {
+    width: 100%;
+  }
+
+  .reports-filter-date input {
+    font-size: 14px;
+  }
+
+  .appointment-reports-date-error,
+  .appointment-reports-date-hint {
+    font-size: 13px;
+  }
+}

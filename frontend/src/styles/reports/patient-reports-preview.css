@@ -1,0 +1,476 @@
+/* ==========================================
+   PATIENT REPORTS - PREVIEW
+========================================== */
+
+.patient-reports-preview {
+  min-width: 0;
+  margin-top: 24px;
+  overflow: hidden;
+
+  border: 1px solid #ece7ee;
+  border-radius: 20px;
+
+  background: var(--color-white);
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.patient-reports-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 28px;
+}
+
+.patient-reports-preview-heading h3 {
+  margin-bottom: 8px;
+
+  font-size: 22px;
+  line-height: 1.35;
+
+  color: var(--color-text);
+}
+
+.patient-reports-preview-heading p {
+  font-size: 15px;
+  color: var(--color-text-light);
+}
+
+.patient-reports-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+
+  padding: 11px 15px;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.patient-reports-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+
+  padding: 0 28px 25px;
+}
+
+.patient-reports-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+  padding: 18px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 15px;
+
+  background: #fdfcfe;
+}
+
+.patient-reports-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 43px;
+  height: 43px;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.patient-reports-stat-card.success .patient-reports-stat-icon {
+  background: #eff9f3;
+  color: #348456;
+}
+
+.patient-reports-stat-card.warning .patient-reports-stat-icon {
+  background: #fff6e8;
+  color: #a56a18;
+}
+
+.patient-reports-stat-card.info .patient-reports-stat-icon {
+  background: #eef5ff;
+  color: #426fa9;
+}
+
+.patient-reports-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 0;
+}
+
+.patient-reports-stat-content span {
+  font-size: 13px;
+  line-height: 1.4;
+
+  color: var(--color-text-light);
+}
+
+.patient-reports-stat-content strong {
+  font-size: 26px;
+  line-height: 1;
+
+  color: var(--color-text);
+}
+
+/* ==========================================
+   DESKTOP TABLE
+========================================== */
+
+.patient-reports-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.patient-reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.patient-reports-table thead {
+  background: #faf9fb;
+}
+
+.patient-reports-table th {
+  padding: 17px 18px;
+
+  border-top: 1px solid #f1edf2;
+  border-bottom: 1px solid #f1edf2;
+
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  color: #655d6b;
+}
+
+.patient-reports-table td {
+  padding: 19px 18px;
+
+  border-bottom: 1px solid #f1edf2;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  vertical-align: middle;
+  color: var(--color-text);
+}
+
+.patient-reports-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.patient-reports-table tbody tr:hover {
+  background: #fdfbfe;
+}
+
+.patient-reports-table td strong {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.patient-report-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 11px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.patient-report-status-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.patient-report-status.active {
+  background: #eff9f3;
+  color: #348456;
+}
+
+.patient-report-status.inactive {
+  background: #fff6e8;
+  color: #a56a18;
+}
+
+.patient-report-status.unknown {
+  background: #f5f2f7;
+  color: #655d6b;
+}
+
+/* ==========================================
+   MESSAGES
+========================================== */
+
+.patient-reports-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 60px 24px;
+
+  border-top: 1px solid #f1edf2;
+
+  text-align: center;
+}
+
+.patient-reports-message-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 72px;
+  height: 72px;
+
+  margin-bottom: 18px;
+
+  border-radius: 20px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.patient-reports-message.error .patient-reports-message-icon {
+  background: #fff0f0;
+  color: #c74747;
+}
+
+.patient-reports-message h4 {
+  margin-bottom: 9px;
+
+  font-size: 19px;
+  color: var(--color-text);
+}
+
+.patient-reports-message p {
+  max-width: 410px;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  color: var(--color-text-light);
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.patient-reports-preview-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 19px 28px;
+
+  border-top: 1px solid #f1edf2;
+
+  background: #fdfcfe;
+}
+
+.patient-reports-preview-footer span {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+.patient-reports-preview-footer strong {
+  color: var(--color-text);
+}
+
+/* ==========================================
+   MOBILE CARDS
+========================================== */
+
+.patient-reports-mobile-list {
+  display: none;
+}
+
+.patient-reports-mobile-card {
+  min-width: 0;
+  padding: 20px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 16px;
+
+  background: var(--color-white);
+}
+
+.patient-reports-mobile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.patient-reports-mobile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.patient-reports-mobile-card h4 {
+  font-size: 18px;
+  line-height: 1.4;
+
+  color: var(--color-text);
+}
+
+.patient-reports-mobile-details {
+  display: grid;
+  gap: 15px;
+
+  margin-top: 20px;
+  padding-top: 18px;
+
+  border-top: 1px solid #f1edf2;
+}
+
+.patient-reports-mobile-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.patient-reports-mobile-details span {
+  flex-shrink: 0;
+
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+.patient-reports-mobile-details strong {
+  min-width: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+
+  color: var(--color-text);
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1200px) {
+  .patient-reports-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .patient-reports-preview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+
+    padding: 22px;
+  }
+
+  .patient-reports-preview-heading h3 {
+    font-size: 20px;
+  }
+
+  .patient-reports-stats {
+    grid-template-columns: 1fr;
+    padding: 0 18px 20px;
+  }
+
+  .patient-reports-table-wrapper {
+    display: none;
+  }
+
+  .patient-reports-mobile-list {
+    display: grid;
+    gap: 14px;
+
+    padding: 0 18px 20px;
+  }
+
+  .patient-reports-preview-footer {
+    flex-direction: column;
+    padding: 18px 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .patient-reports-preview-heading {
+    padding: 19px;
+  }
+
+  .patient-reports-mobile-list {
+    padding: 0 14px 16px;
+  }
+
+  .patient-reports-mobile-card {
+    padding: 17px;
+  }
+
+  .patient-reports-stats {
+    padding: 0 14px 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .patient-reports-mobile-card {
+    padding: 15px;
+  }
+
+  .patient-reports-mobile-top {
+    flex-wrap: wrap;
+  }
+
+  .patient-reports-mobile-details > div {
+    flex-wrap: wrap;
+  }
+
+  .patient-reports-mobile-details strong {
+    text-align: left;
+  }
+}
