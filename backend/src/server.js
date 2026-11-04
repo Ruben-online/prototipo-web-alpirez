@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import authRoutes from './routes/auth.js'
+import usersRoutes from './routes/users.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -18,6 +19,9 @@ app.get('/api/health', (req, res) => {
 
 // Rutas del login
 app.use('/api/auth', authRoutes)
+
+// Rutas para administrar usuarios, roles y permisos
+app.use('/api/users', usersRoutes)
 
 // Encender el servidor
 app.listen(PORT, () => {

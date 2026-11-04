@@ -12,6 +12,7 @@ import {
   Menu,
   Search,
   Settings,
+  UserCog,
   UsersRound,
   X,
 } from 'lucide-react'
@@ -23,34 +24,61 @@ const navigation = [
     label: 'Resumen',
     icon: LayoutDashboard,
     path: '/dashboard',
+    module: 'resumen',
     end: true,
   },
   {
     label: 'Pacientes',
     icon: UsersRound,
     path: '/dashboard/pacientes',
+    module: 'pacientes',
   },
   {
     label: 'Citas',
     icon: CalendarDays,
     path: '/dashboard/citas',
+    module: 'citas',
   },
   {
     label: 'Inventario',
     icon: Boxes,
     path: '/dashboard/inventario',
+    module: 'inventario',
   },
   {
     label: 'Reportes',
     icon: ClipboardList,
     path: '/dashboard/reportes',
+    module: 'reportes',
+  },
+  {
+    label: 'Usuarios',
+    icon: UserCog,
+    path: '/dashboard/usuarios',
+    module: 'usuarios',
   },
 ]
+
+// Saca las iniciales del nombre, por ejemplo "Marcela Alpírez" queda "MA"
+function getInitials(name) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join('')
+}
 
 function DashboardLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-  const { logout } = useAuth()
+  const { logout, profile, user, hasModule } = useAuth()
+
+  // Cada usuario solo ve en el menú los módulos que tiene permitidos
+  const visibleNavigation = navigation.filter((item) => hasModule(item.module))
+
+  const displayName = profile?.fullName || user?.email || ''
+  const displayRole = profile?.role || 'Sin rol asignado'
 
   const currentSection =
     [...navigation, {
@@ -112,7 +140,7 @@ function DashboardLayout() {
 
           <div className="dashboard-navigation-list">
 
-            {navigation.map((item) => {
+            {visibleNavigation.map((item) => {
               const Icon = item.icon
 
               return (
@@ -215,12 +243,12 @@ function DashboardLayout() {
               className="dashboard-profile"
             >
               <div className="dashboard-avatar">
-                DA
+                {getInitials(displayName)}
               </div>
 
               <div className="dashboard-profile-info">
-                <strong>Dra. Alpírez</strong>
-                <span>Administradora</span>
+                <strong>{displayName}</strong>
+                <span>{displayRole}</span>
               </div>
 
               <ChevronDown size={16} strokeWidth={1.8} />

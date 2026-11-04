@@ -5,7 +5,23 @@ import {
   UsersRound,
 } from 'lucide-react'
 
+import { useAuth } from '../hooks/useAuth'
+
+// Saludo según la hora del día
+function getGreeting() {
+  const hour = new Date().getHours()
+
+  if (hour < 12) return 'Buenos días'
+  if (hour < 19) return 'Buenas tardes'
+  return 'Buenas noches'
+}
+
 function Dashboard() {
+  const { profile, user } = useAuth()
+
+  // Saluda con el nombre de quien inició sesión
+  const name = profile?.fullName || user?.email || ''
+
   return (
     <>
       {/* BIENVENIDA */}
@@ -16,7 +32,7 @@ function Dashboard() {
           </span>
 
           <h2>
-            Buenas tardes, Dra. Alpírez.
+            {getGreeting()}, {name}.
           </h2>
 
           <p>

@@ -14,9 +14,11 @@ import PatientDetail from './pages/PatientDetail'
 import Appointments from './pages/Appointments'
 import Inventory from './pages/Inventory'
 import Reports from './pages/Reports'
+import Users from './pages/Users'
 
 import DashboardLayout from './layouts/DashboardLayout'
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import ModuleRoute from './components/auth/ModuleRoute'
 
 import { AuthProvider } from './context/AuthContext.jsx'
 import { PatientsProvider } from './context/PatientsContext.jsx'
@@ -70,30 +72,48 @@ function App() {
                       element={<Dashboard />}
                     />
 
-                    <Route
-                      path="pacientes"
-                      element={<Patients />}
-                    />
+                    {/* Cada módulo solo se abre si el admin le dio permiso */}
+                    <Route element={<ModuleRoute module="pacientes" />}>
 
-                    <Route
-                      path="pacientes/:id"
-                      element={<PatientDetail />}
-                    />
+                      <Route
+                        path="pacientes"
+                        element={<Patients />}
+                      />
 
-                    <Route
-                      path="citas"
-                      element={<Appointments />}
-                    />
+                      <Route
+                        path="pacientes/:id"
+                        element={<PatientDetail />}
+                      />
 
-                    <Route
-                      path="inventario"
-                      element={<Inventory />}
-                    />
+                    </Route>
 
-                    <Route
-                      path="reportes"
-                      element={<Reports />}
-                    />
+                    <Route element={<ModuleRoute module="citas" />}>
+                      <Route
+                        path="citas"
+                        element={<Appointments />}
+                      />
+                    </Route>
+
+                    <Route element={<ModuleRoute module="inventario" />}>
+                      <Route
+                        path="inventario"
+                        element={<Inventory />}
+                      />
+                    </Route>
+
+                    <Route element={<ModuleRoute module="reportes" />}>
+                      <Route
+                        path="reportes"
+                        element={<Reports />}
+                      />
+                    </Route>
+
+                    <Route element={<ModuleRoute module="usuarios" />}>
+                      <Route
+                        path="usuarios"
+                        element={<Users />}
+                      />
+                    </Route>
 
                   </Route>
 

@@ -5,6 +5,7 @@ import {
   supabaseAnonKey,
 } from '../config/supabase.js'
 import { requireAuth } from '../middlewares/requireAuth.js'
+import { getProfile } from '../services/profiles.js'
 
 const router = Router()
 
@@ -23,6 +24,11 @@ router.post('/login', async (req, res) => {
     password,
   })
 
+  // Las cuentas desactivadas por el admin quedan bloqueadas
+  if (error?.code === 'user_banned') {
+    return res.status(403).json({ message: 'Tu cuenta está desactivada, habla con la administradora' })
+  }
+
   if (error) {
     return res.status(401).json({ message: 'Correo o contraseña incorrectos' })
   }
@@ -37,13 +43,23 @@ router.post('/login', async (req, res) => {
   })
 })
 
-// Datos del usuario que tiene la sesión abierta
-router.get('/me', requireAuth, (req, res) => {
+// Datos del usuario que tiene la sesión abierta, con su rol y sus módulos
+router.get('/me', requireAuth, async (req, res) => {
+  let profile
+
+  try {
+    profile = await getProfile(req.user.id)
+  } catch (error) {
+    console.error('Error al cargar el perfil:', error.message)
+    return res.status(500).json({ message: 'No se pudo cargar tu perfil, intenta de nuevo' })
+  }
+
   res.json({
     user: {
       id: req.user.id,
       email: req.user.email,
     },
+    profile,
   })
 })
 
