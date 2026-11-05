@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 
 import { useAuth } from '../hooks/useAuth'
+import clinicLogo from '../assets/clinica-alpirez-logo.png'
 
 const navigation = [
   {
@@ -158,14 +159,11 @@ function DashboardLayout() {
       >
         <div className="dashboard-sidebar-header">
 
-          <div className="dashboard-logo">
-            DA
-          </div>
-
-          <div className="dashboard-brand">
-            <strong>Dra. Alpírez</strong>
-            <span>Panel administrativo</span>
-          </div>
+          <img
+            src={clinicLogo}
+            alt="Dermo Clini-K - Dermatología y Medicina Estética"
+            className="dashboard-clinic-logo"
+          />
 
           <button
             type="button"
