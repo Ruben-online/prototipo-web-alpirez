@@ -1,9 +1,15 @@
-/* Página de usuarios */
+/* =========================
+   USERS - GENERAL
+========================= */
 
 .users-page {
   width: 100%;
   min-width: 0;
 }
+
+/* =========================
+   HEADING
+========================= */
 
 .users-heading {
   display: flex;
@@ -17,7 +23,7 @@
 .users-heading h2 {
   margin-bottom: 7px;
 
-  font-size: 27px;
+  font-size: 30px;
   line-height: 1.2;
   letter-spacing: -0.025em;
 
@@ -25,7 +31,7 @@
 }
 
 .users-heading p {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.6;
 
   color: var(--color-text-light);
@@ -35,7 +41,9 @@
   flex-shrink: 0;
 }
 
-/* Mensajes de éxito y de error */
+/* =========================
+   SUCCESS AND ERROR MESSAGES
+========================= */
 
 .users-success,
 .users-error {
@@ -48,8 +56,9 @@
 
   border-radius: 13px;
 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1.6;
 }
 
 .users-success {
@@ -71,12 +80,14 @@
 
 .users-success button,
 .users-error button {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 
   border: none;
   border-radius: 8px;
@@ -95,7 +106,9 @@
   background: #fde6e9;
 }
 
-/* Tarjeta con la lista */
+/* =========================
+   USERS DIRECTORY
+========================= */
 
 .users-directory {
   overflow: hidden;
@@ -118,12 +131,14 @@
 .users-directory-header h3 {
   margin-bottom: 6px;
 
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1.3;
+
   color: var(--color-text);
 }
 
 .users-directory-header p {
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.6;
 
   color: var(--color-text-light);
@@ -139,8 +154,9 @@
   background: var(--color-primary-light);
   color: var(--color-primary);
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .users-empty {
@@ -149,12 +165,16 @@
   border-top: 1px solid #f1edf2;
 
   text-align: center;
-  font-size: 12px;
+
+  font-size: 15px;
+  line-height: 1.6;
 
   color: var(--color-text-light);
 }
 
-/* Tabla */
+/* =========================
+   USERS TABLE
+========================= */
 
 .users-table-wrapper {
   width: 100%;
@@ -163,10 +183,9 @@
 
 .users-table {
   width: 100%;
-  min-width: 820px;
+  min-width: 1050px;
 
   border-collapse: collapse;
-
   text-align: left;
 }
 
@@ -175,21 +194,22 @@
 }
 
 .users-table th {
-  padding: 15px 19px;
+  padding: 16px 19px;
 
   border-bottom: 1px solid #f0ecf2;
 
-  color: #aaa3ad;
+  color: var(--color-text-light);
 
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
 
   white-space: nowrap;
 }
 
 .users-table td {
-  padding: 17px 19px;
+  padding: 18px 19px;
 
   border-bottom: 1px solid #f3eff4;
 
@@ -208,15 +228,21 @@
   border-bottom: none;
 }
 
+/* =========================
+   USER INFORMATION
+========================= */
+
 .users-person {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
+
+  min-width: 210px;
 }
 
 .users-avatar {
-  width: 40px;
-  height: 40px;
+  width: 43px;
+  height: 43px;
 
   display: flex;
   align-items: center;
@@ -229,7 +255,7 @@
   background: var(--color-primary-light);
   color: var(--color-primary);
 
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -242,8 +268,9 @@
 }
 
 .users-person-info strong {
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1.4;
 
   color: var(--color-text);
 
@@ -251,21 +278,30 @@
 }
 
 .users-person-info strong small {
+  font-size: 12px;
   font-weight: 500;
+
   color: var(--color-primary);
 }
 
 .users-person-info span {
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+
   color: var(--color-text-light);
 }
 
 .users-role {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
 
   color: var(--color-text);
 }
+
+/* =========================
+   MODULE PERMISSIONS
+========================= */
 
 .users-modules {
   display: flex;
@@ -276,33 +312,42 @@
 }
 
 .users-module-chip {
-  padding: 5px 9px;
+  padding: 6px 10px;
 
   border-radius: 8px;
 
   background: #f8f5f9;
   color: var(--color-text);
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
+  line-height: 1.4;
 }
 
 .users-no-modules {
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+
   color: #aaa3ad;
 }
+
+/* =========================
+   USER STATUS
+========================= */
 
 .users-status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 
-  padding: 7px 10px;
+  padding: 7px 11px;
 
   border-radius: 20px;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1.4;
+
   white-space: nowrap;
 }
 
@@ -320,12 +365,16 @@
   width: 6px;
   height: 6px;
 
+  flex-shrink: 0;
+
   border-radius: 50%;
 
   background: currentColor;
 }
 
-/* Botones de editar y activar o desactivar */
+/* =========================
+   ACTION BUTTONS
+========================= */
 
 .users-row-actions {
   display: flex;
@@ -334,12 +383,14 @@
 }
 
 .users-icon-button {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 
   border: 1px solid #eadbed;
   border-radius: 10px;
@@ -373,11 +424,14 @@
   cursor: not-allowed;
 }
 
-/* Ventanas del formulario y de confirmación */
+/* =========================
+   MODAL OVERLAY
+========================= */
 
 .users-modal-overlay {
   position: fixed;
   inset: 0;
+  z-index: 200;
 
   display: flex;
   align-items: center;
@@ -387,9 +441,11 @@
 
   background: rgba(30, 24, 35, 0.55);
   backdrop-filter: blur(4px);
-
-  z-index: 200;
 }
+
+/* =========================
+   MODAL
+========================= */
 
 .users-modal {
   width: 100%;
@@ -421,6 +477,10 @@
   overflow: hidden;
 }
 
+/* =========================
+   MODAL HEADER
+========================= */
+
 .users-modal-header {
   display: flex;
   align-items: flex-start;
@@ -436,6 +496,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  min-width: 0;
 }
 
 .users-modal-icon {
@@ -457,22 +519,23 @@
 .users-modal-heading h3 {
   margin-bottom: 5px;
 
-  font-size: 19px;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 1.3;
 
   color: var(--color-text);
 }
 
 .users-modal-heading p {
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.5;
 
   color: var(--color-text-light);
 }
 
 .users-modal-close {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
 
   display: flex;
   align-items: center;
@@ -496,6 +559,10 @@
   color: var(--color-primary);
 }
 
+/* =========================
+   MODAL BODY
+========================= */
+
 .users-modal-body {
   flex: 1;
   min-height: 0;
@@ -504,6 +571,10 @@
 
   padding: 26px 28px;
 }
+
+/* =========================
+   FORM SECTIONS
+========================= */
 
 .users-form-section {
   margin-bottom: 20px;
@@ -518,19 +589,25 @@
 
   margin-bottom: 7px;
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 
   color: var(--color-primary);
 }
 
 .users-form-section p {
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.6;
 
   color: var(--color-text-light);
 }
+
+/* =========================
+   FORM GRID
+========================= */
 
 .users-form-grid {
   display: grid;
@@ -550,9 +627,14 @@
   grid-column: 1 / -1;
 }
 
+/* =========================
+   FORM FIELDS
+========================= */
+
 .users-form-field label {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
 
   color: var(--color-text);
 }
@@ -560,7 +642,7 @@
 .users-form-field input,
 .users-form-field select {
   width: 100%;
-  min-height: 44px;
+  min-height: 46px;
 
   padding: 11px 13px;
 
@@ -573,7 +655,7 @@
   color: var(--color-text);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 15px;
 
   transition: var(--transition-fast);
 }
@@ -593,7 +675,9 @@
   cursor: not-allowed;
 }
 
-/* Casillas de los módulos */
+/* =========================
+   MODULE CHECKBOXES
+========================= */
 
 .users-modules-grid {
   display: grid;
@@ -614,7 +698,8 @@
   background: #fdfcfe;
   color: var(--color-text);
 
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.5;
 
   cursor: pointer;
 
@@ -624,6 +709,8 @@
 .users-module-option input {
   width: 16px;
   height: 16px;
+
+  flex-shrink: 0;
 
   accent-color: var(--color-primary);
 }
@@ -638,6 +725,10 @@
   cursor: not-allowed;
 }
 
+/* =========================
+   FORM NOTES AND ERRORS
+========================= */
+
 .users-form-note {
   margin-top: 22px;
   padding: 13px 15px;
@@ -648,7 +739,7 @@
   background: #faf6fc;
   color: #8c7894;
 
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -662,9 +753,13 @@
   background: #fff4f5;
   color: #b34d5d;
 
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.6;
 }
+
+/* =========================
+   MODAL FOOTER
+========================= */
 
 .users-modal-footer {
   display: flex;
@@ -679,6 +774,9 @@
 
 .users-modal-footer .dashboard-primary-button {
   justify-content: center;
+
+  font-size: 15px;
+
   cursor: pointer;
 }
 
@@ -700,7 +798,7 @@
   color: var(--color-text-light);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
 
   cursor: pointer;
@@ -722,7 +820,9 @@
   background: #9a3412;
 }
 
-/* Contenido de la ventana de confirmación */
+/* =========================
+   STATUS CONFIRMATION
+========================= */
 
 .users-status-body {
   display: flex;
@@ -758,18 +858,22 @@
 .users-status-body h3 {
   margin-bottom: 8px;
 
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1.3;
+
   color: var(--color-text);
 }
 
 .users-status-body p {
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.6;
 
   color: var(--color-text-light);
 }
 
-/* Pantallas pequeñas */
+/* =========================
+   RESPONSIVE - TABLET / MOBILE
+========================= */
 
 @media (max-width: 760px) {
   .users-heading {
@@ -779,7 +883,16 @@
   }
 
   .users-heading h2 {
-    font-size: 24px;
+    font-size: 26px;
+  }
+
+  .users-heading p {
+    font-size: 15px;
+  }
+
+  .users-heading .dashboard-primary-button {
+    width: 100%;
+    justify-content: center;
   }
 
   .users-directory-header {
@@ -811,6 +924,10 @@
   }
 }
 
+/* =========================
+   RESPONSIVE - SMALL MOBILE
+========================= */
+
 @media (max-width: 520px) {
   .users-form-grid {
     grid-template-columns: 1fr;
@@ -820,9 +937,22 @@
     grid-column: auto;
   }
 
+  .users-modal-heading h3 {
+    font-size: 22px;
+  }
+
   .users-modal-footer .dashboard-primary-button,
   .users-cancel-button {
     flex: 1;
+    min-width: 0;
+
     padding: 0 10px;
+
+    font-size: 14px;
+  }
+
+  .users-module-option {
+    padding: 11px 10px;
+    font-size: 13px;
   }
 }

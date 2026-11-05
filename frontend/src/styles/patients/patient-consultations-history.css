@@ -1,0 +1,382 @@
+/* =========================================
+   BITÁCORA DE CONSULTAS — DRA. ALPÍREZ
+========================================= */
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.consultation-history {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.consultation-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.consultation-history-header > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.consultation-history-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.3px;
+}
+
+.consultation-history-header h4 {
+  margin: 0 0 8px;
+
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.4px;
+}
+
+.consultation-history-header p {
+  max-width: 520px;
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   CONTADOR DE CONSULTAS
+========================================= */
+
+.consultation-history-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  min-height: 40px;
+  padding: 9px 14px;
+
+  background: var(--color-primary-light);
+  border: 1px solid #ead3f1;
+  border-radius: 9px;
+
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================================
+   LÍNEA DE TIEMPO
+========================================= */
+
+.consultation-timeline {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding-left: 30px;
+}
+
+/* Línea vertical */
+
+.consultation-timeline::before {
+  content: '';
+
+  position: absolute;
+  top: 17px;
+  bottom: 17px;
+  left: 8px;
+
+  width: 2px;
+
+  background: linear-gradient(
+    180deg,
+    var(--color-primary) 0%,
+    #e8d5ee 55%,
+    #f3eaf6 100%
+  );
+
+  border-radius: 10px;
+}
+
+.consultation-timeline-item {
+  position: relative;
+  min-width: 0;
+}
+
+/* Indicador de cada consulta */
+
+.consultation-timeline-dot {
+  position: absolute;
+  top: 25px;
+  left: -28px;
+
+  width: 14px;
+  height: 14px;
+
+  background: var(--color-white);
+  border: 3px solid var(--color-primary);
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 4px #f8edf9;
+
+  z-index: 1;
+}
+
+/* Consultas anteriores */
+
+.consultation-timeline-item:not(:first-child)
+  .consultation-timeline-dot {
+  border-color: #d5b1e0;
+  box-shadow: 0 0 0 4px #faf5fb;
+}
+
+/* =========================================
+   TARJETAS DE CONSULTAS
+========================================= */
+
+.consultation-card {
+  overflow: hidden;
+
+  background: var(--color-white);
+  border: 1px solid #eee5f1;
+  border-radius: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.consultation-card:hover {
+  border-color: #e1c6e9;
+  box-shadow: 0 5px 18px rgba(171, 73, 204, 0.04);
+}
+
+.consultation-card-expanded {
+  border-color: #e5ccec;
+  box-shadow: 0 6px 22px rgba(171, 73, 204, 0.05);
+}
+
+/* =========================================
+   ENCABEZADO DE LA TARJETA
+========================================= */
+
+.consultation-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+  padding: 20px 22px;
+
+  background: transparent;
+  border: none;
+
+  text-align: left;
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+.consultation-card-header:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -4px;
+}
+
+.consultation-card-date-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 45px;
+  height: 45px;
+
+  background: var(--color-primary-light);
+  border-radius: 12px;
+
+  color: var(--color-primary);
+}
+
+.consultation-card-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.consultation-card-date {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.consultation-card-heading h4 {
+  margin: 0;
+
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.consultation-card-diagnosis {
+  color: var(--color-text-light);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FLECHA EXPANDIR / CONTRAER
+========================================= */
+
+.consultation-card-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+
+  background: #faf6fb;
+  border-radius: 9px;
+
+  color: var(--color-text-light);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.consultation-card-chevron-open {
+  transform: rotate(180deg);
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* =========================================
+   CONTENIDO EXPANDIDO
+========================================= */
+
+.consultation-card-content {
+  padding: 0 22px 22px;
+}
+
+.consultation-card-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+
+  padding: 24px;
+
+  background: #fdfafd;
+  border: 1px solid #f3eaf5;
+  border-radius: 11px;
+}
+
+/* =========================================
+   DETALLES DE CONSULTA
+========================================= */
+
+.consultation-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.consultation-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.consultation-detail-label svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.consultation-detail-label span {
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.consultation-detail-item p {
+  margin: 0;
+  padding-left: 26px;
+
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 1.7;
+
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   ESTADO VACÍO
+========================================= */
+
+.consultation-history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 230px;
+  padding: 35px 24px;
+
+  background: #fdfafd;
+  border: 1px dashed #e9d9ee;
+  border-radius: 14px;
+
+  text-align: center;
+}
+
+.consultation-history-empty > svg {
+  margin-bottom: 17px;
+  color: var(--color-primary);
+}
+
+.consultation-history-empty h4 {
+  margin: 0 0 10px;
+
+  color: var(--color-text);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.consultation-history-empty p {
+  max-width: 410px;
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 15px;
+  line-height: 1.75;
+}

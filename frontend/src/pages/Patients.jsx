@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePatients } from '../hooks/usePatients'
+
 import PatientStatusModal from '../components/patients/PatientStatusModal'
 import PatientFormModal from '../components/patients/PatientFormModal'
 import PatientsTable from '../components/patients/PatientsTable'
@@ -28,6 +29,8 @@ import '../styles/patients/patients-status-modal.css'
 
 const filters = ['Todos', 'Activos', 'Inactivos']
 
+const PATIENTS_PER_PAGE = 5
+
 const emptyForm = {
   name: '',
   birthDate: '',
@@ -41,15 +44,6 @@ const emptyForm = {
 // FUNCIONES AUXILIARES
 // ==========================================
 
-function getInitials(name) {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((word) => word.charAt(0).toUpperCase())
-    .join('')
-}
-
 function getToday() {
   const today = new Date()
 
@@ -60,6 +54,25 @@ function getToday() {
   return `${year}-${month}-${day}`
 }
 
+function getNewPatientsThisMonth(patients) {
+  const now = new Date()
+
+  return patients.filter((patient) => {
+    if (!patient.createdAt) return false
+
+    const createdAt = new Date(patient.createdAt)
+
+    if (Number.isNaN(createdAt.getTime())) {
+      return false
+    }
+
+    return (
+      createdAt.getFullYear() === now.getFullYear() &&
+      createdAt.getMonth() === now.getMonth()
+    )
+  }).length
+}
+
 // ==========================================
 // COMPONENTE PRINCIPAL
 // ==========================================
@@ -67,9 +80,9 @@ function getToday() {
 function Patients() {
   const navigate = useNavigate()
 
-  // ==========================================
-  // DATOS COMPARTIDOS
-  // ==========================================
+  // ========================================
+  // DATOS DE SUPABASE
+  // ========================================
 
   const {
     patients,
@@ -80,10 +93,9 @@ function Patients() {
     updatePatientStatus,
   } = usePatients()
 
-
-  // ==========================================
+  // ========================================
   // ESTADOS DE LA INTERFAZ
-  // ==========================================
+  // ========================================
 
   const [search, setSearch] = useState('')
   const [activeFilter, setActiveFilter] = useState('Todos')
@@ -93,86 +105,114 @@ function Patients() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingPatientId, setEditingPatientId] = useState(null)
 
-  // Modal de confirmación de estado
+  // Modal de activación y desactivación
   const [patientToToggle, setPatientToToggle] = useState(null)
 
   // Formulario
-  const [form, setForm] = useState(emptyForm)
+  const [form, setForm] = useState({ ...emptyForm })
   const [formError, setFormError] = useState('')
 
-  // Mensaje de éxito
+  // Mensaje de confirmación
   const [successMessage, setSuccessMessage] = useState('')
 
-  const patientsPerPage = 5
   const isEditing = editingPatientId !== null
 
-  // ==========================================
-  // FILTROS Y BÚSQUEDA
-  // ==========================================
+  // ========================================
+  // BÚSQUEDA Y FILTROS
+  // ========================================
 
   const filteredPatients = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase()
 
     return patients.filter((patient) => {
       const matchesSearch =
-        patient.name.toLowerCase().includes(normalizedSearch) ||
-        patient.email.toLowerCase().includes(normalizedSearch) ||
-        patient.phone.includes(normalizedSearch)
+        (patient.name || '')
+          .toLowerCase()
+          .includes(normalizedSearch) ||
+        (patient.email || '')
+          .toLowerCase()
+          .includes(normalizedSearch) ||
+        (patient.phone || '')
+          .includes(normalizedSearch)
 
       const matchesFilter =
         activeFilter === 'Todos' ||
-        (activeFilter === 'Activos' && patient.status === 'Activo') ||
-        (activeFilter === 'Inactivos' && patient.status === 'Inactivo')
+        (activeFilter === 'Activos' &&
+          patient.status === 'Activo') ||
+        (activeFilter === 'Inactivos' &&
+          patient.status === 'Inactivo')
 
       return matchesSearch && matchesFilter
     })
   }, [patients, search, activeFilter])
 
-  // ==========================================
+  // ========================================
   // PAGINACIÓN
-  // ==========================================
+  // ========================================
 
   const totalPages = Math.max(
     1,
-    Math.ceil(filteredPatients.length / patientsPerPage)
+    Math.ceil(filteredPatients.length / PATIENTS_PER_PAGE)
   )
 
-  const safeCurrentPage = Math.min(currentPage, totalPages)
+  const safeCurrentPage = Math.min(
+    currentPage,
+    totalPages
+  )
 
   const visiblePatients = filteredPatients.slice(
-    (safeCurrentPage - 1) * patientsPerPage,
-    safeCurrentPage * patientsPerPage
+    (safeCurrentPage - 1) * PATIENTS_PER_PAGE,
+    safeCurrentPage * PATIENTS_PER_PAGE
   )
 
-  // ==========================================
-  // ESTADÍSTICAS
-  // ==========================================
+  const firstVisiblePatient =
+    filteredPatients.length === 0
+      ? 0
+      : (safeCurrentPage - 1) * PATIENTS_PER_PAGE + 1
 
-  const activePatients = patients.filter(
-    (patient) => patient.status === 'Activo'
-  ).length
+  const lastVisiblePatient = Math.min(
+    safeCurrentPage * PATIENTS_PER_PAGE,
+    filteredPatients.length
+  )
+
+  // ========================================
+  // ESTADÍSTICAS REALES
+  // ========================================
+
+  const activePatients = useMemo(() => {
+    return patients.filter(
+      (patient) => patient.status === 'Activo'
+    ).length
+  }, [patients])
 
   const activePercentage = patients.length
-    ? Math.round((activePatients / patients.length) * 100)
+    ? Math.round(
+        (activePatients / patients.length) * 100
+      )
     : 0
 
-  // ==========================================
-  // EFECTOS DE LOS MODALES
-  // ==========================================
+  const newPatientsThisMonth = useMemo(() => {
+    return getNewPatientsThisMonth(patients)
+  }, [patients])
+
+  // ========================================
+  // CIERRE DE MODALES CON ESCAPE
+  // ========================================
 
   useEffect(() => {
     if (!modalOpen && !patientToToggle) return
 
     const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        if (patientToToggle) {
-          setPatientToToggle(null)
-        } else {
-          setModalOpen(false)
-          setEditingPatientId(null)
-          setFormError('')
-        }
+      if (event.key !== 'Escape') return
+
+      if (patientToToggle) {
+        setPatientToToggle(null)
+        return
       }
+
+      setModalOpen(false)
+      setEditingPatientId(null)
+      setFormError('')
     }
 
     document.addEventListener('keydown', handleEscape)
@@ -181,14 +221,18 @@ function Patients() {
     document.body.style.overflow = 'hidden'
 
     return () => {
-      document.removeEventListener('keydown', handleEscape)
+      document.removeEventListener(
+        'keydown',
+        handleEscape
+      )
+
       document.body.style.overflow = previousOverflow
     }
   }, [modalOpen, patientToToggle])
 
-  // ==========================================
-  // MENSAJE DE CONFIRMACIÓN
-  // ==========================================
+  // ========================================
+  // MENSAJES DE CONFIRMACIÓN
+  // ========================================
 
   useEffect(() => {
     if (!successMessage) return
@@ -200,9 +244,9 @@ function Patients() {
     return () => clearTimeout(timeout)
   }, [successMessage])
 
-  // ==========================================
+  // ========================================
   // BUSCADOR Y FILTROS
-  // ==========================================
+  // ========================================
 
   const handleSearch = (event) => {
     setSearch(event.target.value)
@@ -214,17 +258,17 @@ function Patients() {
     setCurrentPage(1)
   }
 
-  // ==========================================
-  // NAVEGACIÓN AL EXPEDIENTE
-  // ==========================================
+  // ========================================
+  // VER EXPEDIENTE
+  // ========================================
 
   const handleViewPatient = (patientId) => {
     navigate(`/dashboard/pacientes/${patientId}`)
   }
 
-  // ==========================================
-  // ACTIVAR / DESACTIVAR PACIENTE
-  // ==========================================
+  // ========================================
+  // ACTIVAR / DESACTIVAR
+  // ========================================
 
   const handleTogglePatientStatus = (patient) => {
     setPatientToToggle(patient)
@@ -234,26 +278,44 @@ function Patients() {
     setPatientToToggle(null)
   }
 
-  const confirmTogglePatientStatus = () => {
+  const confirmTogglePatientStatus = async () => {
     if (!patientToToggle) return
 
-    const isActive = patientToToggle.status === 'Activo'
-    const newStatus = isActive ? 'Inactivo' : 'Activo'
+    const patient = patientToToggle
+    const isActive = patient.status === 'Activo'
 
-    updatePatientStatus(patientToToggle.id, newStatus)
+    const newStatus = isActive
+      ? 'Inactivo'
+      : 'Activo'
 
-    setSuccessMessage(
-      `${patientToToggle.name} fue ${
-        isActive ? 'desactivado' : 'activado'
-      } correctamente.`
-    )
+    try {
+      await updatePatientStatus(
+        patient.id,
+        newStatus
+      )
 
-    closeStatusModal()
+      setSuccessMessage(
+        `${patient.name} fue ${
+          isActive ? 'desactivado' : 'activado'
+        } correctamente.`
+      )
+
+      closeStatusModal()
+    } catch (error) {
+      console.error(
+        'Error al actualizar el estado del paciente:',
+        error
+      )
+
+      setSuccessMessage(
+        'No se pudo actualizar el estado del paciente. Intenta nuevamente.'
+      )
+    }
   }
 
-  // ==========================================
-  // REGISTRAR PACIENTE
-  // ==========================================
+  // ========================================
+  // ABRIR MODAL DE REGISTRO
+  // ========================================
 
   const openCreateModal = () => {
     setEditingPatientId(null)
@@ -262,19 +324,19 @@ function Patients() {
     setModalOpen(true)
   }
 
-  // ==========================================
-  // EDITAR PACIENTE
-  // ==========================================
+  // ========================================
+  // ABRIR MODAL DE EDICIÓN
+  // ========================================
 
   const openEditModal = (patient) => {
     setEditingPatientId(patient.id)
 
     setForm({
-      name: patient.name,
+      name: patient.name || '',
       birthDate: patient.birthDate || '',
       sex: patient.sex || '',
-      phone: patient.phone,
-      email: patient.email,
+      phone: patient.phone || '',
+      email: patient.email || '',
       address: patient.address || '',
     })
 
@@ -282,11 +344,19 @@ function Patients() {
     setModalOpen(true)
   }
 
+  // ========================================
+  // CERRAR MODAL
+  // ========================================
+
   const closeModal = () => {
     setModalOpen(false)
     setEditingPatientId(null)
     setFormError('')
   }
+
+  // ========================================
+  // CAMBIOS EN EL FORMULARIO
+  // ========================================
 
   const handleFormChange = (event) => {
     const { name, value } = event.target
@@ -301,45 +371,73 @@ function Patients() {
     }
   }
 
-  // ==========================================
+  // ========================================
   // GUARDAR PACIENTE
-  // ==========================================
+  // ========================================
 
-    const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const name = form.name.trim()
     const phone = form.phone.trim()
     const email = form.email.trim().toLowerCase()
 
-    if (!name || !form.birthDate || !form.sex || !phone || !email) {
-      setFormError('Completa todos los campos obligatorios.')
+    // Validación de campos obligatorios
+
+    if (
+      !name ||
+      !form.birthDate ||
+      !form.sex ||
+      !phone ||
+      !email
+    ) {
+      setFormError(
+        'Completa todos los campos obligatorios.'
+      )
       return
     }
+
+    // Validación del nombre
 
     if (name.length < 3) {
-      setFormError('Ingresa un nombre completo válido.')
+      setFormError(
+        'Ingresa un nombre completo válido.'
+      )
       return
     }
+
+    // Validación de fecha de nacimiento
 
     if (form.birthDate > getToday()) {
-      setFormError('La fecha de nacimiento no puede ser futura.')
+      setFormError(
+        'La fecha de nacimiento no puede ser futura.'
+      )
       return
     }
+
+    // Validación del teléfono
 
     if (!/^[0-9+\s()-]{8,20}$/.test(phone)) {
-      setFormError('Ingresa un número de teléfono válido.')
+      setFormError(
+        'Ingresa un número de teléfono válido.'
+      )
       return
     }
 
+    // Validación del correo
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setFormError('Ingresa un correo electrónico válido.')
+      setFormError(
+        'Ingresa un correo electrónico válido.'
+      )
       return
     }
+
+    // Validación de correo duplicado
 
     const duplicateEmail = patients.some(
       (patient) =>
-        patient.email.toLowerCase() === email &&
+        (patient.email || '').toLowerCase() === email &&
         patient.id !== editingPatientId
     )
 
@@ -350,37 +448,31 @@ function Patients() {
       return
     }
 
-    // ==========================================
-    // ACTUALIZAR PACIENTE
-    // ==========================================
+    // ======================================
+    // CREAR O ACTUALIZAR EN SUPABASE
+    // ======================================
 
     try {
+      const patientData = {
+        name,
+        email,
+        phone,
+        birthDate: form.birthDate,
+        sex: form.sex,
+        address: form.address.trim(),
+      }
+
       if (isEditing) {
-        await updatePatient(editingPatientId, {
-          name,
-          email,
-          phone,
-          birthDate: form.birthDate,
-          sex: form.sex,
-          address: form.address.trim(),
-        })
+        await updatePatient(
+          editingPatientId,
+          patientData
+        )
 
         setSuccessMessage(
           `La información de ${name} fue actualizada correctamente.`
         )
       } else {
-        // ==========================================
-        // REGISTRAR PACIENTE
-        // ==========================================
-
-        await addPatient({
-          name,
-          email,
-          phone,
-          birthDate: form.birthDate,
-          sex: form.sex,
-          address: form.address.trim(),
-        })
+        await addPatient(patientData)
 
         setSearch('')
         setActiveFilter('Todos')
@@ -393,47 +485,69 @@ function Patients() {
 
       closeModal()
       setForm({ ...emptyForm })
-    } catch (err) {
-      setFormError('Error al guardar: ' + err.message)
+    } catch (error) {
+      setFormError(
+        `Error al guardar: ${error.message}`
+      )
     }
   }
 
+  // ========================================
+  // ESTADO DE CARGA
+  // ========================================
 
-  // ==========================================
-  // INTERFAZ
-  // ==========================================
-
-      if (loading) {
+  if (loading) {
     return (
       <div className="patients-page">
-        <div style={{ padding: '3rem', textAlign: 'center', color: '#666' }}>
-          <p>Cargando datos desde Supabase...</p>
+        <div
+          style={{
+            padding: '3rem',
+            textAlign: 'center',
+            color: 'var(--color-text-light)',
+          }}
+          role="status"
+        >
+          <p>Cargando pacientes desde Supabase...</p>
         </div>
       </div>
     )
   }
+
+  // ========================================
+  // ESTADO DE ERROR
+  // ========================================
 
   if (patientsError) {
     return (
       <div className="patients-page">
-        <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>
-          <p>Error al cargar pacientes: {patientsError}</p>
+        <div
+          style={{
+            padding: '3rem',
+            textAlign: 'center',
+            color: '#dc2626',
+          }}
+          role="alert"
+        >
+          <p>
+            Error al cargar pacientes: {patientsError}
+          </p>
         </div>
       </div>
     )
   }
 
-  return (
+  // ========================================
+  // INTERFAZ PRINCIPAL
+  // ========================================
 
+  return (
     <div className="patients-page">
 
-
-      {/* ==========================================
+      {/* ====================================
           ENCABEZADO
-      ========================================== */}
+      ==================================== */}
 
       <section className="patients-heading">
-
         <div>
           <span className="dashboard-section-eyebrow">
             GESTIÓN DE PACIENTES
@@ -442,8 +556,8 @@ function Patients() {
           <h2>Directorio de pacientes</h2>
 
           <p>
-            Consulta y administra la información de tus pacientes
-            desde un solo lugar.
+            Consulta y administra la información de tus
+            pacientes desde un solo lugar.
           </p>
         </div>
 
@@ -455,17 +569,21 @@ function Patients() {
           <Plus size={18} strokeWidth={1.8} />
           <span>Nuevo paciente</span>
         </button>
-
       </section>
 
-      {/* ==========================================
+      {/* ====================================
           MENSAJE DE CONFIRMACIÓN
-      ========================================== */}
+      ==================================== */}
 
       {successMessage && (
-        <div className="patients-success" role="status">
-
-          <UserRoundCheck size={18} strokeWidth={1.8} />
+        <div
+          className="patients-success"
+          role="status"
+        >
+          <UserRoundCheck
+            size={18}
+            strokeWidth={1.8}
+          />
 
           <span>{successMessage}</span>
 
@@ -476,80 +594,95 @@ function Patients() {
           >
             <X size={16} />
           </button>
-
         </div>
       )}
 
-      {/* ==========================================
-          ESTADÍSTICAS
-      ========================================== */}
+      {/* ====================================
+          ESTADÍSTICAS REALES
+      ==================================== */}
 
       <section className="patients-stats">
 
-        <article className="patients-stat-card">
+        {/* TOTAL DE PACIENTES */}
 
+        <article className="patients-stat-card">
           <div className="patients-stat-icon">
-            <UsersRound size={21} strokeWidth={1.8} />
+            <UsersRound
+              size={21}
+              strokeWidth={1.8}
+            />
           </div>
 
           <div className="patients-stat-info">
             <span>Total de pacientes</span>
+
             <strong>{patients.length}</strong>
-            <small>Pacientes de demostración</small>
+
+            <small>
+              Pacientes registrados en la clínica
+            </small>
           </div>
 
           <span className="patients-stat-decoration">
             <ArrowUpRight size={17} />
           </span>
-
         </article>
 
-        <article className="patients-stat-card">
+        {/* PACIENTES ACTIVOS */}
 
+        <article className="patients-stat-card">
           <div className="patients-stat-icon">
-            <UserRoundCheck size={21} strokeWidth={1.8} />
+            <UserRoundCheck
+              size={21}
+              strokeWidth={1.8}
+            />
           </div>
 
           <div className="patients-stat-info">
             <span>Pacientes activos</span>
+
             <strong>{activePatients}</strong>
+
             <small>Con estado activo</small>
           </div>
 
           <span className="patients-stat-tag">
             {activePercentage}%
           </span>
-
         </article>
 
-        <article className="patients-stat-card">
+        {/* NUEVOS ESTE MES */}
 
+        <article className="patients-stat-card">
           <div className="patients-stat-icon">
-            <CalendarDays size={21} strokeWidth={1.8} />
+            <CalendarDays
+              size={21}
+              strokeWidth={1.8}
+            />
           </div>
 
           <div className="patients-stat-info">
             <span>Nuevos este mes</span>
-            <strong>18</strong>
-            <small>Dato de demostración</small>
+
+            <strong>{newPatientsThisMonth}</strong>
+
+            <small>
+              Registrados durante el mes actual
+            </small>
           </div>
-
-          <span className="patients-stat-tag">
-            +8.2%
-          </span>
-
         </article>
 
       </section>
 
-      {/* ==========================================
+      {/* ====================================
           DIRECTORIO
-      ========================================== */}
+      ==================================== */}
 
       <section className="patients-directory">
 
-        <div className="patients-directory-header">
+        {/* ENCABEZADO DEL DIRECTORIO */}
 
+        <div className="patients-directory-header">
           <div>
             <span className="dashboard-panel-eyebrow">
               DIRECTORIO
@@ -558,25 +691,33 @@ function Patients() {
             <h3>Todos los pacientes</h3>
 
             <p>
-              Encuentra rápidamente un paciente y consulta su expediente.
+              Encuentra rápidamente un paciente y consulta
+              su expediente.
             </p>
           </div>
 
           <span className="patients-total-badge">
-            {filteredPatients.length} resultados
+            {filteredPatients.length}{' '}
+            {filteredPatients.length === 1
+              ? 'resultado'
+              : 'resultados'}
           </span>
-
         </div>
 
-        {/* BUSCADOR Y FILTROS */}
+        {/* ==================================
+            BUSCADOR Y FILTROS
+        ================================== */}
 
         <div className="patients-toolbar">
-
           <div className="patients-search">
-            <Search size={18} strokeWidth={1.8} />
+            <Search
+              size={18}
+              strokeWidth={1.8}
+            />
 
             <input
-              type="text"
+              type="search"
+              aria-label="Buscar pacientes"
               placeholder="Buscar por nombre, correo o teléfono..."
               value={search}
               onChange={handleSearch}
@@ -584,68 +725,73 @@ function Patients() {
           </div>
 
           <div className="patients-filter-label">
-            <SlidersHorizontal size={17} strokeWidth={1.8} />
+            <SlidersHorizontal
+              size={17}
+              strokeWidth={1.8}
+            />
+
             <span>Filtrar:</span>
           </div>
 
           <div className="patients-filters">
-
             {filters.map((filter) => (
               <button
                 key={filter}
                 type="button"
                 className={`patients-filter ${
-                  activeFilter === filter ? 'active' : ''
+                  activeFilter === filter
+                    ? 'active'
+                    : ''
                 }`}
+                aria-pressed={
+                  activeFilter === filter
+                }
                 onClick={() => handleFilter(filter)}
               >
                 {filter}
               </button>
             ))}
-
           </div>
-
         </div>
 
-        {/* ==========================================
-            TABLA
-        ========================================== */}
+        {/* ==================================
+            TABLA / TARJETAS RESPONSIVE
+        ================================== */}
 
         <PatientsTable
           patients={visiblePatients}
           onViewPatient={handleViewPatient}
           onEditPatient={openEditModal}
-          onTogglePatientStatus={handleTogglePatientStatus}
+          onTogglePatientStatus={
+            handleTogglePatientStatus
+          }
         />
 
-        {/* ==========================================
+        {/* ==================================
             PAGINACIÓN
-        ========================================== */}
+        ================================== */}
 
         <div className="patients-pagination">
-
           <p>
             Mostrando{' '}
             <strong>
-              {filteredPatients.length === 0
-                ? 0
-                : (safeCurrentPage - 1) * patientsPerPage + 1}
-              -
-              {Math.min(
-                safeCurrentPage * patientsPerPage,
-                filteredPatients.length
-              )}
+              {firstVisiblePatient}-{lastVisiblePatient}
             </strong>{' '}
-            de <strong>{filteredPatients.length}</strong> pacientes
+            de{' '}
+            <strong>
+              {filteredPatients.length}
+            </strong>{' '}
+            pacientes
           </p>
 
           <div className="patients-pagination-actions">
-
             <button
               type="button"
               aria-label="Página anterior"
               disabled={safeCurrentPage === 1}
-              onClick={() => setCurrentPage(safeCurrentPage - 1)}
+              onClick={() =>
+                setCurrentPage(safeCurrentPage - 1)
+              }
             >
               <ChevronLeft size={17} />
             </button>
@@ -657,21 +803,23 @@ function Patients() {
             <button
               type="button"
               aria-label="Página siguiente"
-              disabled={safeCurrentPage === totalPages}
-              onClick={() => setCurrentPage(safeCurrentPage + 1)}
+              disabled={
+                safeCurrentPage === totalPages
+              }
+              onClick={() =>
+                setCurrentPage(safeCurrentPage + 1)
+              }
             >
               <ChevronRight size={17} />
             </button>
-
           </div>
-
         </div>
 
       </section>
 
-      {/* ==========================================
+      {/* ====================================
           MODAL REGISTRAR / EDITAR
-      ========================================== */}
+      ==================================== */}
 
       <PatientFormModal
         isOpen={modalOpen}
@@ -683,9 +831,9 @@ function Patients() {
         onSubmit={handleSubmit}
       />
 
-      {/* ==========================================
-          MODAL ACTIVAR / DESACTIVAR PACIENTE
-      ========================================== */}
+      {/* ====================================
+          MODAL ACTIVAR / DESACTIVAR
+      ==================================== */}
 
       <PatientStatusModal
         patient={patientToToggle}

@@ -1,0 +1,58 @@
+/* =========================================
+   PATIENTS - HEADER
+========================================= */
+
+.patients-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 28px;
+}
+
+.patients-heading h2 {
+  margin-bottom: 7px;
+
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+
+  color: var(--color-text);
+}
+
+.patients-heading p {
+  font-size: 16px;
+  line-height: 1.65;
+
+  color: var(--color-text-light);
+}
+
+.patients-heading .dashboard-primary-button {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 760px) {
+  .patients-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .patients-heading h2 {
+    font-size: 26px;
+  }
+
+  .patients-heading p {
+    font-size: 15px;
+  }
+
+  .patients-heading .dashboard-primary-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

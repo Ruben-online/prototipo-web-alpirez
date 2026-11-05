@@ -12,7 +12,8 @@
 
   padding: 24px;
 
-  background: rgba(39, 35, 45, 0.48);
+  background: rgba(30, 24, 35, 0.55);
+  backdrop-filter: blur(4px);
 
   z-index: 1000;
 }
@@ -33,12 +34,12 @@
 
   overflow: hidden;
 
-  border: 1px solid #ece7ee;
-  border-radius: 20px;
+  border: 1px solid #eee7f0;
+  border-radius: 22px;
 
   background: var(--color-white);
 
-  box-shadow: 0 24px 70px rgba(39, 35, 45, 0.16);
+  box-shadow: 0 25px 80px rgba(24, 18, 30, 0.18);
 }
 
 /* ========================================
@@ -51,9 +52,9 @@
   justify-content: space-between;
   gap: 20px;
 
-  padding: 26px 28px;
+  padding: 25px 28px;
 
-  border-bottom: 1px solid #f1edf2;
+  border-bottom: 1px solid #f0ecf2;
 }
 
 .appointment-details-header-info {
@@ -65,8 +66,8 @@
 }
 
 .appointment-details-header-icon {
-  width: 45px;
-  height: 45px;
+  width: 46px;
+  height: 46px;
 
   display: flex;
   align-items: center;
@@ -74,7 +75,7 @@
 
   flex-shrink: 0;
 
-  border-radius: 13px;
+  border-radius: 14px;
 
   background: var(--color-primary-light);
   color: var(--color-primary);
@@ -82,33 +83,38 @@
 
 .appointment-details-eyebrow {
   display: block;
-
   margin-bottom: 6px;
 
   color: var(--color-primary);
 
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
 }
 
 .appointment-details-header h2 {
   margin: 0 0 5px;
 
-  font-size: 22px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+
   color: var(--color-text);
 }
 
 .appointment-details-header p {
   margin: 0;
 
-  font-size: 11px;
+  font-size: 15px;
+  line-height: 1.6;
+
   color: var(--color-text-light);
 }
 
 .appointment-details-close {
-  width: 35px;
-  height: 35px;
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
@@ -119,7 +125,7 @@
   border: none;
   border-radius: 10px;
 
-  background: #f8f7fa;
+  background: #f8f5f9;
   color: var(--color-text-light);
 
   cursor: pointer;
@@ -130,6 +136,11 @@
 .appointment-details-close:hover {
   background: var(--color-primary-light);
   color: var(--color-primary);
+}
+
+.appointment-details-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* ========================================
@@ -166,8 +177,10 @@
 }
 
 .appointment-details-status-label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
+
   color: var(--color-text);
 }
 
@@ -180,14 +193,17 @@
 
   border-radius: 20px;
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
+  line-height: 1.4;
   white-space: nowrap;
 }
 
 .appointment-details-status-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -196,22 +212,22 @@
 
 .appointment-details-status.confirmed {
   background: #eff9f3;
-  color: #4c9368;
+  color: #38764e;
 }
 
 .appointment-details-status.completed {
   background: #edf4ff;
-  color: #4278b8;
+  color: #32669e;
 }
 
 .appointment-details-status.cancelled {
   background: #fff1f1;
-  color: #b85a64;
+  color: #a94652;
 }
 
 .appointment-details-status.missed {
   background: #fff6e8;
-  color: #b47a28;
+  color: #96611c;
 }
 
 /* ========================================
@@ -236,13 +252,20 @@
   color: var(--color-primary);
 }
 
+.appointment-details-section-title svg {
+  flex-shrink: 0;
+}
+
 .appointment-details-section-title h3 {
   margin: 0;
 
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 /* ========================================
@@ -278,7 +301,7 @@
   background: var(--color-primary-light);
   color: var(--color-primary);
 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -291,12 +314,17 @@
 }
 
 .appointment-details-patient-info strong {
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+
   color: var(--color-text);
 }
 
 .appointment-details-patient-info span {
-  font-size: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+
   color: var(--color-text-light);
 }
 
@@ -329,17 +357,20 @@
   align-items: center;
   gap: 8px;
 
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+
   color: var(--color-text-light);
 }
 
 .appointment-details-info-item > span svg {
   flex-shrink: 0;
-  color: #b8a5bf;
+
+  color: var(--color-primary);
 }
 
 .appointment-details-info-item strong {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
 
@@ -401,12 +432,14 @@
 }
 
 .appointment-details-schedule-item span {
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+
   color: var(--color-text-light);
 }
 
 .appointment-details-schedule-item strong {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
   text-transform: capitalize;
@@ -430,7 +463,7 @@
 .appointment-details-notes p {
   margin: 0;
 
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
 
   color: var(--color-text);
@@ -452,9 +485,9 @@
   justify-content: flex-end;
   gap: 12px;
 
-  padding: 20px 28px;
+  padding: 19px 28px;
 
-  border-top: 1px solid #f1edf2;
+  border-top: 1px solid #f0ecf2;
 
   background: var(--color-white);
 }
@@ -464,22 +497,22 @@
 ======================================== */
 
 .appointment-details-close-button {
-  min-height: 43px;
+  min-height: 45px;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  padding: 0 20px;
+  padding: 0 19px;
 
-  border: 1px solid #eae5ec;
-  border-radius: 11px;
+  border: 1px solid #e8e2eb;
+  border-radius: 12px;
 
   background: var(--color-white);
   color: var(--color-text-light);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
@@ -488,7 +521,8 @@
 }
 
 .appointment-details-close-button:hover {
-  background: #f8f7fa;
+  background: #f8f5f9;
+  color: var(--color-text);
 }
 
 /* ========================================
@@ -496,7 +530,7 @@
 ======================================== */
 
 .appointment-details-edit-button {
-  min-height: 43px;
+  min-height: 45px;
 
   display: inline-flex;
   align-items: center;
@@ -506,13 +540,13 @@
   padding: 0 19px;
 
   border: 1px solid var(--color-primary);
-  border-radius: 11px;
+  border-radius: 12px;
 
   background: var(--color-primary);
   color: var(--color-white);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
@@ -524,7 +558,8 @@
   background: var(--color-primary-dark);
 }
 
-.appointment-details-edit-button:focus-visible {
+.appointment-details-edit-button:focus-visible,
+.appointment-details-close-button:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
@@ -534,7 +569,6 @@
 ======================================== */
 
 @media (max-width: 760px) {
-
   .appointment-details-overlay {
     align-items: stretch;
     padding: 0;
@@ -542,6 +576,7 @@
 
   .appointment-details-modal {
     max-width: none;
+
     max-height: 100vh;
     max-height: 100dvh;
 
@@ -554,7 +589,7 @@
   }
 
   .appointment-details-header h2 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .appointment-details-body {
@@ -571,21 +606,20 @@
     gap: 10px;
 
     padding: 17px 20px;
-    padding-bottom: max(
-      17px,
-      env(safe-area-inset-bottom)
-    );
+    padding-bottom: max(17px, env(safe-area-inset-bottom));
   }
 
   .appointment-details-close-button,
   .appointment-details-edit-button {
     width: 100%;
   }
-
 }
 
-@media (max-width: 520px) {
+/* ========================================
+   MOBILE PEQUEÑO
+======================================== */
 
+@media (max-width: 520px) {
   .appointment-details-header {
     padding: 19px 16px;
   }
@@ -596,7 +630,11 @@
   }
 
   .appointment-details-header h2 {
-    font-size: 19px;
+    font-size: 20px;
+  }
+
+  .appointment-details-header p {
+    font-size: 14px;
   }
 
   .appointment-details-body {
@@ -615,10 +653,6 @@
 
   .appointment-details-footer {
     padding: 15px 16px;
-    padding-bottom: max(
-      15px,
-      env(safe-area-inset-bottom)
-    );
+    padding-bottom: max(15px, env(safe-area-inset-bottom));
   }
-
 }

@@ -1,17 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 import {
-  Bell,
   Boxes,
   CalendarDays,
-  ChevronDown,
   ClipboardList,
   LayoutDashboard,
   LogOut,
   Menu,
   Search,
-  Settings,
   UserCog,
   UsersRound,
   X,
@@ -59,39 +56,88 @@ const navigation = [
   },
 ]
 
-// Saca las iniciales del nombre, por ejemplo "Marcela Alpírez" queda "MA"
-function getInitials(name) {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((word) => word.charAt(0).toUpperCase())
-    .join('')
-}
-
 function DashboardLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false)
+  const [logoutError, setLogoutError] = useState('')
+
   const location = useLocation()
-  const { logout, profile, user, hasModule } = useAuth()
+  const { logout, hasModule } = useAuth()
 
-  // Cada usuario solo ve en el menú los módulos que tiene permitidos
-  const visibleNavigation = navigation.filter((item) => hasModule(item.module))
-
-  const displayName = profile?.fullName || user?.email || ''
-  const displayRole = profile?.role || 'Sin rol asignado'
+  // Cada usuario solo ve los módulos que tiene permitidos.
+  const visibleNavigation = navigation.filter((item) =>
+    hasModule(item.module)
+  )
 
   const currentSection =
-    [...navigation, {
-      label: 'Configuración',
-      path: '/dashboard/configuracion',
-    }]
-      .find((item) =>
-        item.end
-          ? location.pathname === item.path
-          : location.pathname.startsWith(item.path)
-      )?.label || 'Resumen'
+    navigation.find((item) =>
+      item.end
+        ? location.pathname === item.path
+        : location.pathname.startsWith(item.path)
+    )?.label || 'Resumen'
 
   const closeMenu = () => setMenuOpen(false)
+
+  const openLogoutModal = () => {
+    setMenuOpen(false)
+    setLogoutError('')
+    setLogoutModalOpen(true)
+  }
+
+  const closeLogoutModal = () => {
+    if (loggingOut) return
+
+    setLogoutModalOpen(false)
+    setLogoutError('')
+  }
+
+  const confirmLogout = async () => {
+    if (loggingOut) return
+
+    setLoggingOut(true)
+    setLogoutError('')
+
+    try {
+      await logout()
+      setLogoutModalOpen(false)
+    } catch {
+      setLogoutError(
+        'No fue posible cerrar la sesión. Inténtalo nuevamente.'
+      )
+    } finally {
+      setLoggingOut(false)
+    }
+  }
+
+  // Permite cerrar la confirmación con Escape.
+  useEffect(() => {
+    if (!logoutModalOpen) return
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && !loggingOut) {
+        closeLogoutModal()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [logoutModalOpen, loggingOut])
+
+  // Evita el desplazamiento de la página mientras el modal está abierto.
+  useEffect(() => {
+    if (!logoutModalOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [logoutModalOpen])
 
   return (
     <div className="dashboard-page">
@@ -167,23 +213,10 @@ function DashboardLayout() {
 
         <div className="dashboard-sidebar-bottom">
 
-          <NavLink
-            to="/dashboard/configuracion"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              `dashboard-nav-item ${
-                isActive ? 'active' : ''
-              }`
-            }
-          >
-            <Settings size={19} strokeWidth={1.8} />
-            <span>Configuración</span>
-          </NavLink>
-
           <button
             type="button"
             className="dashboard-logout"
-            onClick={logout}
+            onClick={openLogoutModal}
           >
             <LogOut size={18} strokeWidth={1.8} />
             <span>Cerrar sesión</span>
@@ -229,31 +262,6 @@ function DashboardLayout() {
               />
             </div>
 
-            <button
-              type="button"
-              className="dashboard-notification"
-              aria-label="Notificaciones"
-            >
-              <Bell size={20} strokeWidth={1.8} />
-              <span className="dashboard-notification-dot" />
-            </button>
-
-            <button
-              type="button"
-              className="dashboard-profile"
-            >
-              <div className="dashboard-avatar">
-                {getInitials(displayName)}
-              </div>
-
-              <div className="dashboard-profile-info">
-                <strong>{displayName}</strong>
-                <span>{displayRole}</span>
-              </div>
-
-              <ChevronDown size={16} strokeWidth={1.8} />
-            </button>
-
           </div>
 
         </header>
@@ -263,6 +271,76 @@ function DashboardLayout() {
         </div>
 
       </main>
+
+      {/* Modal de confirmación de cierre de sesión */}
+      {logoutModalOpen && (
+        <div
+          className="dashboard-logout-modal-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              closeLogoutModal()
+            }
+          }}
+        >
+          <div
+            className="dashboard-logout-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dashboard-logout-modal-title"
+            aria-describedby="dashboard-logout-modal-description"
+          >
+            <div className="dashboard-logout-modal-icon">
+              <LogOut size={26} strokeWidth={1.8} />
+            </div>
+
+            <h2 id="dashboard-logout-modal-title">
+              ¿Cerrar sesión?
+            </h2>
+
+            <p id="dashboard-logout-modal-description">
+              Estás a punto de cerrar tu sesión.
+              ¿Estás seguro de que deseas continuar?
+            </p>
+
+            {logoutError && (
+              <div
+                className="dashboard-logout-modal-error"
+                role="alert"
+              >
+                {logoutError}
+              </div>
+            )}
+
+            <div className="dashboard-logout-modal-actions">
+
+              <button
+                type="button"
+                className="dashboard-logout-modal-cancel"
+                onClick={closeLogoutModal}
+                disabled={loggingOut}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                className="dashboard-logout-modal-confirm"
+                onClick={confirmLogout}
+                disabled={loggingOut}
+              >
+                <LogOut size={17} strokeWidth={1.8} />
+
+                <span>
+                  {loggingOut
+                    ? 'Cerrando sesión...'
+                    : 'Sí, cerrar sesión'}
+                </span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   )

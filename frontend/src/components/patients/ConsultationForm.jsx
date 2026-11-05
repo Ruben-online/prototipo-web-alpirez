@@ -1,21 +1,22 @@
 import { useState } from 'react'
-import { Save, X } from 'lucide-react'
+import { LoaderCircle, Save, X } from 'lucide-react'
 import { usePatients } from '../../hooks/usePatients'
 
-const initialForm = {
+const createInitialForm = () => ({
   date: new Date().toLocaleDateString('en-CA'),
   reason: '',
   diagnosis: '',
   treatment: '',
   observations: '',
   followUpDate: '',
-}
+})
 
 function ConsultationForm({ patientId, onClose, onSuccess }) {
   const { addConsultation } = usePatients()
 
-  const [form, setForm] = useState(initialForm)
+  const [form, setForm] = useState(createInitialForm)
   const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -28,8 +29,10 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
     if (error) setError('')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    if (saving) return
 
     if (
       !form.date ||
@@ -49,23 +52,31 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
       return
     }
 
-    const newConsultation = addConsultation({
-      patientId: Number(patientId),
-      date: form.date,
-      reason: form.reason.trim(),
-      diagnosis: form.diagnosis.trim(),
-      treatment: form.treatment.trim(),
-      observations: form.observations.trim(),
-      followUpDate: form.followUpDate,
-    })
+    setSaving(true)
+    setError('')
 
-    if (!newConsultation) {
-      setError('No fue posible registrar la consulta.')
-      return
+    try {
+      await addConsultation({
+        patientId: Number(patientId),
+        date: form.date,
+        reason: form.reason.trim(),
+        diagnosis: form.diagnosis.trim(),
+        treatment: form.treatment.trim(),
+        observations: form.observations.trim(),
+        followUpDate: form.followUpDate,
+      })
+
+      onSuccess?.()
+      onClose?.()
+    } catch (err) {
+      console.error('Error al guardar consulta:', err)
+
+      setError(
+        'No fue posible registrar la consulta. Inténtalo nuevamente.'
+      )
+    } finally {
+      setSaving(false)
     }
-
-    onSuccess?.()
-    onClose?.()
   }
 
   return (
@@ -96,6 +107,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
             className="consultation-form-close"
             onClick={onClose}
             aria-label="Cerrar formulario"
+            disabled={saving}
           >
             <X size={20} />
           </button>
@@ -121,6 +133,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   name="date"
                   value={form.date}
                   onChange={handleChange}
+                  disabled={saving}
                   required
                 />
               </div>
@@ -137,6 +150,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   min={form.date}
                   value={form.followUpDate}
                   onChange={handleChange}
+                  disabled={saving}
                 />
               </div>
 
@@ -153,6 +167,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   placeholder="Ej. Seguimiento por acné facial"
                   value={form.reason}
                   onChange={handleChange}
+                  disabled={saving}
                   required
                 />
               </div>
@@ -170,6 +185,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   placeholder="Describe el diagnóstico"
                   value={form.diagnosis}
                   onChange={handleChange}
+                  disabled={saving}
                   required
                 />
               </div>
@@ -187,6 +203,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   placeholder="Describe el tratamiento recomendado"
                   value={form.treatment}
                   onChange={handleChange}
+                  disabled={saving}
                 />
               </div>
 
@@ -203,6 +220,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
                   placeholder="Agrega observaciones sobre la evolución"
                   value={form.observations}
                   onChange={handleChange}
+                  disabled={saving}
                 />
               </div>
             </div>
@@ -213,6 +231,7 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
               type="button"
               className="consultation-form-cancel"
               onClick={onClose}
+              disabled={saving}
             >
               Cancelar
             </button>
@@ -220,9 +239,22 @@ function ConsultationForm({ patientId, onClose, onSuccess }) {
             <button
               type="submit"
               className="consultation-form-submit"
+              disabled={saving}
             >
-              <Save size={17} />
-              Guardar consulta
+              {saving ? (
+                <>
+                  <LoaderCircle
+                    size={17}
+                    className="consultation-form-spinner"
+                  />
+                  Guardando...
+                </>
+              ) : (
+                <>
+                  <Save size={17} />
+                  Guardar consulta
+                </>
+              )}
             </button>
           </div>
         </form>

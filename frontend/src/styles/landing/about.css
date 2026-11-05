@@ -147,9 +147,9 @@
   display: flex;
   align-items: center;
 
-  gap: 11px;
+  gap: 12px;
 
-  padding: 12px 15px;
+  padding: 14px 17px;
 
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 15px;
@@ -162,8 +162,8 @@
 }
 
 .about-image-label > span {
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
 
   display: flex;
   align-items: center;
@@ -180,18 +180,22 @@
 .about-image-label div {
   display: flex;
   flex-direction: column;
+
+  gap: 3px;
 }
 
 .about-image-label strong {
   color: var(--color-text);
 
-  font-size: 0.76rem;
+  font-size: 0.9375rem;
+  line-height: 1.3;
 }
 
 .about-image-label small {
   color: var(--color-text-light);
 
-  font-size: 0.64rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
 
 
@@ -211,7 +215,7 @@
 
   gap: 12px;
 
-  padding: 15px 19px;
+  padding: 16px 20px;
 
   border: 1px solid rgba(171, 73, 204, 0.1);
   border-radius: 16px;
@@ -226,15 +230,15 @@
 .about-experience strong {
   color: var(--color-primary);
 
-  font-size: 1.55rem;
+  font-size: 1.75rem;
   line-height: 1;
 }
 
 .about-experience span {
   color: var(--color-text-light);
 
-  font-size: 0.68rem;
-  line-height: 1.35;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 
@@ -266,11 +270,11 @@
 }
 
 .about-content > p {
-  margin-bottom: 15px;
+  margin-bottom: 17px;
 
   color: var(--color-text-light);
 
-  font-size: 0.94rem;
+  font-size: 1.125rem;
   line-height: 1.8;
 }
 
@@ -290,7 +294,7 @@
 }
 
 .about-highlight {
-  min-height: 125px;
+  min-height: 145px;
 
   padding: 18px;
 
@@ -318,8 +322,8 @@
 }
 
 .about-highlight-icon {
-  width: 31px;
-  height: 31px;
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
@@ -332,25 +336,25 @@
   background-color: var(--color-primary-light);
   color: var(--color-primary);
 
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 
 .about-highlight strong {
   display: block;
 
-  margin: 2px 0 5px;
+  margin: 2px 0 7px;
 
   color: var(--color-text);
 
-  font-size: 0.8rem;
-  line-height: 1.35;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .about-highlight p {
   color: var(--color-text-light);
 
-  font-size: 0.72rem;
-  line-height: 1.55;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 
@@ -366,24 +370,28 @@
 
   color: var(--color-primary-dark);
 
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 600;
 
   transition: var(--transition-fast);
 }
 
 .about-button-arrow {
-  width: 37px;
-  height: 37px;
+  width: 40px;
+  height: 40px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
   border-radius: 50%;
 
   background-color: var(--color-primary-light);
   color: var(--color-primary);
+
+  font-size: 1.125rem;
 
   transition: var(--transition-normal);
 }
@@ -448,27 +456,35 @@
     left: 13px;
     bottom: 13px;
 
-    padding: 10px 12px;
+    padding: 11px 13px;
   }
 
   .about-image-label > span {
-    width: 31px;
-    height: 31px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .about-image-label strong {
+    font-size: 0.875rem;
+  }
+
+  .about-image-label small {
+    font-size: 0.75rem;
   }
 
   .about-experience {
     top: 20px;
     right: -5px;
 
-    padding: 11px 14px;
+    padding: 12px 15px;
   }
 
   .about-experience strong {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .about-experience span {
-    font-size: 0.62rem;
+    font-size: 0.75rem;
   }
 
 
@@ -486,7 +502,7 @@
   }
 
   .about-content > p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.7;
   }
 
@@ -504,14 +520,14 @@
   .about-highlight {
     min-height: 0;
 
-    padding: 16px;
+    padding: 17px;
   }
 
   .about-highlight strong {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .about-highlight p {
-    font-size: 0.73rem;
+    font-size: 0.875rem;
   }
 }

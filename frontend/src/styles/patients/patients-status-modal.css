@@ -1,34 +1,36 @@
 /* ==========================================================
-   MODAL DE CONFIRMACIÓN - ACTIVAR / DESACTIVAR PACIENTES
-   ========================================================== */
+   PATIENTS - STATUS CONFIRMATION MODAL
+   Activar / desactivar pacientes
+========================================================== */
 
-/* ----------------------------------------------------------
-   TARJETA PRINCIPAL
-   ---------------------------------------------------------- */
+/* =========================
+   MODAL CONTAINER
+========================= */
 
 .patients-status-modal {
   position: relative;
 
   width: calc(100% - 32px);
   max-width: 480px;
+  max-height: 92vh;
 
-  background: #ffffff;
+  overflow-y: auto;
 
   border: 1px solid #f0e8f2;
   border-radius: 22px;
+
+  background: #ffffff;
 
   box-shadow:
     0 24px 70px rgba(35, 20, 43, 0.18),
     0 8px 24px rgba(35, 20, 43, 0.08);
 
-  overflow: hidden;
-
   animation: patientsStatusModalEnter 0.25s ease-out;
 }
 
-/* ----------------------------------------------------------
-   ENCABEZADO
-   ---------------------------------------------------------- */
+/* =========================
+   MODAL HEADER
+========================= */
 
 .patients-status-modal-header {
   display: flex;
@@ -38,22 +40,18 @@
   padding: 28px 28px 0;
 }
 
-/* Ícono principal */
-
 .patients-status-modal-icon {
-  width: 56px;
-  height: 56px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 16px;
+  width: 56px;
+  height: 56px;
 
   flex-shrink: 0;
-}
 
-/* Desactivar: tono cálido de advertencia */
+  border-radius: 16px;
+}
 
 .patients-status-modal-icon.deactivate {
   color: #b45309;
@@ -61,15 +59,15 @@
   border: 1px solid #fde5bd;
 }
 
-/* Activar: morado corporativo */
-
 .patients-status-modal-icon.activate {
   color: var(--color-primary, #ab49cc);
   background: #f7ebfb;
   border: 1px solid #ecd3f4;
 }
 
-/* Botón de cerrar */
+/* =========================
+   CLOSE BUTTON
+========================= */
 
 .patients-status-modal-header .patients-modal-close {
   display: flex;
@@ -101,9 +99,9 @@
   border-color: #e8d3ef;
 }
 
-/* ----------------------------------------------------------
-   CONTENIDO PRINCIPAL
-   ---------------------------------------------------------- */
+/* =========================
+   MODAL CONTENT
+========================= */
 
 .patients-status-modal-content {
   padding: 20px 28px 28px;
@@ -116,43 +114,43 @@
 
   color: var(--color-primary, #ab49cc);
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
 
-  letter-spacing: 1.4px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
 }
 
-/* Título */
+/* =========================
+   TITLE AND DESCRIPTION
+========================= */
 
 .patients-status-modal-content h3 {
   margin: 0 0 12px;
 
   color: #29232e;
 
-  font-size: 23px;
+  font-size: 26px;
   font-weight: 750;
 
   line-height: 1.3;
   letter-spacing: -0.5px;
 }
 
-/* Descripción */
-
 .patients-status-modal-content > p {
   margin: 0;
 
   color: #77717d;
 
-  font-size: 13.5px;
+  font-size: 16px;
   font-weight: 400;
 
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
-/* ----------------------------------------------------------
-   TARJETA CON INFORMACIÓN DEL PACIENTE
-   ---------------------------------------------------------- */
+/* =========================
+   PATIENT INFORMATION
+========================= */
 
 .patients-status-modal-patient {
   display: flex;
@@ -162,21 +160,19 @@
   margin-top: 24px;
   padding: 15px;
 
-  background: #fcf9fd;
-
   border: 1px solid #f0e7f3;
   border-radius: 14px;
+
+  background: #fcf9fd;
 }
 
-/* Avatar */
-
 .patients-status-modal-avatar {
-  width: 44px;
-  height: 44px;
-
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 44px;
+  height: 44px;
 
   flex-shrink: 0;
 
@@ -185,13 +181,11 @@
   background: #f0ddf6;
   color: var(--color-primary-dark, #8d36aa);
 
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 800;
 
   letter-spacing: 0.5px;
 }
-
-/* Nombre e ID */
 
 .patients-status-modal-patient-info {
   display: flex;
@@ -205,20 +199,24 @@
 .patients-status-modal-patient-info strong {
   color: #302a34;
 
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 700;
+
+  line-height: 1.45;
 
   overflow-wrap: anywhere;
 }
 
 .patients-status-modal-patient-info > span {
-  color: #9a929e;
+  color: #857b8a;
 
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
 }
 
-/* Estado del paciente */
+/* =========================
+   PATIENT STATUS BADGE
+========================= */
 
 .patients-status-modal-patient .patients-status {
   display: inline-flex;
@@ -228,12 +226,12 @@
 
   flex-shrink: 0;
 
-  font-size: 11px;
+  font-size: 13px;
 }
 
-/* ----------------------------------------------------------
-   NOTA INFORMATIVA
-   ---------------------------------------------------------- */
+/* =========================
+   INFORMATION NOTE
+========================= */
 
 .patients-status-modal-note {
   display: flex;
@@ -243,10 +241,10 @@
   margin-top: 16px;
   padding: 14px;
 
-  background: #f8f5fa;
-
   border: 1px solid #f0e9f2;
   border-radius: 12px;
+
+  background: #f8f5fa;
 }
 
 .patients-status-modal-note > svg {
@@ -262,15 +260,15 @@
 
   color: #746b79;
 
-  font-size: 11.5px;
+  font-size: 14px;
   font-weight: 400;
 
   line-height: 1.7;
 }
 
-/* ----------------------------------------------------------
-   PIE DEL MODAL
-   ---------------------------------------------------------- */
+/* =========================
+   MODAL FOOTER
+========================= */
 
 .patients-status-modal-footer {
   display: flex;
@@ -280,19 +278,21 @@
 
   padding: 20px 28px;
 
-  background: #ffffff;
-
   border-top: 1px solid #f0ebf2;
+
+  background: #ffffff;
 }
 
-/* Botón cancelar */
+/* =========================
+   CANCEL BUTTON
+========================= */
 
 .patients-status-modal-footer .patients-cancel-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 20px;
 
   border: 1px solid #e9e1ec;
@@ -302,7 +302,7 @@
   color: #68616e;
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
@@ -316,9 +316,9 @@
   color: #4f3e56;
 }
 
-/* ----------------------------------------------------------
-   BOTÓN DE CONFIRMACIÓN
-   ---------------------------------------------------------- */
+/* =========================
+   CONFIRM BUTTON
+========================= */
 
 .patients-status-confirm-button {
   display: inline-flex;
@@ -326,14 +326,14 @@
   justify-content: center;
   gap: 9px;
 
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 20px;
 
   border: 1px solid transparent;
   border-radius: 10px;
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
@@ -352,7 +352,7 @@
   transform: translateY(0);
 }
 
-/* Confirmar desactivación */
+/* Deactivate */
 
 .patients-status-confirm-button.deactivate {
   background: #b45309;
@@ -365,7 +365,7 @@
   box-shadow: 0 5px 14px rgba(180, 83, 9, 0.18);
 }
 
-/* Confirmar activación */
+/* Activate */
 
 .patients-status-confirm-button.activate {
   background: var(--color-primary, #ab49cc);
@@ -378,9 +378,9 @@
   box-shadow: 0 5px 14px rgba(171, 73, 204, 0.2);
 }
 
-/* ----------------------------------------------------------
-   BOTONES DE ACTIVAR / DESACTIVAR EN LA TABLA
-   ---------------------------------------------------------- */
+/* =========================
+   TABLE TOGGLE BUTTONS
+========================= */
 
 .patients-toggle-button {
   display: inline-flex;
@@ -406,8 +406,6 @@
     transform 0.2s ease;
 }
 
-/* Desactivar paciente */
-
 .patients-toggle-button.deactivate {
   background: #fff7ed;
   border-color: #ffedd5;
@@ -421,8 +419,6 @@
 
   transform: translateY(-1px);
 }
-
-/* Activar paciente */
 
 .patients-toggle-button.activate {
   background: #f6eafa;
@@ -438,7 +434,9 @@
   transform: translateY(-1px);
 }
 
-/* Accesibilidad: navegación por teclado */
+/* =========================
+   KEYBOARD ACCESSIBILITY
+========================= */
 
 .patients-toggle-button:focus-visible,
 .patients-status-confirm-button:focus-visible,
@@ -448,9 +446,9 @@
   outline-offset: 3px;
 }
 
-/* ----------------------------------------------------------
-   ANIMACIÓN DE ENTRADA
-   ---------------------------------------------------------- */
+/* =========================
+   ENTER ANIMATION
+========================= */
 
 @keyframes patientsStatusModalEnter {
   from {
@@ -464,14 +462,15 @@
   }
 }
 
-/* ----------------------------------------------------------
-   DISEÑO RESPONSIVE
-   ---------------------------------------------------------- */
+/* =========================
+   RESPONSIVE - MOBILE
+========================= */
 
 @media (max-width: 520px) {
   .patients-status-modal {
     width: calc(100% - 28px);
     max-width: 100%;
+    max-height: 92vh;
 
     border-radius: 18px;
   }
@@ -485,7 +484,11 @@
   }
 
   .patients-status-modal-content h3 {
-    font-size: 21px;
+    font-size: 23px;
+  }
+
+  .patients-status-modal-content > p {
+    font-size: 15px;
   }
 
   .patients-status-modal-patient {
@@ -493,9 +496,16 @@
     gap: 10px;
   }
 
+  .patients-status-modal-patient-info strong {
+    font-size: 14px;
+  }
+
+  .patients-status-modal-note p {
+    font-size: 14px;
+  }
+
   .patients-status-modal-footer {
     padding: 16px 20px;
-
     gap: 10px;
   }
 
@@ -505,9 +515,13 @@
 
     padding: 0 12px;
 
-    font-size: 11.5px;
+    font-size: 14px;
   }
 }
+
+/* =========================
+   REDUCED MOTION
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
   .patients-status-modal {

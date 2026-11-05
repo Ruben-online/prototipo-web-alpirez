@@ -1,0 +1,268 @@
+/* =========================================
+   PATIENTS - MOBILE TABLE
+========================================= */
+
+@media (max-width: 760px) {
+  /* -----------------------------------------
+     REMOVE HORIZONTAL SCROLL
+  ----------------------------------------- */
+
+  .patients-table-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .patients-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+
+    border-collapse: separate;
+  }
+
+  .patients-table thead {
+    display: none;
+  }
+
+  /* -----------------------------------------
+     CARD CONTAINER
+  ----------------------------------------- */
+
+  .patients-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 16px;
+  }
+
+  /* -----------------------------------------
+     EACH ROW BECOMES A CARD
+  ----------------------------------------- */
+
+  .patients-table tbody tr {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 18px;
+
+    border: 1px solid #ece7ee;
+    border-radius: 16px;
+
+    background: var(--color-white);
+
+    box-shadow: 0 4px 16px rgba(39, 35, 45, 0.035);
+  }
+
+  .patients-table tbody tr:hover {
+    background: var(--color-white);
+  }
+
+  .patients-table tbody td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #f1edf2;
+  }
+
+  .patients-table tbody td:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* -----------------------------------------
+     FIELD LABELS
+  ----------------------------------------- */
+
+  .patients-table tbody td::before {
+    content: attr(data-label);
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--color-text-light);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* -----------------------------------------
+     PATIENT NAME
+  ----------------------------------------- */
+
+  .patients-table tbody td:first-child {
+    padding-top: 0;
+  }
+
+  .patients-table tbody td:first-child::before {
+    display: none;
+  }
+
+  .patients-person {
+    width: 100%;
+    gap: 13px;
+  }
+
+  .patients-avatar {
+    width: 48px;
+    height: 48px;
+
+    font-size: 15px;
+  }
+
+  .patients-person-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .patients-person-info strong {
+    font-size: 17px;
+    line-height: 1.45;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .patients-person-info span {
+    font-size: 13px;
+  }
+
+  /* -----------------------------------------
+     CONTACT INFORMATION
+  ----------------------------------------- */
+
+  .patients-contact {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+  }
+
+  .patients-contact span,
+  .patients-contact small {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  /* -----------------------------------------
+     LAST CONSULTATION
+  ----------------------------------------- */
+
+  .patients-date {
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  /* -----------------------------------------
+     CONSULTATIONS
+  ----------------------------------------- */
+
+  .patients-consultations {
+    min-width: 38px;
+    height: 35px;
+
+    font-size: 14px;
+  }
+
+  /* -----------------------------------------
+     PATIENT STATUS
+  ----------------------------------------- */
+
+  .patients-status {
+    font-size: 13px;
+  }
+
+  /* -----------------------------------------
+     ACTION BUTTONS
+  ----------------------------------------- */
+
+  .patients-row-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+
+    width: 100%;
+  }
+
+  .patients-row-actions .patients-view-button {
+    grid-column: 1 / -1;
+  }
+
+  .patients-row-actions .patients-view-button,
+  .patients-row-actions .patients-edit-button,
+  .patients-row-actions .patients-toggle-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    height: auto;
+
+    padding: 10px 8px;
+
+    font-size: 13px;
+    line-height: 1.3;
+
+    white-space: normal;
+  }
+
+  .patients-row-actions button svg {
+    flex-shrink: 0;
+  }
+
+  /* -----------------------------------------
+     EMPTY STATE
+  ----------------------------------------- */
+
+  .patients-table tbody tr.patients-empty-row {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .patients-empty-row td {
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
+
+  .patients-empty-row td::before {
+    display: none !important;
+  }
+
+  .patients-empty {
+    width: 100%;
+    padding: 42px 15px;
+  }
+}
+
+/* =========================================
+   PATIENTS - SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .patients-table tbody {
+    padding: 12px;
+  }
+
+  .patients-table tbody tr {
+    padding: 14px;
+  }
+
+  .patients-row-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .patients-row-actions .patients-view-button {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,369 @@
+/* =========================================
+   PATIENTS - TABLE
+========================================= */
+
+.patients-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.patients-table {
+  width: 100%;
+  min-width: 1100px;
+
+  border-collapse: collapse;
+
+  text-align: left;
+}
+
+.patients-table thead {
+  background: #faf9fc;
+}
+
+.patients-table th {
+  padding: 17px 15px;
+
+  border-bottom: 1px solid #f0ecf2;
+
+  color: #aaa3ad;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+
+  white-space: nowrap;
+}
+
+.patients-table td {
+  padding: 19px 15px;
+
+  border-bottom: 1px solid #f3eff4;
+
+  vertical-align: middle;
+}
+
+.patients-table tbody tr {
+  transition: var(--transition-fast);
+}
+
+.patients-table tbody tr:hover {
+  background: #fcf9fd;
+}
+
+.patients-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================
+   PATIENT INFORMATION
+========================================= */
+
+.patients-person {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.patients-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.patients-person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.patients-person-info strong {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+
+  color: var(--color-text);
+
+  white-space: nowrap;
+}
+
+.patients-person-info span {
+  font-size: 12px;
+  color: #aaa3ad;
+}
+
+/* =========================================
+   CONTACT INFORMATION
+========================================= */
+
+.patients-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.patients-contact span,
+.patients-contact small {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.patients-contact span {
+  color: var(--color-text);
+}
+
+.patients-contact small {
+  color: var(--color-text-light);
+}
+
+/* =========================================
+   LAST CONSULTATION
+========================================= */
+
+.patients-date {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--color-text-light);
+
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.patients-date svg {
+  color: #b8a5bf;
+}
+
+/* =========================================
+   CONSULTATIONS COUNT
+========================================= */
+
+.patients-consultations {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 34px;
+  height: 34px;
+
+  padding: 0 8px;
+
+  border-radius: 9px;
+
+  background: #f8f5f9;
+  color: var(--color-text);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================
+   PATIENT STATUS
+========================================= */
+
+.patients-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 11px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.patients-status.active {
+  background: #eff9f3;
+  color: #4c9368;
+}
+
+.patients-status.inactive {
+  background: #f5f2f5;
+  color: #918893;
+}
+
+.patients-status-dot {
+  width: 6px;
+  height: 6px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+/* =========================================
+   PATIENT ACTION BUTTONS
+========================================= */
+
+.patients-row-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.patients-row-actions .patients-view-button,
+.patients-row-actions .patients-edit-button,
+.patients-row-actions .patients-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  width: auto;
+  min-width: 0;
+  height: 40px;
+
+  padding: 0 12px;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: var(--transition-fast);
+}
+
+/* View patient */
+
+.patients-row-actions .patients-view-button {
+  flex-shrink: 0;
+
+  border-color: #eadbed;
+
+  background: #fcf7fd;
+  color: var(--color-primary);
+}
+
+/* Edit patient */
+
+.patients-row-actions .patients-edit-button {
+  flex-shrink: 0;
+
+  border-color: #eadbed;
+
+  background: #ffffff;
+  color: var(--color-primary);
+}
+
+/* Activate / deactivate patient */
+
+.patients-row-actions .patients-toggle-button.deactivate {
+  border-color: #f5dfc7;
+
+  background: #fff8ef;
+  color: #a65b16;
+}
+
+.patients-row-actions .patients-toggle-button.activate {
+  border-color: #cdebd7;
+
+  background: #f0faf3;
+  color: #388257;
+}
+
+/* =========================================
+   ACTION BUTTON INTERACTIONS
+========================================= */
+
+.patients-row-actions .patients-view-button:hover,
+.patients-row-actions .patients-edit-button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.patients-row-actions .patients-edit-button:hover {
+  transform: translateY(-1px);
+}
+
+.patients-row-actions .patients-edit-button:active {
+  transform: translateY(0);
+}
+
+.patients-row-actions .patients-toggle-button.deactivate:hover {
+  background: #ffedd5;
+}
+
+.patients-row-actions .patients-toggle-button.activate:hover {
+  background: #dff3e5;
+}
+
+.patients-row-actions button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.patients-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 55px 20px;
+
+  text-align: center;
+  color: #aaa3ad;
+}
+
+.patients-empty svg {
+  margin-bottom: 15px;
+
+  color: var(--color-primary);
+}
+
+.patients-empty strong {
+  margin-bottom: 7px;
+
+  font-size: 17px;
+  color: var(--color-text);
+}
+
+.patients-empty p {
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: var(--color-text-light);
+}
+
+/* =========================================
+   RESPONSIVE - SMALL DESKTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .patients-table {
+    min-width: 1050px;
+  }
+
+  .patients-row-actions {
+    gap: 6px;
+  }
+}

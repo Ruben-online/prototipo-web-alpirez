@@ -231,20 +231,13 @@ function PatientFormModal({
 
             </div>
 
-            {/* ERROR */}
+            {/* MENSAJE DE ERROR */}
 
             {formError && (
               <div className="patients-form-error" role="alert">
                 {formError}
               </div>
             )}
-
-            {/* NOTA */}
-
-            <div className="patients-form-note">
-              Este formulario es de demostración. Los cambios
-              no se guardarán al recargar la página.
-            </div>
 
           </div>
 

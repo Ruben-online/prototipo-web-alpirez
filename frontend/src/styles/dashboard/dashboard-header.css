@@ -1,0 +1,147 @@
+/* =========================
+   HEADER
+========================= */
+
+.dashboard-header {
+  min-height: 96px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 16px 38px;
+
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid #eee9f0;
+}
+
+/* =========================
+   HEADER LEFT
+========================= */
+
+.dashboard-header-left {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  min-width: 0;
+}
+
+.dashboard-header-eyebrow {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+
+  color: var(--color-primary);
+}
+
+.dashboard-header-left h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.25;
+
+  color: var(--color-text);
+}
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+.dashboard-mobile-menu {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 11px;
+
+  background: transparent;
+  color: var(--color-text);
+}
+
+.dashboard-mobile-menu:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* =========================
+   HEADER ACTIONS
+========================= */
+
+.dashboard-header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.dashboard-search {
+  width: 270px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 0 15px;
+
+  border: 1px solid #eae5ec;
+  border-radius: 12px;
+
+  background: #faf9fb;
+  color: #8d8592;
+
+  transition: var(--transition-fast);
+}
+
+.dashboard-search svg {
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+}
+
+.dashboard-search:focus-within {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(171, 73, 204, 0.08);
+}
+
+.dashboard-search input {
+  width: 100%;
+  min-width: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  color: var(--color-text);
+}
+
+.dashboard-search input::placeholder {
+  color: #8d8592;
+}
