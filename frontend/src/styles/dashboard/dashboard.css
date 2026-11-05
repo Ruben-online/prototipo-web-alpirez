@@ -13,3 +13,6 @@
 
 /* Estructura general y responsive */
 @import "./dashboard-responsive.css";
+
+/* Cerrar sesión */
+@import "./dashboard-logout-modal.css";

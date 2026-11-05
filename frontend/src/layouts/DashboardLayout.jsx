@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 import {
@@ -58,6 +58,10 @@ const navigation = [
 
 function DashboardLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false)
+  const [logoutError, setLogoutError] = useState('')
+
   const location = useLocation()
   const { logout, hasModule } = useAuth()
 
@@ -74,6 +78,66 @@ function DashboardLayout() {
     )?.label || 'Resumen'
 
   const closeMenu = () => setMenuOpen(false)
+
+  const openLogoutModal = () => {
+    setMenuOpen(false)
+    setLogoutError('')
+    setLogoutModalOpen(true)
+  }
+
+  const closeLogoutModal = () => {
+    if (loggingOut) return
+
+    setLogoutModalOpen(false)
+    setLogoutError('')
+  }
+
+  const confirmLogout = async () => {
+    if (loggingOut) return
+
+    setLoggingOut(true)
+    setLogoutError('')
+
+    try {
+      await logout()
+      setLogoutModalOpen(false)
+    } catch {
+      setLogoutError(
+        'No fue posible cerrar la sesión. Inténtalo nuevamente.'
+      )
+    } finally {
+      setLoggingOut(false)
+    }
+  }
+
+  // Permite cerrar la confirmación con Escape.
+  useEffect(() => {
+    if (!logoutModalOpen) return
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && !loggingOut) {
+        closeLogoutModal()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [logoutModalOpen, loggingOut])
+
+  // Evita el desplazamiento de la página mientras el modal está abierto.
+  useEffect(() => {
+    if (!logoutModalOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [logoutModalOpen])
 
   return (
     <div className="dashboard-page">
@@ -152,7 +216,7 @@ function DashboardLayout() {
           <button
             type="button"
             className="dashboard-logout"
-            onClick={logout}
+            onClick={openLogoutModal}
           >
             <LogOut size={18} strokeWidth={1.8} />
             <span>Cerrar sesión</span>
@@ -207,6 +271,76 @@ function DashboardLayout() {
         </div>
 
       </main>
+
+      {/* Modal de confirmación de cierre de sesión */}
+      {logoutModalOpen && (
+        <div
+          className="dashboard-logout-modal-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              closeLogoutModal()
+            }
+          }}
+        >
+          <div
+            className="dashboard-logout-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dashboard-logout-modal-title"
+            aria-describedby="dashboard-logout-modal-description"
+          >
+            <div className="dashboard-logout-modal-icon">
+              <LogOut size={26} strokeWidth={1.8} />
+            </div>
+
+            <h2 id="dashboard-logout-modal-title">
+              ¿Cerrar sesión?
+            </h2>
+
+            <p id="dashboard-logout-modal-description">
+              Estás a punto de cerrar tu sesión.
+              ¿Estás seguro de que deseas continuar?
+            </p>
+
+            {logoutError && (
+              <div
+                className="dashboard-logout-modal-error"
+                role="alert"
+              >
+                {logoutError}
+              </div>
+            )}
+
+            <div className="dashboard-logout-modal-actions">
+
+              <button
+                type="button"
+                className="dashboard-logout-modal-cancel"
+                onClick={closeLogoutModal}
+                disabled={loggingOut}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                className="dashboard-logout-modal-confirm"
+                onClick={confirmLogout}
+                disabled={loggingOut}
+              >
+                <LogOut size={17} strokeWidth={1.8} />
+
+                <span>
+                  {loggingOut
+                    ? 'Cerrando sesión...'
+                    : 'Sí, cerrar sesión'}
+                </span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   )
