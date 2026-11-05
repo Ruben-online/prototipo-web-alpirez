@@ -2,16 +2,13 @@ import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 import {
-  Bell,
   Boxes,
   CalendarDays,
-  ChevronDown,
   ClipboardList,
   LayoutDashboard,
   LogOut,
   Menu,
   Search,
-  Settings,
   UserCog,
   UsersRound,
   X,
@@ -59,37 +56,22 @@ const navigation = [
   },
 ]
 
-// Saca las iniciales del nombre, por ejemplo "Marcela Alpírez" queda "MA"
-function getInitials(name) {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((word) => word.charAt(0).toUpperCase())
-    .join('')
-}
-
 function DashboardLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-  const { logout, profile, user, hasModule } = useAuth()
+  const { logout, hasModule } = useAuth()
 
-  // Cada usuario solo ve en el menú los módulos que tiene permitidos
-  const visibleNavigation = navigation.filter((item) => hasModule(item.module))
-
-  const displayName = profile?.fullName || user?.email || ''
-  const displayRole = profile?.role || 'Sin rol asignado'
+  // Cada usuario solo ve los módulos que tiene permitidos.
+  const visibleNavigation = navigation.filter((item) =>
+    hasModule(item.module)
+  )
 
   const currentSection =
-    [...navigation, {
-      label: 'Configuración',
-      path: '/dashboard/configuracion',
-    }]
-      .find((item) =>
-        item.end
-          ? location.pathname === item.path
-          : location.pathname.startsWith(item.path)
-      )?.label || 'Resumen'
+    navigation.find((item) =>
+      item.end
+        ? location.pathname === item.path
+        : location.pathname.startsWith(item.path)
+    )?.label || 'Resumen'
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -167,19 +149,6 @@ function DashboardLayout() {
 
         <div className="dashboard-sidebar-bottom">
 
-          <NavLink
-            to="/dashboard/configuracion"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              `dashboard-nav-item ${
-                isActive ? 'active' : ''
-              }`
-            }
-          >
-            <Settings size={19} strokeWidth={1.8} />
-            <span>Configuración</span>
-          </NavLink>
-
           <button
             type="button"
             className="dashboard-logout"
@@ -228,31 +197,6 @@ function DashboardLayout() {
                 placeholder="Buscar paciente..."
               />
             </div>
-
-            <button
-              type="button"
-              className="dashboard-notification"
-              aria-label="Notificaciones"
-            >
-              <Bell size={20} strokeWidth={1.8} />
-              <span className="dashboard-notification-dot" />
-            </button>
-
-            <button
-              type="button"
-              className="dashboard-profile"
-            >
-              <div className="dashboard-avatar">
-                {getInitials(displayName)}
-              </div>
-
-              <div className="dashboard-profile-info">
-                <strong>{displayName}</strong>
-                <span>{displayRole}</span>
-              </div>
-
-              <ChevronDown size={16} strokeWidth={1.8} />
-            </button>
 
           </div>
 
