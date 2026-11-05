@@ -30,7 +30,6 @@
   }
 }
 
-
 /* =========================
    MODAL CONTAINER
 ========================= */
@@ -67,7 +66,6 @@
   }
 }
 
-
 /* =========================
    MODAL HEADER
 ========================= */
@@ -87,6 +85,8 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  min-width: 0;
 }
 
 .patients-modal-icon {
@@ -108,15 +108,15 @@
 .patients-modal-heading h3 {
   margin-bottom: 5px;
 
-  font-size: 19px;
+  font-size: 24px;
   line-height: 1.3;
 
   color: var(--color-text);
 }
 
 .patients-modal-heading p {
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
 
   color: var(--color-text-light);
 }
@@ -146,7 +146,6 @@
   background: var(--color-primary-light);
   color: var(--color-primary);
 }
-
 
 /* =========================
    MODAL FORM
@@ -178,15 +177,17 @@
 
   margin-bottom: 7px;
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 
   color: var(--color-primary);
 }
 
 .patients-form-section p {
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 1.6;
+
   color: var(--color-text-light);
 }
 
@@ -209,7 +210,8 @@
 }
 
 .patients-form-field label {
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 1.5;
   font-weight: 600;
 
   color: var(--color-text);
@@ -219,7 +221,7 @@
 .patients-form-field select,
 .patients-form-field textarea {
   width: 100%;
-  min-height: 44px;
+  min-height: 46px;
 
   padding: 11px 13px;
 
@@ -232,14 +234,15 @@
   color: var(--color-text);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 15px;
+  line-height: 1.5;
 
   transition: var(--transition-fast);
 }
 
 .patients-form-field input::placeholder,
 .patients-form-field textarea::placeholder {
-  color: #b4abb8;
+  color: #968a9b;
 }
 
 .patients-form-field input:focus,
@@ -253,14 +256,13 @@
 }
 
 .patients-form-field textarea {
-  min-height: 85px;
+  min-height: 100px;
   resize: vertical;
 }
 
 .patients-form-field select {
   cursor: pointer;
 }
-
 
 /* =========================
    FORM ERROR
@@ -276,29 +278,9 @@
   background: #fff4f5;
   color: #b34d5d;
 
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.6;
 }
-
-
-/* =========================
-   FORM NOTE
-========================= */
-
-.patients-form-note {
-  margin-top: 22px;
-  padding: 13px 15px;
-
-  border: 1px solid #eee4f2;
-  border-radius: 11px;
-
-  background: #faf6fc;
-  color: #8c7894;
-
-  font-size: 10px;
-  line-height: 1.6;
-}
-
 
 /* =========================
    MODAL FOOTER
@@ -329,7 +311,7 @@
   color: var(--color-text-light);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
@@ -344,9 +326,11 @@
 
 .patients-modal-footer .dashboard-primary-button {
   justify-content: center;
+
+  font-size: 14px;
+
   cursor: pointer;
 }
-
 
 /* =========================
    MODAL RESPONSIVE
@@ -371,7 +355,7 @@
   }
 
   .patients-modal-heading h3 {
-    font-size: 17px;
+    font-size: 22px;
   }
 
   .patients-modal-icon {
@@ -404,11 +388,11 @@
   }
 
   .patients-modal-heading h3 {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .patients-modal-heading p {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .patients-modal-icon {
@@ -437,8 +421,10 @@
   .patients-modal-footer .dashboard-primary-button,
   .patients-cancel-button {
     flex: 1;
+
     padding: 0 10px;
-    font-size: 11px;
+
+    font-size: 14px;
   }
 
   .patients-modal-footer .dashboard-primary-button {
