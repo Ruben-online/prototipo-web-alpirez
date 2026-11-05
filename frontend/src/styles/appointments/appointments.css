@@ -6,7 +6,9 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+
   width: 100%;
+  min-width: 0;
 }
 
 /* ========================================
@@ -15,31 +17,40 @@
 
 .appointments-header {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
   gap: 24px;
 }
 
 .appointments-eyebrow {
   display: block;
-  margin-bottom: 8px;
-  color: #ab49cc;
-  font-size: 11px;
+  margin-bottom: 9px;
+
+  color: var(--color-primary);
+
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
 }
 
 .appointments-header h2 {
-  margin: 0;
-  color: #27232d;
-  font-size: 28px;
+  margin: 0 0 8px;
+
+  color: var(--color-text);
+
+  font-size: 30px;
   font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 .appointments-header p {
-  margin: 10px 0 0;
-  color: #77717d;
-  font-size: 14px;
+  margin: 0;
+
+  color: var(--color-text-light);
+
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -48,30 +59,43 @@
 ======================================== */
 
 .appointments-create-button {
+  min-height: 50px;
+
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 
-  padding: 13px 20px;
+  flex-shrink: 0;
+
+  padding: 0 20px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
 
-  background: #ab49cc;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
 
-  font-size: 13px;
+  font-family: inherit;
+  font-size: 15px;
   font-weight: 600;
 
-  cursor: pointer;
   white-space: nowrap;
+  cursor: pointer;
 
-  transition: background 0.2s ease;
+  box-shadow: 0 10px 24px rgba(171, 73, 204, 0.2);
+
+  transition: var(--transition-normal);
 }
 
 .appointments-create-button:hover {
-  background: #9335b4;
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.appointments-create-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* ========================================
@@ -90,52 +114,38 @@
   border: 1px solid #eee8f0;
   border-radius: 16px;
 
-  background: #fff;
+  background: var(--color-white);
 
   text-align: center;
 }
 
 .appointments-empty-state svg {
   margin-bottom: 20px;
-  color: #ab49cc;
+  color: var(--color-primary);
 }
 
 .appointments-empty-state h3 {
   margin: 0 0 10px;
-  color: #27232d;
+
+  color: var(--color-text);
+
   font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .appointments-empty-state p {
   max-width: 400px;
   margin: 0;
 
-  color: #77717d;
-  font-size: 14px;
-  line-height: 1.7;
+  color: var(--color-text-light);
+
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* ========================================
-   RESPONSIVE HEADER
-======================================== */
-
-@media (max-width: 768px) {
-  .appointments-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .appointments-header h2 {
-    font-size: 24px;
-  }
-
-  .appointments-create-button {
-    width: 100%;
-  }
-}
-
-/* ========================================
-   APPOINTMENTS - CALENDAR
+   CALENDARIO
 ======================================== */
 
 .appointments-calendar {
@@ -192,16 +202,19 @@
 .appointments-calendar-title h3 {
   margin: 0 0 5px;
 
-  font-size: 17px;
-  font-weight: 700;
-  text-transform: capitalize;
-
   color: var(--color-text);
+
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: capitalize;
 }
 
 .appointments-calendar-title span {
-  font-size: 11px;
   color: var(--color-text-light);
+
+  font-size: 13px;
+  line-height: 1.4;
   text-transform: capitalize;
 }
 
@@ -216,8 +229,7 @@
 }
 
 .appointments-today-button {
-  min-height: 38px;
-
+  min-height: 42px;
   padding: 0 15px;
 
   border: 1px solid #eadbed;
@@ -226,7 +238,8 @@
   background: #fcf7fd;
   color: var(--color-primary);
 
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
@@ -242,8 +255,8 @@
 }
 
 .appointments-date-controls button {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
@@ -261,6 +274,12 @@
 .appointments-date-controls button:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.appointments-today-button:focus-visible,
+.appointments-date-controls button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* ========================================
@@ -293,8 +312,7 @@
 }
 
 .appointments-view-switch button {
-  min-height: 34px;
-
+  min-height: 40px;
   padding: 0 18px;
 
   border: none;
@@ -303,7 +321,8 @@
   background: transparent;
   color: var(--color-text-light);
 
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 500;
 
   cursor: pointer;
@@ -318,9 +337,16 @@
   box-shadow: 0 2px 8px rgba(39, 35, 45, 0.06);
 }
 
+.appointments-view-switch button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .appointments-calendar-hint {
-  font-size: 10px;
-  color: #aaa3ad;
+  color: var(--color-text-light);
+
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 /* ========================================
@@ -353,6 +379,7 @@
   background: var(--color-white);
   color: var(--color-text);
 
+  font-family: inherit;
   cursor: pointer;
 
   transition: var(--transition-fast);
@@ -369,14 +396,19 @@
 }
 
 .appointments-week-day span {
-  font-size: 11px;
   color: var(--color-text-light);
+
+  font-size: 13px;
+  line-height: 1.4;
   text-transform: capitalize;
 }
 
 .appointments-week-day strong {
-  font-size: 22px;
+  color: var(--color-text);
+
+  font-size: 24px;
   font-weight: 700;
+  line-height: 1.2;
 }
 
 .appointments-week-day.selected strong {
@@ -384,25 +416,33 @@
 }
 
 .appointments-week-day small {
-  font-size: 9px;
-  font-weight: 700;
   color: var(--color-primary);
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.appointments-week-day:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* ========================================
    INDICADOR DE CITAS POR DÍA
 ======================================== */
 
-.appointments-day-count {
+.appointments-week-day .appointments-day-count {
   padding: 4px 7px;
 
   border-radius: 7px;
 
   background: #f4e7f8;
-  color: var(--color-primary) !important;
+  color: var(--color-primary);
 
-  font-size: 9px !important;
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .appointments-week-day.selected .appointments-day-count {
@@ -424,11 +464,12 @@
 .appointments-agenda-heading h3 {
   margin: 0;
 
-  font-size: 17px;
-  font-weight: 700;
-  text-transform: capitalize;
-
   color: var(--color-text);
+
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: capitalize;
 }
 
 .appointments-agenda-empty {
@@ -457,19 +498,24 @@
 .appointments-agenda-empty h4 {
   margin: 0 0 9px;
 
-  font-size: 14px;
   color: var(--color-text);
+
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .appointments-agenda-empty p {
   margin: 0;
 
-  font-size: 11px;
   color: var(--color-text-light);
+
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* ========================================
-   APPOINTMENTS - LIST
+   APPOINTMENTS LIST
 ======================================== */
 
 .appointments-list {
@@ -521,13 +567,18 @@
 }
 
 .appointments-card-time strong {
-  font-size: 16px;
   color: var(--color-text);
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .appointments-card-time span {
-  font-size: 10px;
   color: var(--color-text-light);
+
+  font-size: 12px;
+  line-height: 1.3;
 }
 
 /* ========================================
@@ -585,22 +636,27 @@
 .appointments-card-info h4 {
   margin: 0;
 
-  font-size: 13px;
-  font-weight: 600;
-
   color: var(--color-text);
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .appointments-card-info p {
   margin: 0;
 
-  font-size: 11px;
   color: var(--color-text-light);
+
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .appointments-card-info span {
-  font-size: 10px;
-  color: #aaa3ad;
+  color: var(--color-text-light);
+
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 /* ========================================
@@ -620,15 +676,16 @@
   align-items: center;
   justify-content: center;
 
-  padding: 7px 12px;
+  padding: 7px 11px;
 
   border-radius: 20px;
 
   background: #eff9f3;
   color: #4c9368;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 /* ========================================
@@ -637,7 +694,7 @@
 
 .appointments-card-view {
   width: auto;
-  min-height: 38px;
+  min-height: 42px;
 
   display: inline-flex;
   align-items: center;
@@ -653,7 +710,7 @@
   color: var(--color-primary);
 
   font-family: inherit;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
 
@@ -682,6 +739,30 @@
 .appointments-card-view:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* ========================================
+   RESPONSIVE HEADER
+======================================== */
+
+@media (max-width: 768px) {
+  .appointments-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .appointments-header h2 {
+    font-size: 26px;
+  }
+
+  .appointments-header p {
+    font-size: 15px;
+  }
+
+  .appointments-create-button {
+    width: 100%;
+  }
 }
 
 /* ========================================
@@ -746,11 +827,11 @@
   }
 
   .appointments-calendar-title h3 {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .appointments-agenda-heading h3 {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .appointments-agenda-empty {
@@ -814,10 +895,6 @@
     border-top: 1px solid #f1edf2;
   }
 
-  .appointments-card-status {
-    font-size: 10px;
-  }
-
   .appointments-card-view {
     min-height: 42px;
     padding: 0 15px;
@@ -835,7 +912,7 @@
   }
 
   .appointments-calendar-title span {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .appointments-calendar-toolbar {
@@ -851,7 +928,7 @@
   }
 
   .appointments-card-view {
-    font-size: 11px;
+    font-size: 14px;
     padding: 0 12px;
   }
 
