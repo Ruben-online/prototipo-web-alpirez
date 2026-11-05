@@ -689,7 +689,6 @@
 ======================================== */
 
 @media (max-width: 760px) {
-
   .appointments-calendar-toolbar {
     align-items: flex-start;
     flex-direction: column;
@@ -711,8 +710,35 @@
     display: none;
   }
 
+  /* ========================================
+     MOBILE - VISTA SEMANAL
+  ======================================== */
+
   .appointments-week-grid {
-    display: none;
+    display: flex;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 18px 20px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 20px;
+
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .appointments-week-day {
+    flex: 0 0 88px;
+    min-width: 88px;
+    min-height: 105px;
+
+    scroll-snap-align: start;
   }
 
   .appointments-agenda {
@@ -796,11 +822,13 @@
     min-height: 42px;
     padding: 0 15px;
   }
-
 }
 
-@media (max-width: 520px) {
+/* ========================================
+   MOBILE PEQUEÑO
+======================================== */
 
+@media (max-width: 520px) {
   .appointments-calendar-icon {
     width: 39px;
     height: 39px;
@@ -827,4 +855,24 @@
     padding: 0 12px;
   }
 
+  /* ========================================
+     MOBILE PEQUEÑO - VISTA SEMANAL
+  ======================================== */
+
+  .appointments-week-grid {
+    gap: 8px;
+    padding: 16px;
+    scroll-padding-inline: 16px;
+  }
+
+  .appointments-week-day {
+    flex-basis: 82px;
+    min-width: 82px;
+    min-height: 100px;
+    gap: 7px;
+  }
+
+  .appointments-week-day strong {
+    font-size: 20px;
+  }
 }
