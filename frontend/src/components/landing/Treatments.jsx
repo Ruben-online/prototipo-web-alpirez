@@ -1,5 +1,5 @@
-function Treatments() {
-  const treatments = [
+function Treatments({ treatmentsData }) {
+  const defaultTreatments = [
     {
       number: '01',
       title: 'Acné',
@@ -34,6 +34,8 @@ function Treatments() {
     },
   ]
 
+  const treatments = treatmentsData && treatmentsData.length > 0 ? treatmentsData : defaultTreatments
+
   return (
     <section id="tratamientos" className="treatments">
       <div className="treatments-container">
@@ -61,7 +63,7 @@ function Treatments() {
             <a
               href="#contacto"
               className="treatment-card"
-              key={treatment.number}
+              key={treatment.number || treatment.id}
             >
               <div className="treatment-image-wrapper">
                 <img

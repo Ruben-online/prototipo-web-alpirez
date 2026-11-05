@@ -1,5 +1,6 @@
-function Services() {
-  const services = [
+function Services({ servicesData }) {
+  // Lista por defecto (fallback) si el backend aún no ha respondido
+  const defaultServices = [
     {
       number: '01',
       title: 'Dermatología clínica',
@@ -25,6 +26,8 @@ function Services() {
         'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=85',
     },
   ]
+
+  const services = servicesData && servicesData.length > 0 ? servicesData : defaultServices
 
   return (
     <section id="servicios" className="services">
@@ -54,7 +57,7 @@ function Services() {
           {services.map((service) => (
             <article
               className="service-card"
-              key={service.number}
+              key={service.number || service.id}
             >
               <div className="service-image-wrapper">
                 <img

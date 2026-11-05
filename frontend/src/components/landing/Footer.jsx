@@ -1,4 +1,10 @@
-function Footer() {
+function Footer({ info }) {
+  const brandName = info?.name || 'Clínica Dermatológica Dra. Marcela Alpírez'
+  const social = info?.social || {
+    instagram: 'https://instagram.com',
+    facebook: 'https://facebook.com'
+  }
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -34,7 +40,7 @@ function Footer() {
 
             <a href="#tratamientos">Tratamientos</a>
             <a href="#contacto">Contacto</a>
-            <a href="#">Iniciar sesión</a>
+            <a href="/login">Iniciar sesión</a>
           </div>
         </div>
 
@@ -44,11 +50,21 @@ function Footer() {
           </span>
 
           <div className="footer-social-links">
-            <a href="#" aria-label="Instagram">
+            <a
+              href={social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
               Instagram
             </a>
 
-            <a href="#" aria-label="Facebook">
+            <a
+              href={social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
               Facebook
             </a>
           </div>
@@ -58,7 +74,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <span>
-          © 2026 Clínica Dermatológica Dra. Alpírez
+          © {new Date().getFullYear()} {brandName}
         </span>
 
         <span>

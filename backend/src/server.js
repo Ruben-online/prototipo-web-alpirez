@@ -1,29 +1,17 @@
-import express from 'express'
-import cors from 'cors'
-import authRoutes from './routes/auth.js'
-import usersRoutes from './routes/users.js'
+import dotenv from 'dotenv';
+import app from './app.js';
 
-const app = express()
-const PORT = process.env.PORT || 3000
+dotenv.config();
 
-// Deja que el frontend se comunique con el servidor
-app.use(cors({ origin: process.env.FRONTEND_URL }))
+const PORT = process.env.PORT || 3000;
 
-// Para poder leer los datos que manda el frontend
-app.use(express.json())
-
-// Ruta de prueba para ver si el servidor funciona
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' })
-})
-
-// Rutas del login
-app.use('/api/auth', authRoutes)
-
-// Rutas para administrar usuarios, roles y permisos
-app.use('/api/users', usersRoutes)
-
-// Encender el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor backend en http://localhost:${PORT}`)
-})
+  console.log(`=========================================`);
+  console.log(`Servidor Backend activo en http://localhost:${PORT}`);
+  console.log(`Endpoint Auth:        http://localhost:${PORT}/api/auth`);
+  console.log(`Endpoint Users:       http://localhost:${PORT}/api/users`);
+  console.log(`Endpoint Pre-citas:   http://localhost:${PORT}/api/precitas`);
+  console.log(`Endpoint Landing:     http://localhost:${PORT}/api/landing`);
+  console.log(`Healthcheck:          http://localhost:${PORT}/api/health`);
+  console.log(`=========================================`);
+});
