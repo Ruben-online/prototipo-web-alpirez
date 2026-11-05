@@ -1,7 +1,7 @@
-import heroImage from '../../assets/hero-dermatology.webp'
+import clinicLogo from '../../assets/clinica-alpirez-logo.png'
 
 function Hero({ info }) {
-  // Valores dinámicos provenientes del backend con fallback local elegante
+  // Valores dinámicos provenientes del backend con fallback local.
   const heroData = info?.hero || {
     eyebrow: 'DERMATOLOGÍA CLÍNICA Y ESTÉTICA',
     titleMain: 'Cuida tu piel.',
@@ -10,8 +10,8 @@ function Hero({ info }) {
       'Atención dermatológica personalizada con un enfoque profesional, cercano y pensado para el bienestar de tu piel.',
     stats: [
       { value: '+10', label: 'Años de experiencia' },
-      { value: '100%', label: 'Atención personalizada' }
-    ]
+      { value: '100%', label: 'Atención personalizada' },
+    ],
   }
 
   return (
@@ -29,9 +29,7 @@ function Hero({ info }) {
             <span>{heroData.titleAccent}</span>
           </h1>
 
-          <p>
-            {heroData.description}
-          </p>
+          <p>{heroData.description}</p>
 
           <div className="hero-actions">
             <a href="#contacto" className="hero-button-primary">
@@ -51,6 +49,7 @@ function Hero({ info }) {
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
                 </div>
+
                 {idx < heroData.stats.length - 1 && (
                   <div className="hero-trust-divider"></div>
                 )}
@@ -62,14 +61,12 @@ function Hero({ info }) {
         <div className="hero-visual">
           <div className="hero-visual-background"></div>
 
-          <div className="hero-image-container">
+          <div className="hero-image-container hero-logo-container">
             <img
-              src={heroImage}
-              alt="Atención dermatológica"
-              className="hero-image"
+              src={clinicLogo}
+              alt="Dermo Clini-K - Dermatología y Medicina Estética Facial y Corporal"
+              className="hero-image hero-clinic-logo"
             />
-
-            <div className="hero-image-gradient"></div>
 
             <div className="hero-image-caption">
               <span className="hero-caption-icon">✦</span>

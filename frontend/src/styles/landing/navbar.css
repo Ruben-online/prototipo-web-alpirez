@@ -224,3 +224,226 @@
     display: flex;
   }
 }
+
+/* =========================
+   DERMO CLINI-K BRANDING
+========================= */
+
+.navbar-logo {
+  flex-shrink: 0;
+  gap: 12px;
+  letter-spacing: normal;
+}
+
+.navbar-logo-icon {
+  flex-shrink: 0;
+}
+
+.navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 3px;
+}
+
+.navbar-brand-text strong {
+  color: var(--color-primary-dark);
+
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.navbar-brand-text small {
+  max-width: 280px;
+
+  color: var(--color-text-light);
+
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+@media (max-width: 600px) {
+  .navbar-logo {
+    gap: 8px;
+  }
+
+  .navbar-brand-text strong {
+    font-size: 0.9375rem;
+  }
+
+  .navbar-brand-text small {
+    max-width: 195px;
+    font-size: 0.5625rem;
+  }
+}
+
+/* =========================
+   DERMO CLINI-K
+   NAVBAR - LEGIBILIDAD
+========================= */
+
+.navbar-container {
+  width: min(1380px, 96%);
+}
+
+.navbar-brand-text strong {
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.2;
+
+  letter-spacing: 0;
+}
+
+.navbar-brand-text small {
+  max-width: 360px;
+
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  color: #64576b;
+}
+
+.navbar-logo {
+  gap: 12px;
+}
+
+.navbar-logo-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+}
+
+/* Escritorio compacto */
+@media (min-width: 601px) and (max-width: 1100px) {
+  .navbar-brand-text strong {
+    font-size: 1.2rem;
+  }
+
+  .navbar-brand-text small {
+    max-width: 230px;
+    font-size: 0.7rem;
+  }
+
+  .navbar-logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Teléfonos */
+@media (max-width: 600px) {
+  .navbar-container {
+    width: calc(100% - 24px);
+  }
+
+  .navbar-logo {
+    gap: 9px;
+  }
+
+  .navbar-brand-text strong {
+    font-size: 1.15rem;
+    line-height: 1.15;
+  }
+
+  .navbar-brand-text small {
+    max-width: 225px;
+
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+
+  .navbar-logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* =========================
+   DERMO CLINI-K
+   FINAL BRANDING
+========================= */
+
+.navbar-butterfly-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  background: transparent;
+  border-radius: 0;
+}
+
+.navbar-butterfly-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.navbar-brand-text strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.navbar-brand-text small {
+  max-width: 350px;
+
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* =========================
+   COMPACT DESKTOP
+========================= */
+
+@media (min-width: 601px) and (max-width: 1100px) {
+  .navbar-butterfly-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .navbar-brand-text strong {
+    font-size: 1.15rem;
+  }
+
+  .navbar-brand-text small {
+    max-width: 230px;
+    font-size: 0.65rem;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .navbar-butterfly-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .navbar-brand-text strong {
+    font-size: 1.1rem;
+  }
+
+  .navbar-brand-text small {
+    max-width: 210px;
+
+    font-size: 0.64rem;
+    line-height: 1.3;
+  }
+}
