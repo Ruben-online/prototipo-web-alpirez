@@ -1,6 +1,6 @@
 /* =========================
    HERO
-   ========================= */
+========================= */
 
 .hero {
   position: relative;
@@ -42,16 +42,14 @@
 
   display: grid;
   grid-template-columns: 0.9fr 1fr;
-
   align-items: center;
 
   gap: 90px;
 }
 
-
 /* =========================
    CONTENT
-   ========================= */
+========================= */
 
 .hero-content {
   max-width: 570px;
@@ -110,10 +108,9 @@
   line-height: 1.8;
 }
 
-
 /* =========================
    BUTTONS
-   ========================= */
+========================= */
 
 .hero-actions {
   display: flex;
@@ -183,10 +180,9 @@
   transform: translateY(-2px);
 }
 
-
 /* =========================
    TRUST
-   ========================= */
+========================= */
 
 .hero-trust {
   width: fit-content;
@@ -234,10 +230,9 @@
   background-color: rgba(39, 35, 45, 0.1);
 }
 
-
 /* =========================
    VISUAL
-   ========================= */
+========================= */
 
 .hero-visual {
   position: relative;
@@ -248,7 +243,6 @@
   align-items: center;
   justify-content: center;
 }
-
 
 /* Background shape */
 
@@ -268,10 +262,9 @@
   transform: rotate(3deg);
 }
 
-
 /* =========================
    MAIN IMAGE
-   ========================= */
+========================= */
 
 .hero-image-container {
   position: relative;
@@ -292,10 +285,10 @@
 }
 
 .hero-image {
+  display: block;
+
   width: 100%;
   height: 100%;
-
-  display: block;
 
   object-fit: cover;
   object-position: center center;
@@ -312,20 +305,53 @@
 
   inset: 0;
 
-  background:
-    linear-gradient(
-      to top,
-      rgba(29, 23, 32, 0.28),
-      transparent 42%
-    );
+  background: linear-gradient(
+    to top,
+    rgba(29, 23, 32, 0.28),
+    transparent 42%
+  );
 
   pointer-events: none;
 }
 
+/* =========================
+   DERMO CLINI-K LOGO
+========================= */
+
+.hero-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 10px 78px;
+
+  background: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    #fdf9ff 65%,
+    #faf1fc 100%
+  );
+}
+
+.hero-logo-container .hero-clinic-logo {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter: none;
+}
+
+.hero-logo-container:hover .hero-clinic-logo {
+  transform: scale(1.025);
+}
 
 /* =========================
    IMAGE CAPTION
-   ========================= */
+========================= */
 
 .hero-image-caption {
   position: absolute;
@@ -336,8 +362,6 @@
 
   display: flex;
   align-items: center;
-
-  gap: 12px;
 
   padding: 14px 17px;
 
@@ -350,22 +374,6 @@
   backdrop-filter: blur(12px);
 
   box-shadow: 0 12px 30px rgba(39, 35, 45, 0.12);
-}
-
-.hero-caption-icon {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
 }
 
 .hero-image-caption > div {
@@ -389,10 +397,9 @@
   line-height: 1.4;
 }
 
-
 /* =========================
    FLOATING CARD
-   ========================= */
+========================= */
 
 .hero-floating-card {
   position: absolute;
@@ -403,8 +410,6 @@
 
   display: flex;
   align-items: center;
-
-  gap: 12px;
 
   padding: 16px 19px;
 
@@ -417,22 +422,6 @@
   box-shadow: 0 16px 40px rgba(39, 35, 45, 0.12);
 
   backdrop-filter: blur(12px);
-}
-
-.hero-floating-icon {
-  width: 40px;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background-color: var(--color-primary);
-  color: var(--color-white);
 }
 
 .hero-floating-card > div {
@@ -456,10 +445,9 @@
   line-height: 1.4;
 }
 
-
 /* =========================
    SMALL DETAIL
-   ========================= */
+========================= */
 
 .hero-visual-detail {
   position: absolute;
@@ -498,16 +486,17 @@
   font-size: 0.9375rem;
 }
 
-
 /* =========================
    MOBILE
-   ========================= */
+   600px AND BELOW
+========================= */
 
 @media (max-width: 600px) {
 
+  /* Hero layout */
+
   .hero {
     min-height: auto;
-
     padding: 110px 0 75px;
   }
 
@@ -520,6 +509,8 @@
 
     gap: 50px;
   }
+
+  /* Content */
 
   .hero-content {
     max-width: none;
@@ -551,6 +542,8 @@
     line-height: 1.7;
   }
 
+  /* Buttons */
+
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
@@ -563,9 +556,10 @@
   .hero-button-primary,
   .hero-button-secondary {
     width: 100%;
-
     min-height: 52px;
   }
+
+  /* Trust */
 
   .hero-trust {
     width: 100%;
@@ -573,7 +567,6 @@
     justify-content: center;
 
     gap: 12px;
-
     padding: 15px 12px;
   }
 
@@ -593,10 +586,11 @@
     line-height: 1.4;
   }
 
+  /* Visual */
+
   .hero-visual {
     width: 100%;
-
-    min-height: 480px;
+    min-height: 390px;
   }
 
   .hero-visual-background {
@@ -607,6 +601,8 @@
 
     border-radius: 22px;
   }
+
+  /* Main image */
 
   .hero-image-container {
     width: 92%;
@@ -619,16 +615,20 @@
     object-position: center center;
   }
 
-  .hero-image-caption {
-    left: 13px;
-    bottom: 13px;
+  /* Clinic logo */
 
-    padding: 11px 13px;
+  .hero-logo-container {
+    height: 360px;
+    padding: 15px 8px 75px;
   }
 
-  .hero-caption-icon {
-    width: 34px;
-    height: 34px;
+  /* Image caption */
+
+  .hero-image-caption {
+    left: 12px;
+    bottom: 12px;
+
+    padding: 11px 13px;
   }
 
   .hero-image-caption strong {
@@ -639,16 +639,13 @@
     font-size: 0.75rem;
   }
 
+  /* Floating card */
+
   .hero-floating-card {
-    top: 20px;
+    top: 12px;
     right: -5px;
 
     padding: 12px 13px;
-  }
-
-  .hero-floating-icon {
-    width: 34px;
-    height: 34px;
   }
 
   .hero-floating-card strong {
@@ -659,119 +656,9 @@
     font-size: 0.75rem;
   }
 
+  /* Small detail */
+
   .hero-visual-detail {
     display: none;
-  }
-}
-
-/* =========================
-   DERMO CLINI-K - HERO LOGO
-========================= */
-
-.hero-logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 35px 25px 90px;
-
-  background: linear-gradient(
-    145deg,
-    #ffffff 0%,
-    #fdf9ff 55%,
-    #f8effb 100%
-  );
-}
-
-.hero-logo-container .hero-clinic-logo {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-  max-height: 390px;
-
-  object-fit: contain;
-  object-position: center;
-
-  filter: drop-shadow(
-    0 12px 18px rgba(116, 43, 130, 0.08)
-  );
-}
-
-.hero-logo-container:hover .hero-clinic-logo {
-  transform: scale(1.025);
-}
-
-@media (max-width: 600px) {
-  .hero-logo-container {
-    padding: 25px 15px 85px;
-  }
-
-  .hero-logo-container .hero-clinic-logo {
-    max-height: 300px;
-  }
-}
-
-/* =========================
-   DERMO CLINI-K
-   HERO - LOGO MÁS LEGIBLE
-========================= */
-
-.hero-logo-container {
-  padding: 12px 10px 78px;
-
-  background: linear-gradient(
-    145deg,
-    #ffffff 0%,
-    #fdf9ff 65%,
-    #faf1fc 100%
-  );
-}
-
-.hero-logo-container .hero-clinic-logo {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-  max-height: none;
-
-  object-fit: contain;
-  object-position: center;
-
-  filter: none;
-}
-
-.hero-logo-container:hover .hero-clinic-logo {
-  transform: scale(1.025);
-}
-
-/* Teléfonos */
-@media (max-width: 600px) {
-  .hero-visual {
-    min-height: 390px;
-  }
-
-  .hero-logo-container {
-    height: 360px;
-
-    padding: 15px 8px 75px;
-  }
-
-  .hero-logo-container .hero-clinic-logo {
-    width: 100%;
-    height: 100%;
-    max-height: none;
-
-    object-fit: contain;
-  }
-
-  .hero-image-caption {
-    left: 12px;
-    bottom: 12px;
-  }
-
-  .hero-floating-card {
-    top: 12px;
-    right: -5px;
   }
 }
