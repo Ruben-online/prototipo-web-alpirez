@@ -1,6 +1,15 @@
 import clinicLogo from '../../assets/clinica-alpirez-logo.png'
 
+// Año de inicio de experiencia profesional.
+// Confirmar con la doctora antes de publicar.
+const EXPERIENCE_START_YEAR = 2017
+
 function Hero({ info }) {
+  const yearsOfExperience = Math.max(
+    0,
+    new Date().getFullYear() - EXPERIENCE_START_YEAR
+  )
+
   // Valores dinámicos provenientes del backend con fallback local.
   const heroData = info?.hero || {
     eyebrow: 'DERMATOLOGÍA CLÍNICA Y ESTÉTICA',
@@ -9,10 +18,29 @@ function Hero({ info }) {
     description:
       'Atención dermatológica personalizada con un enfoque profesional, cercano y pensado para el bienestar de tu piel.',
     stats: [
-      { value: '+10', label: 'Años de experiencia' },
-      { value: '100%', label: 'Atención personalizada' },
+      {
+        value: yearsOfExperience,
+        label: 'Años de experiencia',
+      },
+      {
+        value: '100%',
+        label: 'Atención personalizada',
+      },
     ],
   }
+
+  // Mantener el cálculo actualizado aunque el backend
+  // todavía devuelva el valor anterior de experiencia.
+  const stats = (heroData.stats ?? []).map((stat) => {
+    if (stat.label === 'Años de experiencia') {
+      return {
+        ...stat,
+        value: yearsOfExperience,
+      }
+    }
+
+    return stat
+  })
 
   return (
     <section id="inicio" className="hero">
@@ -43,14 +71,14 @@ function Hero({ info }) {
           </div>
 
           <div className="hero-trust">
-            {heroData.stats.map((stat, idx) => (
+            {stats.map((stat, idx) => (
               <div key={idx} style={{ display: 'contents' }}>
                 <div className="hero-trust-item">
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
                 </div>
 
-                {idx < heroData.stats.length - 1 && (
+                {idx < stats.length - 1 && (
                   <div className="hero-trust-divider"></div>
                 )}
               </div>
@@ -69,8 +97,6 @@ function Hero({ info }) {
             />
 
             <div className="hero-image-caption">
-              <span className="hero-caption-icon">✦</span>
-
               <div>
                 <strong>Dermatología integral</strong>
                 <span>Salud, belleza y bienestar</span>
@@ -79,8 +105,6 @@ function Hero({ info }) {
           </div>
 
           <div className="hero-floating-card">
-            <span className="hero-floating-icon">✦</span>
-
             <div>
               <strong>Cuidado especializado</strong>
               <span>Para tu piel</span>
