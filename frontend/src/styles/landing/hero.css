@@ -493,11 +493,13 @@
 
 @media (max-width: 600px) {
 
-  /* Hero layout */
+  /* =========================
+     HERO LAYOUT
+  ========================= */
 
   .hero {
     min-height: auto;
-    padding: 110px 0 75px;
+    padding: 110px 0 65px;
   }
 
   .hero-container {
@@ -506,17 +508,28 @@
 
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 
-    gap: 50px;
+    gap: 0;
   }
 
-  /* Content */
+  /*
+   * Permite reorganizar visualmente
+   * los elementos del Hero en móvil
+   * sin modificar el JSX.
+   */
 
   .hero-content {
-    max-width: none;
+    display: contents;
   }
 
+  /* =========================
+     1. EYEBROW
+  ========================= */
+
   .hero-eyebrow {
+    order: 1;
+
     margin-bottom: 17px;
 
     font-size: 0.75rem;
@@ -525,72 +538,48 @@
 
   .hero-eyebrow::before {
     width: 20px;
+    flex-shrink: 0;
   }
 
+  /* =========================
+     2. TITLE
+  ========================= */
+
   .hero h1 {
+    order: 2;
+
     margin-bottom: 20px;
 
     font-size: clamp(2.55rem, 12vw, 3.4rem);
   }
 
+  /* =========================
+     3. DESCRIPTION
+  ========================= */
+
   .hero-content > p {
+    order: 3;
+
     max-width: none;
 
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 
     font-size: 1rem;
     line-height: 1.7;
   }
 
-  /* Buttons */
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-
-    gap: 10px;
-
-    margin-bottom: 28px;
-  }
-
-  .hero-button-primary,
-  .hero-button-secondary {
-    width: 100%;
-    min-height: 52px;
-  }
-
-  /* Trust */
-
-  .hero-trust {
-    width: 100%;
-
-    justify-content: center;
-
-    gap: 12px;
-    padding: 15px 12px;
-  }
-
-  .hero-trust-item {
-    flex: 1;
-    min-width: 0;
-
-    text-align: center;
-  }
-
-  .hero-trust-item strong {
-    font-size: 1.25rem;
-  }
-
-  .hero-trust-item span {
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-
-  /* Visual */
+  /* =========================
+     4. VISUAL
+  ========================= */
 
   .hero-visual {
+    order: 4;
+
     width: 100%;
-    min-height: 390px;
+    min-height: 0;
+    height: 340px;
+
+    margin-bottom: 32px;
   }
 
   .hero-visual-background {
@@ -606,7 +595,7 @@
 
   .hero-image-container {
     width: 92%;
-    height: 450px;
+    height: 320px;
 
     border-radius: 22px;
   }
@@ -618,8 +607,8 @@
   /* Clinic logo */
 
   .hero-logo-container {
-    height: 360px;
-    padding: 15px 8px 75px;
+    height: 320px;
+    padding: 15px 8px 65px;
   }
 
   /* Image caption */
@@ -660,5 +649,59 @@
 
   .hero-visual-detail {
     display: none;
+  }
+
+  /* =========================
+     5. TRUST
+  ========================= */
+
+  .hero-trust {
+    order: 5;
+
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 12px;
+    padding: 15px 12px;
+
+    margin-bottom: 28px;
+  }
+
+  .hero-trust-item {
+    flex: 1;
+    min-width: 0;
+
+    text-align: center;
+  }
+
+  .hero-trust-item strong {
+    font-size: 1.25rem;
+  }
+
+  .hero-trust-item span {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  /* =========================
+     6. BUTTONS
+  ========================= */
+
+  .hero-actions {
+    order: 6;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+
+    margin-bottom: 0;
+  }
+
+  .hero-button-primary,
+  .hero-button-secondary {
+    width: 100%;
+    min-height: 52px;
   }
 }
