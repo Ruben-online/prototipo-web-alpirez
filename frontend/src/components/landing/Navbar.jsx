@@ -11,9 +11,15 @@ function Navbar() {
     setIsMenuOpen(false)
   }
 
+  const toggleMenu = () => {
+    setIsMenuOpen((previousState) => !previousState)
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-container">
+
+        {/* LOGOTIPO */}
 
         <a
           href="#inicio"
@@ -42,10 +48,14 @@ function Navbar() {
           </span>
         </a>
 
+        {/* NAVEGACIÓN */}
+
         <nav
+          id="navbar-navigation"
           className={`navbar-links ${
             isMenuOpen ? 'navbar-links-open' : ''
           }`}
+          aria-label="Navegación principal"
         >
           <a href="#inicio" onClick={closeMenu}>
             Inicio
@@ -63,18 +73,27 @@ function Navbar() {
             Tratamientos
           </a>
 
+          <a href="#ubicacion-horarios" onClick={closeMenu}>
+            Ubicación y horarios
+          </a>
+
           <a href="#contacto" onClick={closeMenu}>
             Contacto
           </a>
         </nav>
 
+        {/* AGENDAR CITA */}
+
         <a
           href="#contacto"
           className="navbar-appointment"
+          onClick={closeMenu}
         >
           <UserRound size={17} />
           <span>Agendar cita</span>
         </a>
+
+        {/* MENÚ RESPONSIVE */}
 
         <button
           type="button"
@@ -84,7 +103,7 @@ function Navbar() {
           }
           aria-expanded={isMenuOpen}
           aria-controls="navbar-navigation"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={toggleMenu}
         >
           {isMenuOpen ? (
             <X size={25} />
