@@ -369,9 +369,14 @@
 
 /* =========================
    MOBILE
+   600px AND BELOW
    ========================= */
 
 @media (max-width: 600px) {
+
+  /* =========================
+     SECTION
+     ========================= */
 
   .about {
     padding: 80px 0;
@@ -382,15 +387,80 @@
 
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 
-    gap: 50px;
+    gap: 0;
   }
 
-  /* Visual */
+  /*
+   * Permite reorganizar los elementos
+   * de la sección únicamente en móvil.
+   *
+   * En escritorio se conserva
+   * la distribución original.
+   */
+
+  .about-content {
+    display: contents;
+  }
+
+  /* =========================
+     1. EYEBROW
+     ========================= */
+
+  .about-content .section-eyebrow {
+    order: 1;
+
+    margin-bottom: 18px;
+  }
+
+  /* =========================
+     2. TITLE
+     ========================= */
+
+  .about-content h2 {
+    order: 2;
+
+    margin-bottom: 20px;
+
+    font-size: clamp(2.3rem, 11vw, 3rem);
+  }
+
+  /* =========================
+     3. DESCRIPTION
+     ========================= */
+
+  .about-content > p {
+    order: 3;
+
+    width: 100%;
+
+    margin-bottom: 17px;
+
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /*
+   * El último párrafo mantiene
+   * separación respecto a la imagen.
+   */
+
+  .about-content > p:last-of-type {
+    margin-bottom: 34px;
+  }
+
+  /* =========================
+     4. VISUAL
+     ========================= */
 
   .about-visual {
+    order: 4;
+
     width: 100%;
     min-height: 0;
+
+    margin-bottom: 34px;
   }
 
   .about-image-background {
@@ -416,6 +486,8 @@
     object-fit: contain;
   }
 
+  /* Image label */
+
   .about-image-label {
     left: 13px;
     bottom: 13px;
@@ -433,6 +505,8 @@
     font-size: 0.75rem;
   }
 
+  /* Experience card */
+
   .about-experience {
     top: 20px;
     right: -5px;
@@ -448,32 +522,21 @@
     font-size: 0.75rem;
   }
 
-  /* Content */
-
-  .about-content {
-    width: 100%;
-    max-width: none;
-  }
-
-  .about-content h2 {
-    margin-bottom: 20px;
-
-    font-size: clamp(2.3rem, 11vw, 3rem);
-  }
-
-  .about-content > p {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  /* Highlights */
+  /* =========================
+     5. HIGHLIGHTS
+     ========================= */
 
   .about-highlights {
+    order: 5;
+
+    width: 100%;
+
+    display: grid;
     grid-template-columns: 1fr;
 
     gap: 12px;
 
-    margin: 26px 0 28px;
+    margin: 0 0 28px;
   }
 
   .about-highlight {
@@ -493,5 +556,15 @@
 
   .about-highlight p {
     font-size: 0.9375rem;
+  }
+
+  /* =========================
+     6. BUTTON
+     ========================= */
+
+  .about-button {
+    order: 6;
+
+    align-self: flex-start;
   }
 }
