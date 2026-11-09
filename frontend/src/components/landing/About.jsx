@@ -1,10 +1,14 @@
-import aboutImage from '../../assets/about-doctor.jpg'
+import aboutImage from '../../assets/doctora-marcela.png'
+
+const EXPERIENCE_START_YEAR = 2017
 
 function About({ info }) {
-  const doctor = info?.doctor || {
+  const experienceYears =
+    new Date().getFullYear() - EXPERIENCE_START_YEAR
+
+  const doctor = {
     title: 'Dra. Alpírez',
     specialty: 'Dermatología clínica y estética',
-    experienceYears: 10,
     bioP1:
       'La Dra. Alpírez es especialista en dermatología, comprometida con brindar una atención cercana, profesional y personalizada a cada paciente.',
     bioP2:
@@ -18,7 +22,9 @@ function About({ info }) {
         title: 'Enfoque profesional',
         description: 'Tratamientos basados en valoración especializada.'
       }
-    ]
+    ],
+    ...info?.doctor,
+    experienceYears
   }
 
   return (
@@ -31,15 +37,13 @@ function About({ info }) {
           <div className="about-image-container">
             <img
               src={aboutImage}
-              alt="Atención dermatológica"
+              alt="Fotografía de la Dra. Marcela Alpírez, especialista en dermatología"
               className="about-image"
             />
 
             <div className="about-image-overlay"></div>
 
             <div className="about-image-label">
-              <span>✦</span>
-
               <div>
                 <strong>{doctor.title}</strong>
                 <small>{doctor.specialty}</small>
@@ -48,7 +52,7 @@ function About({ info }) {
           </div>
 
           <div className="about-experience">
-            <strong>+{doctor.experienceYears}</strong>
+            <strong>{doctor.experienceYears}</strong>
 
             <span>
               Años de
@@ -78,16 +82,15 @@ function About({ info }) {
           </p>
 
           <div className="about-highlights">
-            {doctor.highlights.map((h, i) => (
-              <div key={i} className="about-highlight">
-                <span className="about-highlight-icon">✦</span>
+            {doctor.highlights.map((highlight, index) => (
+              <div
+                key={index}
+                className="about-highlight"
+              >
+                <div className="about-highlight-content">
+                  <strong>{highlight.title}</strong>
 
-                <div>
-                  <strong>{h.title}</strong>
-
-                  <p>
-                    {h.description}
-                  </p>
+                  <p>{highlight.description}</p>
                 </div>
               </div>
             ))}
