@@ -1,5 +1,10 @@
+import wordmarkLogo from '../../assets/dermo-clinik-wordmark.png'
+import butterflyLogo from '../../assets/dermo-clinik-butterfly-transparent.png'
+
 function Footer({ info }) {
-  const brandName = info?.name || 'Clínica Dermatológica Dra. Marcela Alpírez'
+  const brandName =
+    info?.name || 'Clínica Dermatológica Dra. Marcela Alpírez'
+
   const social = info?.social || {
     instagram: 'https://instagram.com',
     facebook: 'https://facebook.com'
@@ -9,19 +14,34 @@ function Footer({ info }) {
     <footer className="footer">
       <div className="footer-container">
 
+        {/* IDENTIDAD DE LA CLÍNICA */}
         <div className="footer-brand">
-          <a href="#inicio" className="footer-logo">
-            <span className="footer-logo-icon">✦</span>
-            <span>DRA. ALPÍREZ</span>
+          <a
+            href="#inicio"
+            className="footer-logo"
+            aria-label="Dermo Clini-K - Volver al inicio"
+          >
+            <img
+              src={butterflyLogo}
+              alt=""
+              className="footer-butterfly-image"
+            />
+
+            <img
+              src={wordmarkLogo}
+              alt="Dermo Clini-K"
+              className="footer-wordmark-image"
+            />
           </a>
 
           <p>
-            Dermatología clínica y estética
+            Dermatología · Medicina Estética
             <br />
-            con un enfoque personalizado.
+            Facial y Corporal
           </p>
         </div>
 
+        {/* NAVEGACIÓN */}
         <div className="footer-links">
           <div>
             <span className="footer-heading">
@@ -44,6 +64,7 @@ function Footer({ info }) {
           </div>
         </div>
 
+        {/* REDES SOCIALES */}
         <div className="footer-social">
           <span className="footer-heading">
             Síguenos
@@ -72,6 +93,7 @@ function Footer({ info }) {
 
       </div>
 
+      {/* DERECHOS DE AUTOR */}
       <div className="footer-bottom">
         <span>
           © {new Date().getFullYear()} {brandName}

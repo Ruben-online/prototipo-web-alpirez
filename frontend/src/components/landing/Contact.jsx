@@ -4,8 +4,7 @@ function Contact({ info }) {
   const contactInfo = info?.contact || {
     email: 'contacto@clinicaalpirez.com',
     phone: '55550000',
-    phoneDisplay: '+502 5555-0000',
-    location: 'Quetzaltenango, Quetzaltenango'
+    phoneDisplay: '+502 5555-0000'
   }
 
   const [form, setForm] = useState({
@@ -15,19 +14,24 @@ function Contact({ info }) {
     message: '',
     _gotcha: '' // Honeypot invisible para bots
   })
+
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState({ type: '', message: '' })
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    // Si es teléfono, permitir estrictamente solo dígitos numéricos y un máximo de 8 dígitos
+
+    // Permitir únicamente 8 dígitos en el teléfono
     if (name === 'phone') {
       const onlyDigits = value.replace(/\D/g, '').slice(0, 8)
       setForm((prev) => ({ ...prev, [name]: onlyDigits }))
     } else {
       setForm((prev) => ({ ...prev, [name]: value }))
     }
-    if (status.message) setStatus({ type: '', message: '' })
+
+    if (status.message) {
+      setStatus({ type: '', message: '' })
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -35,19 +39,24 @@ function Contact({ info }) {
     setLoading(true)
     setStatus({ type: '', message: '' })
 
-    // Validación previa de 8 dígitos en cliente
     const cleanedPhone = form.phone.replace(/[\s-]/g, '')
+
     if (cleanedPhone.length !== 8) {
       setStatus({
         type: 'error',
         message: 'El número de teléfono debe tener exactamente 8 dígitos.'
       })
+
       setLoading(false)
       return
     }
 
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'http://localhost:3000'
+      const backendUrl =
+        import.meta.env.VITE_BACKEND_URL ||
+        import.meta.env.VITE_API_URL ||
+        'http://localhost:3000'
+
       const response = await fetch(`${backendUrl}/api/precitas`, {
         method: 'POST',
         headers: {
@@ -65,13 +74,22 @@ function Contact({ info }) {
       const data = await response.json()
 
       if (!response.ok) {
-        const errorMsg = data.errors ? data.errors.join(' ') : data.message || 'Error al enviar la solicitud.'
-        setStatus({ type: 'error', message: errorMsg })
+        const errorMsg = data.errors
+          ? data.errors.join(' ')
+          : data.message || 'Error al enviar la solicitud.'
+
+        setStatus({
+          type: 'error',
+          message: errorMsg
+        })
       } else {
         setStatus({
           type: 'success',
-          message: data.message || '¡Tu solicitud ha sido recibida con éxito!'
+          message:
+            data.message ||
+            '¡Tu solicitud ha sido recibida con éxito!'
         })
+
         setForm({
           name: '',
           email: '',
@@ -82,9 +100,11 @@ function Contact({ info }) {
       }
     } catch (err) {
       console.error('Error enviando pre-cita:', err)
+
       setStatus({
         type: 'error',
-        message: 'No pudimos conectar con el servidor. Intenta de nuevo más tarde.'
+        message:
+          'No pudimos conectar con el servidor. Intenta de nuevo más tarde.'
       })
     } finally {
       setLoading(false)
@@ -95,8 +115,10 @@ function Contact({ info }) {
     <section id="contacto" className="contact">
       <div className="contact-container">
 
+        {/* PANEL IZQUIERDO */}
         <div className="contact-content">
           <div className="contact-content-inner">
+
             <span className="section-eyebrow">
               CONTACTO
             </span>
@@ -112,6 +134,7 @@ function Contact({ info }) {
               información sobre nuestros servicios y tratamientos.
             </p>
 
+            {/* INFORMACIÓN DE CONTACTO */}
             <div className="contact-details">
 
               <a
@@ -142,33 +165,22 @@ function Contact({ info }) {
                 </div>
               </a>
 
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  ◉
-                </div>
-
-                <div>
-                  <span>Ubicación</span>
-                  <strong>{contactInfo.location}</strong>
-                </div>
-              </div>
-
             </div>
 
+            {/* DECORACIÓN DEL PANEL IZQUIERDO */}
             <div className="contact-content-decoration">
               ✦
             </div>
+
           </div>
         </div>
 
+        {/* FORMULARIO DE PRE-CITA */}
         <div className="contact-card">
+
           <div className="contact-card-header">
             <span className="contact-card-label">
               SOLICITAR PRE-CITA
-            </span>
-
-            <span className="contact-card-icon">
-              ✦
             </span>
           </div>
 
@@ -183,11 +195,20 @@ function Contact({ info }) {
             para coordinar y confirmar tu cita.
           </p>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+          >
 
-            {/* Campo Honeypot para neutralizar bots (oculto visualmente) */}
-            <div style={{ display: 'none' }} aria-hidden="true">
-              <label htmlFor="gotcha-field">No llenar este campo</label>
+            {/* Honeypot invisible para bots */}
+            <div
+              style={{ display: 'none' }}
+              aria-hidden="true"
+            >
+              <label htmlFor="gotcha-field">
+                No llenar este campo
+              </label>
+
               <input
                 id="gotcha-field"
                 type="text"
@@ -199,6 +220,7 @@ function Contact({ info }) {
               />
             </div>
 
+            {/* NOMBRE */}
             <div className="contact-form-group">
               <label htmlFor="name">
                 Nombre completo *
@@ -215,6 +237,7 @@ function Contact({ info }) {
               />
             </div>
 
+            {/* CORREO */}
             <div className="contact-form-group">
               <label htmlFor="email">
                 Correo electrónico *
@@ -231,6 +254,7 @@ function Contact({ info }) {
               />
             </div>
 
+            {/* TELÉFONO */}
             <div className="contact-form-group">
               <label htmlFor="phone">
                 Teléfono (8 dígitos) *
@@ -248,6 +272,7 @@ function Contact({ info }) {
               />
             </div>
 
+            {/* MENSAJE */}
             <div className="contact-form-group">
               <label htmlFor="message">
                 Motivo de consulta o mensaje
@@ -263,6 +288,7 @@ function Contact({ info }) {
               ></textarea>
             </div>
 
+            {/* ESTADO DEL FORMULARIO */}
             {status.message && (
               <div
                 style={{
@@ -270,20 +296,34 @@ function Contact({ info }) {
                   borderRadius: '6px',
                   fontSize: '0.875rem',
                   marginBottom: '1rem',
-                  backgroundColor: status.type === 'error' ? '#fee2e2' : '#ecfdf5',
-                  color: status.type === 'error' ? '#b91c1c' : '#047857',
-                  border: `1px solid ${status.type === 'error' ? '#fca5a5' : '#a7f3d0'}`
+                  backgroundColor:
+                    status.type === 'error'
+                      ? '#fee2e2'
+                      : '#ecfdf5',
+                  color:
+                    status.type === 'error'
+                      ? '#b91c1c'
+                      : '#047857',
+                  border: `1px solid ${
+                    status.type === 'error'
+                      ? '#fca5a5'
+                      : '#a7f3d0'
+                  }`
                 }}
               >
                 {status.message}
               </div>
             )}
 
+            {/* BOTÓN */}
             <button
               type="submit"
               className="contact-submit"
               disabled={loading}
-              style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+              style={{
+                opacity: loading ? 0.7 : 1,
+                cursor: loading ? 'not-allowed' : 'pointer'
+              }}
             >
               {loading ? 'Enviando...' : 'Solicitar pre-cita'}
               <span>→</span>
