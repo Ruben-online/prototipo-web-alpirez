@@ -3,6 +3,7 @@ import Hero from '../components/landing/Hero'
 import Services from '../components/landing/Services'
 import About from '../components/landing/About'
 import Treatments from '../components/landing/Treatments'
+import LocationHours from '../components/landing/LocationHours'
 import Contact from '../components/landing/Contact'
 import Footer from '../components/landing/Footer'
 import { useLandingData } from '../hooks/useLandingData'
@@ -19,6 +20,7 @@ function Home() {
         <Services servicesData={services} />
         <About info={info} />
         <Treatments treatmentsData={treatments} />
+        <LocationHours />
         <Contact info={info} />
       </main>
 

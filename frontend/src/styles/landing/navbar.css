@@ -6,24 +6,32 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+
   width: 100%;
   z-index: 1000;
 
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.96);
+
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   border-bottom: 1px solid rgba(171, 73, 204, 0.08);
 }
 
 .navbar-container {
-  width: min(1380px, 96%);
+  position: relative;
+
+  width: min(1440px, 96%);
   min-height: 80px;
+
   margin: 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+
+  gap: 20px;
 }
 
 /* =========================
@@ -33,6 +41,7 @@
 .navbar-logo {
   display: flex;
   align-items: center;
+
   flex-shrink: 0;
   gap: 12px;
 
@@ -53,13 +62,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 
   width: 58px;
   height: 58px;
 
   background: transparent;
-  border-radius: 0;
 }
 
 .navbar-butterfly-image {
@@ -84,8 +93,6 @@
   min-width: 0;
 }
 
-/* Logotipo original de Dermo Clini-K */
-
 .navbar-wordmark-image {
   display: block;
 
@@ -96,8 +103,6 @@
   object-fit: contain;
   object-position: left center;
 }
-
-/* Eslogan */
 
 .navbar-brand-text small {
   display: block;
@@ -110,18 +115,18 @@
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.4;
-
-  letter-spacing: 0;
 }
 
 /* =========================
-   NAVIGATION LINKS
+   NAVIGATION
 ========================= */
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+
+  gap: 18px;
 }
 
 .navbar-links a {
@@ -129,8 +134,10 @@
 
   color: var(--color-text-light);
 
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 500;
+
+  white-space: nowrap;
 
   transition: var(--transition-normal);
 }
@@ -139,6 +146,7 @@
   content: '';
 
   position: absolute;
+
   left: 0;
   bottom: -6px;
 
@@ -146,6 +154,7 @@
   height: 2px;
 
   background-color: var(--color-primary);
+
   border-radius: 2px;
 
   transition: var(--transition-normal);
@@ -159,18 +168,24 @@
   width: 100%;
 }
 
+.navbar-links a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
 /* =========================
-   APPOINTMENT BUTTON
+   APPOINTMENT
 ========================= */
 
 .navbar-appointment {
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 
   gap: 9px;
-
   padding: 12px 20px;
 
   background-color: var(--color-primary);
@@ -181,20 +196,31 @@
   font-size: 1rem;
   font-weight: 600;
 
-  box-shadow: 0 8px 20px rgba(171, 73, 204, 0.18);
+  white-space: nowrap;
+
+  box-shadow:
+    0 8px 20px rgba(171, 73, 204, 0.18);
 
   transition: var(--transition-normal);
 }
 
 .navbar-appointment:hover {
   background-color: var(--color-primary-dark);
+  color: var(--color-white);
+
   transform: translateY(-2px);
 
-  box-shadow: 0 12px 25px rgba(171, 73, 204, 0.25);
+  box-shadow:
+    0 12px 25px rgba(171, 73, 204, 0.25);
+}
+
+.navbar-appointment:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
 }
 
 /* =========================
-   MOBILE MENU BUTTON
+   MENU BUTTON
 ========================= */
 
 .navbar-menu-button {
@@ -202,6 +228,8 @@
 
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 
   width: 44px;
   height: 44px;
@@ -219,46 +247,79 @@
   color: var(--color-white);
 }
 
+.navbar-menu-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
 /* =========================
-   COMPACT DESKTOP
-   601px - 1100px
+   COMPACT NAVIGATION
+   1400px AND BELOW
 ========================= */
 
-@media (min-width: 601px) and (max-width: 1100px) {
+@media (max-width: 1400px) {
 
   .navbar-container {
-    gap: 14px;
-  }
-
-  .navbar-logo {
-    gap: 8px;
-  }
-
-  .navbar-logo-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .navbar-wordmark-image {
-    width: 170px;
-  }
-
-  .navbar-brand-text small {
-    max-width: 230px;
-    font-size: 0.7rem;
+    width: min(1100px, 94%);
+    gap: 18px;
   }
 
   .navbar-links {
-    gap: 14px;
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+
+    width: min(360px, 94vw);
+    max-height: calc(100vh - 105px);
+
+    gap: 4px;
+    padding: 14px;
+
+    overflow-y: auto;
+
+    background-color: var(--color-white);
+
+    border: 1px solid rgba(171, 73, 204, 0.12);
+    border-radius: 18px;
+
+    box-shadow:
+      0 18px 45px rgba(39, 35, 45, 0.13);
+  }
+
+  .navbar-links-open {
+    display: flex;
   }
 
   .navbar-links a {
-    font-size: 0.875rem;
+    display: block;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+
+    font-size: 1.0625rem;
+    white-space: normal;
+  }
+
+  .navbar-links a::after {
+    display: none;
+  }
+
+  .navbar-links a:hover {
+    background-color: var(--color-primary-light);
+  }
+
+  .navbar-menu-button {
+    display: flex;
   }
 
   .navbar-appointment {
-    padding: 10px 14px;
-    font-size: 0.875rem;
+    margin-left: auto;
   }
 }
 
@@ -271,7 +332,9 @@
 
   .navbar-container {
     width: calc(100% - 24px);
+
     min-height: 72px;
+
     gap: 10px;
   }
 
@@ -289,8 +352,6 @@
     min-width: 0;
   }
 
-  /* Logotipo en móvil */
-
   .navbar-wordmark-image {
     width: clamp(145px, 42vw, 185px);
   }
@@ -302,66 +363,42 @@
     line-height: 1.3;
   }
 
-  /* Navigation menu */
+  /* Mobile navigation */
 
   .navbar-links {
-    position: absolute;
-    top: 78px;
-    left: 4%;
-    right: 4%;
+    top: calc(100% + 6px);
 
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    max-height: calc(100vh - 90px);
 
     padding: 10px;
-
-    background-color: var(--color-white);
-
-    border: 1px solid rgba(171, 73, 204, 0.08);
-    border-radius: 18px;
-
-    box-shadow: 0 15px 35px rgba(39, 35, 45, 0.12);
-  }
-
-  .navbar-links-open {
-    display: flex;
   }
 
   .navbar-links a {
     padding: 15px 14px;
 
-    border-radius: 10px;
-
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 
-  .navbar-links a::after {
-    display: none;
-  }
-
-  .navbar-links a:hover {
-    background-color: var(--color-primary-light);
-  }
-
-  /* Hide appointment button */
+  /* Hide appointment */
 
   .navbar-appointment {
     display: none;
   }
 
-  /* Show mobile menu button */
+  /* Show menu button */
 
   .navbar-menu-button {
     display: flex;
-    flex-shrink: 0;
+    margin-left: auto;
   }
 }
 
 /* =========================
    SMALL MOBILE
-   360px AND BELOW
 ========================= */
 
 @media (max-width: 360px) {
@@ -381,11 +418,32 @@
 
   .navbar-brand-text small {
     max-width: 175px;
+
     font-size: 0.625rem;
   }
 
   .navbar-menu-button {
     width: 40px;
     height: 40px;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .navbar-logo,
+  .navbar-links a,
+  .navbar-links a::after,
+  .navbar-appointment,
+  .navbar-menu-button {
+    transition: none;
+  }
+
+  .navbar-logo:hover,
+  .navbar-appointment:hover {
+    transform: none;
   }
 }
