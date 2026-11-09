@@ -424,9 +424,14 @@
 
 /* =========================
    MOBILE
+   600px AND BELOW
 ========================= */
 
 @media (max-width: 600px) {
+
+  /* =========================
+     SECTION
+  ========================= */
 
   .location-hours {
     padding: 80px 0;
@@ -439,80 +444,73 @@
 
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 
-    gap: 35px;
+    gap: 0;
   }
 
-  /* Content */
+  /*
+   * Permite reorganizar visualmente
+   * los elementos en móvil.
+   *
+   * La estructura y los estilos
+   * de escritorio permanecen intactos.
+   */
 
   .location-hours-content {
-    order: 1;
+    display: contents;
   }
 
+  /* =========================
+     1. EYEBROW
+  ========================= */
+
   .location-hours-content .section-eyebrow {
+    order: 1;
+
     margin-bottom: 15px;
   }
 
+  /* =========================
+     2. TITLE
+  ========================= */
+
   .location-hours-content h2 {
+    order: 2;
+
     margin-bottom: 20px;
 
     font-size: clamp(2.3rem, 10vw, 3rem);
   }
 
+  /* =========================
+     3. DESCRIPTION
+  ========================= */
+
   .location-hours-description {
-    margin-bottom: 25px;
+    order: 3;
+
+    width: 100%;
+
+    margin-bottom: 30px;
 
     font-size: 1rem;
     line-height: 1.7;
   }
 
-  /* Highlights */
-
-  .location-hours-highlights {
-    grid-template-columns: 1fr;
-
-    gap: 12px;
-
-    margin: 25px 0;
-  }
-
-  .location-hours-highlight {
-    min-height: 0;
-
-    padding: 22px;
-  }
-
-  .location-hours-highlight-heading strong {
-    font-size: 1.0625rem;
-  }
-
-  .location-hours-highlight p {
-    font-size: 0.9375rem;
-  }
-
-  /* Buttons */
-
-  .location-hours-actions {
-    gap: 12px;
-    margin-top: 25px;
-  }
-
-  .location-hours-button {
-    flex: 1;
-
-    min-height: 52px;
-
-    padding: 12px 15px;
-
-    font-size: 0.9375rem;
-  }
-
-  /* Map */
+  /* =========================
+     4. MAP
+  ========================= */
 
   .location-hours-visual {
-    order: 2;
+    order: 4;
+
+    width: 100%;
+    min-width: 0;
 
     padding: 15px 0;
+
+    margin-bottom: 30px;
   }
 
   .location-hours-map-background {
@@ -530,6 +528,66 @@
     height: 380px;
 
     border-radius: 22px;
+  }
+
+  /* =========================
+     5. LOCATION & SCHEDULE
+  ========================= */
+
+  .location-hours-highlights {
+    order: 5;
+
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    margin: 0 0 28px;
+  }
+
+  .location-hours-highlight {
+    min-width: 0;
+    min-height: 0;
+
+    padding: 22px;
+  }
+
+  .location-hours-highlight-heading strong {
+    font-size: 1.0625rem;
+  }
+
+  .location-hours-highlight p {
+    font-size: 0.9375rem;
+  }
+
+  /* =========================
+     6. NAVIGATION BUTTONS
+  ========================= */
+
+  .location-hours-actions {
+    order: 6;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 0;
+  }
+
+  .location-hours-button {
+    flex: 1;
+    min-width: 0;
+
+    min-height: 52px;
+
+    padding: 12px 15px;
+
+    font-size: 0.9375rem;
   }
 }
 
