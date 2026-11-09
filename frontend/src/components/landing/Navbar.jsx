@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Menu, UserRound, X } from 'lucide-react'
 
 import butterflyLogo from '../../assets/dermo-clinik-butterfly-transparent.png'
+import wordmarkLogo from '../../assets/dermo-clinik-wordmark.png'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -18,6 +19,7 @@ function Navbar() {
           href="#inicio"
           className="navbar-logo"
           onClick={closeMenu}
+          aria-label="Dermo Clini-K - Inicio"
         >
           <span className="navbar-logo-icon navbar-butterfly-icon">
             <img
@@ -28,7 +30,11 @@ function Navbar() {
           </span>
 
           <span className="navbar-brand-text">
-            <strong>Dermo Clini-K</strong>
+            <img
+              src={wordmarkLogo}
+              alt="Dermo Clini-K"
+              className="navbar-wordmark-image"
+            />
 
             <small>
               Dermatología · Medicina Estética Facial y Corporal
@@ -77,6 +83,7 @@ function Navbar() {
             isMenuOpen ? 'Cerrar menú' : 'Abrir menú'
           }
           aria-expanded={isMenuOpen}
+          aria-controls="navbar-navigation"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
