@@ -119,16 +119,33 @@ function LocationHours() {
                 {schedule.confirmed ? (
                   <div className="location-hours-schedule">
 
-                    {schedule.days.map(({ day, hours }) => (
+                    {schedule.locations.map((location) => (
                       <div
-                        className="location-hours-schedule-row"
-                        key={day}
+                        className="location-hours-schedule-location"
+                        key={location.id}
                       >
-                        <span>{day}</span>
 
-                        <strong>
-                          {hours || 'Cerrado'}
-                        </strong>
+                        <h3 className="location-hours-schedule-city">
+                          {location.city}
+                        </h3>
+
+                        {location.days.map(({ day, hours }) => (
+                          <div
+                            className="location-hours-schedule-row"
+                            key={`${location.id}-${day}`}
+                          >
+
+                            <span>
+                              {day}
+                            </span>
+
+                            <strong>
+                              {hours}
+                            </strong>
+
+                          </div>
+                        ))}
+
                       </div>
                     ))}
 
@@ -141,10 +158,7 @@ function LocationHours() {
                   </div>
                 ) : (
                   <p className="location-hours-pending">
-                    Estamos preparando nuestros horarios
-                    de atención. Puedes consultar
-                    disponibilidad directamente
-                    con nosotros.
+                    {schedule.pendingMessage}
                   </p>
                 )}
 
@@ -204,7 +218,7 @@ function LocationHours() {
 
             {googleMapsEmbedUrl ? (
               <iframe
-                title={`Ubicación de ${clinic.name}`}
+                title={`Ubicación de ${clinic.name} en ${clinic.city}`}
                 src={googleMapsEmbedUrl}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
