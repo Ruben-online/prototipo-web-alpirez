@@ -19,22 +19,24 @@ const APPOINTMENT_STATUSES = [
 ]
 
 // ==========================================
-// FUNCIONES DE MAPEÓ (DB <-> Frontend)
+// FUNCIONES DE MAPEO (DB <-> FRONTEND)
 // ==========================================
 
 const mapAppointmentFromDB = (a) => ({
   id: a.id,
   patientId: a.patient_id,
   date: a.appointment_date,
-  time: a.start_time.substring(0, 5), // 'HH:mm:ss' -> 'HH:mm'
+  time: a.start_time.substring(0, 5),
   duration: a.duration_minutes,
   service: a.service,
   status: a.status,
   notes: a.notes,
-  patient: a.patients ? {
-    name: a.patients.full_name,
-    phone: a.patients.phone
-  } : null
+  patient: a.patients
+    ? {
+        name: a.patients.full_name,
+        phone: a.patients.phone,
+      }
+    : null,
 })
 
 // ==========================================
@@ -44,6 +46,7 @@ const mapAppointmentFromDB = (a) => ({
 export function AppointmentsProvider({ children }) {
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
+<<<<<<< HEAD
   
   // Nuevo estado para los días bloqueados
   const [blockedDays, setBlockedDays] = useState([])
@@ -61,6 +64,9 @@ export function AppointmentsProvider({ children }) {
       console.error('Error cargando días bloqueados:', err)
     }
   }, [])
+=======
+  const [error, setError] = useState(null)
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
 
   // ========================================
   // CARGAR CITAS DESDE SUPABASE
@@ -69,6 +75,8 @@ export function AppointmentsProvider({ children }) {
   const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true)
+      setError(null)
+
       const { data, error } = await supabase
         .from('appointments')
         .select(`
@@ -79,9 +87,11 @@ export function AppointmentsProvider({ children }) {
         .order('start_time', { ascending: true })
 
       if (error) throw error
+
       setAppointments(data.map(mapAppointmentFromDB))
     } catch (err) {
       console.error('Error fetching appointments:', err)
+      setError(err.message)
     } finally {
       setLoading(false)
     }
@@ -152,7 +162,9 @@ export function AppointmentsProvider({ children }) {
   // ========================================
 
   const getAppointmentById = (id) => {
-    return appointments.find(a => String(a.id) === String(id))
+    return appointments.find(
+      (a) => String(a.id) === String(id)
+    )
   }
 
   // ========================================
@@ -161,8 +173,14 @@ export function AppointmentsProvider({ children }) {
 
   const getPatientAppointments = (patientId) => {
     return appointments
-      .filter(a => String(a.patientId) === String(patientId))
-      .sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time))
+      .filter(
+        (a) => String(a.patientId) === String(patientId)
+      )
+      .sort(
+        (a, b) =>
+          b.date.localeCompare(a.date) ||
+          b.time.localeCompare(a.time)
+      )
   }
 
   // ========================================
@@ -171,7 +189,7 @@ export function AppointmentsProvider({ children }) {
 
   const getAppointmentsByDate = (date) => {
     return appointments
-      .filter(a => a.date === date)
+      .filter((a) => a.date === date)
       .sort((a, b) => a.time.localeCompare(b.time))
   }
 
@@ -188,23 +206,34 @@ export function AppointmentsProvider({ children }) {
     try {
       const { data, error } = await supabase
         .from('appointments')
-        .insert([{
-          patient_id: appointmentData.patientId,
-          appointment_date: appointmentData.date,
-          start_time: appointmentData.time,
-          duration_minutes: Number(appointmentData.duration),
-          service: appointmentData.service,
-          status: 'Confirmada',
-          notes: appointmentData.notes || ''
-        }])
+        .insert([
+          {
+            patient_id: appointmentData.patientId,
+            appointment_date: appointmentData.date,
+            start_time: appointmentData.time,
+            duration_minutes: Number(appointmentData.duration),
+            service: appointmentData.service,
+            status: 'Confirmada',
+            notes: appointmentData.notes || '',
+          },
+        ])
         .select()
 
       if (error) throw error
+
       await fetchAppointments()
-      return { success: true, appointment: data[0] }
+
+      return {
+        success: true,
+        appointment: data[0],
+      }
     } catch (err) {
       console.error('Error adding appointment:', err)
-      return { success: false, message: err.message }
+
+      return {
+        success: false,
+        message: err.message,
+      }
     }
   }
 
@@ -227,16 +256,24 @@ export function AppointmentsProvider({ children }) {
           duration_minutes: Number(updatedData.duration),
           service: updatedData.service,
           status: updatedData.status,
-          notes: updatedData.notes
+          notes: updatedData.notes,
         })
         .eq('id', appointmentId)
 
       if (error) throw error
+
       await fetchAppointments()
-      return { success: true }
+
+      return {
+        success: true,
+      }
     } catch (err) {
       console.error('Error updating appointment:', err)
-      return { success: false, message: err.message }
+
+      return {
+        success: false,
+        message: err.message,
+      }
     }
   }
 
@@ -244,61 +281,115 @@ export function AppointmentsProvider({ children }) {
   // CAMBIAR ESTADO DE CITA
   // ========================================
 
-  const updateAppointmentStatus = async (appointmentId, newStatus) => {
+  const updateAppointmentStatus = async (
+    appointmentId,
+    newStatus
+  ) => {
     try {
       const { error } = await supabase
         .from('appointments')
-        .update({ status: newStatus })
+        .update({
+          status: newStatus,
+        })
         .eq('id', appointmentId)
 
       if (error) throw error
+
       await fetchAppointments()
-      return { success: true }
+
+      return {
+        success: true,
+      }
     } catch (err) {
       console.error('Error updating status:', err)
-      return { success: false, message: err.message }
+
+      return {
+        success: false,
+        message: err.message,
+      }
     }
   }
 
+  // ========================================
+  // CANCELAR CITA
+  // ========================================
+
   const cancelAppointment = (appointmentId) => {
-    return updateAppointmentStatus(appointmentId, 'Cancelada')
+    return updateAppointmentStatus(
+      appointmentId,
+      'Cancelada'
+    )
   }
 
   // ========================================
-  // CONSULTAR DISPONIBILIDAD (Aprox localmente)
+  // CONSULTAR DISPONIBILIDAD
   // ========================================
 
+<<<<<<< HEAD
   const isTimeAvailable = (date, time, duration, excludeId = null) => {
     // Si el día entero está bloqueado, no hay tiempo disponible
     if (blockedDays.includes(date)) return false
 
     const newStart = time
+=======
+  const isTimeAvailable = (
+    date,
+    time,
+    duration,
+    excludeId = null
+  ) => {
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
     const newEndMinutes = (t) => {
       const [h, m] = t.split(':').map(Number)
+
       return h * 60 + m
     }
+
     const startM = newEndMinutes(time)
     const endM = startM + Number(duration)
 
-    return !appointments.some(a => {
+    return !appointments.some((a) => {
       if (a.date !== date) return false
-      if (excludeId && String(a.id) === String(excludeId)) return false
-      if (['Cancelada', 'No asistió'].includes(a.status)) return false
+
+      if (
+        excludeId &&
+        String(a.id) === String(excludeId)
+      ) {
+        return false
+      }
+
+      if (
+        ['Cancelada', 'No asistió'].includes(a.status)
+      ) {
+        return false
+      }
 
       const aStartM = newEndMinutes(a.time)
       const aEndM = aStartM + a.duration
-      return (startM < aEndM && endM > aStartM)
+
+      return (
+        startM < aEndM &&
+        endM > aStartM
+      )
     })
   }
+
+  // ========================================
+  // CONTEXT PROVIDER
+  // ========================================
 
   return (
     <AppointmentsContext.Provider
       value={{
         appointments,
         loading,
+<<<<<<< HEAD
         blockedDays,         // <-- EXPUESTO AL FRONTEND
         toggleBlockDate,     // <-- EXPUESTO AL FRONTEND
         blockWeek,           // <-- EXPUESTO AL FRONTEND
+=======
+        error,
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
         getAppointmentById,
         getPatientAppointments,
         getAppointmentsByDate,

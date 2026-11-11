@@ -21,7 +21,7 @@
 ======================================== */
 
 .appointment-status-open-button {
-  min-height: 43px;
+  min-height: 45px;
 
   display: inline-flex;
   align-items: center;
@@ -31,14 +31,15 @@
   padding: 0 19px;
 
   border: 1px solid #eadbed;
-  border-radius: 11px;
+  border-radius: 12px;
 
   background: #fcf7fd;
   color: var(--color-primary);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
 
   cursor: pointer;
 
@@ -62,7 +63,7 @@
 ======================================== */
 
 .appointment-status-back-button {
-  min-height: 43px;
+  min-height: 45px;
 
   display: inline-flex;
   align-items: center;
@@ -71,15 +72,16 @@
 
   padding: 0 19px;
 
-  border: 1px solid #eae5ec;
-  border-radius: 11px;
+  border: 1px solid #e8e2eb;
+  border-radius: 12px;
 
   background: var(--color-white);
   color: var(--color-text-light);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
 
   cursor: pointer;
 
@@ -87,7 +89,13 @@
 }
 
 .appointment-status-back-button:hover {
-  background: #f8f7fa;
+  background: #f8f5f9;
+  color: var(--color-text);
+}
+
+.appointment-status-back-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* ========================================
@@ -98,7 +106,9 @@
   width: 100%;
 }
 
-/* INTRO */
+/* ========================================
+   INTRO
+======================================== */
 
 .appointment-status-intro {
   display: flex;
@@ -131,8 +141,9 @@
 
   color: var(--color-text);
 
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .appointment-status-intro p {
@@ -141,7 +152,7 @@
 
   color: var(--color-text-light);
 
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -185,6 +196,11 @@
   transform: translateY(-1px);
 }
 
+.appointment-status-option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
 .appointment-status-option-icon {
   width: 44px;
   height: 44px;
@@ -208,12 +224,13 @@
 }
 
 .appointment-status-option-content strong {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
+  line-height: 1.5;
 }
 
 .appointment-status-option-content small {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.5;
 
   color: var(--color-text-light);
@@ -343,7 +360,7 @@
 
   color: var(--color-text);
 
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.5;
 }
@@ -354,7 +371,7 @@
 
   color: var(--color-text-light);
 
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -377,8 +394,9 @@
 
   color: var(--color-text);
 
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .appointment-status-summary-row {
@@ -402,13 +420,14 @@
 
   color: var(--color-text-light);
 
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .appointment-status-summary-row > strong {
   color: var(--color-text);
 
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
   text-align: right;
@@ -421,7 +440,7 @@
 ======================================== */
 
 .appointment-status-confirm-button {
-  min-height: 43px;
+  min-height: 45px;
 
   display: inline-flex;
   align-items: center;
@@ -431,14 +450,15 @@
   padding: 0 19px;
 
   border: 1px solid var(--color-primary);
-  border-radius: 11px;
+  border-radius: 12px;
 
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-white);
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.5;
 
   cursor: pointer;
 
@@ -456,6 +476,11 @@
 
 .appointment-status-confirm-button-danger:hover:not(:disabled) {
   background: #98202b;
+}
+
+.appointment-status-confirm-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 .appointment-status-confirm-button:disabled,
@@ -479,9 +504,9 @@
   border: 1px solid transparent;
   border-radius: 13px;
 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .appointment-status-notification > svg {
@@ -540,7 +565,6 @@
 ======================================== */
 
 @media (max-width: 760px) {
-
   .appointment-status-footer {
     flex-direction: column-reverse;
     align-items: stretch;
@@ -562,7 +586,7 @@
   }
 
   .appointment-status-intro h3 {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .appointment-status-option {
@@ -575,7 +599,7 @@
   }
 
   .appointment-status-confirm-card h3 {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .appointment-status-summary {
@@ -585,11 +609,13 @@
   .appointment-status-notification {
     padding: 13px 15px;
   }
-
 }
 
-@media (max-width: 520px) {
+/* ========================================
+   MOBILE PEQUEÑO
+======================================== */
 
+@media (max-width: 520px) {
   .appointment-status-intro-icon,
   .appointment-status-confirm-icon {
     width: 52px;
@@ -606,11 +632,11 @@
   }
 
   .appointment-status-option-content strong {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .appointment-status-option-content small {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .appointment-status-confirm-card {
@@ -623,12 +649,11 @@
 
   .appointment-status-summary-row > span,
   .appointment-status-summary-row > strong {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .appointment-status-notification {
     padding: 12px 14px;
-    font-size: 11px;
+    font-size: 14px;
   }
-
 }

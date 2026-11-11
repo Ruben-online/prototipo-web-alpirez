@@ -150,7 +150,7 @@
 
   color: rgba(255, 255, 255, 0.76);
 
-  font-size: 0.91rem;
+  font-size: 1.125rem;
   line-height: 1.8;
 }
 
@@ -169,7 +169,7 @@
 .contact-detail {
   width: 100%;
 
-  padding: 12px 14px;
+  padding: 15px 16px;
 
   display: flex;
   align-items: center;
@@ -193,8 +193,8 @@ a.contact-detail:hover {
 }
 
 .contact-detail-icon {
-  width: 39px;
-  height: 39px;
+  width: 43px;
+  height: 43px;
 
   display: flex;
   align-items: center;
@@ -207,7 +207,7 @@ a.contact-detail:hover {
   background-color: rgba(255, 255, 255, 0.13);
   color: var(--color-white);
 
-  font-size: 0.8rem;
+  font-size: 1.125rem;
 }
 
 .contact-detail > div:last-child {
@@ -215,6 +215,8 @@ a.contact-detail:hover {
 
   display: flex;
   flex-direction: column;
+
+  gap: 3px;
 }
 
 .contact-detail span {
@@ -222,16 +224,18 @@ a.contact-detail:hover {
 
   color: rgba(255, 255, 255, 0.57);
 
-  font-size: 0.64rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .contact-detail strong {
   color: var(--color-white);
 
-  font-size: 0.77rem;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1.4;
 
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 
@@ -289,15 +293,15 @@ a.contact-detail:hover {
 .contact-card-label {
   color: var(--color-primary);
 
-  font-size: 0.68rem;
+  font-size: 0.875rem;
   font-weight: 700;
 
   letter-spacing: 0.12em;
 }
 
 .contact-card-icon {
-  width: 37px;
-  height: 37px;
+  width: 40px;
+  height: 40px;
 
   display: flex;
   align-items: center;
@@ -310,7 +314,7 @@ a.contact-detail:hover {
   background-color: var(--color-primary-light);
   color: var(--color-primary);
 
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .contact-card h3 {
@@ -331,7 +335,7 @@ a.contact-detail:hover {
 
   color: var(--color-text-light);
 
-  font-size: 0.81rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -357,7 +361,7 @@ a.contact-detail:hover {
 .contact-form-group label {
   color: var(--color-text);
 
-  font-size: 0.72rem;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
@@ -365,7 +369,7 @@ a.contact-detail:hover {
 .contact-form-group textarea {
   width: 100%;
 
-  padding: 13px 14px;
+  padding: 14px 15px;
 
   border: 1px solid rgba(39, 35, 45, 0.1);
   border-radius: 11px;
@@ -374,7 +378,7 @@ a.contact-detail:hover {
   color: var(--color-text);
 
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 1rem;
 
   outline: none;
 
@@ -387,11 +391,11 @@ a.contact-detail:hover {
 }
 
 .contact-form-group input {
-  min-height: 46px;
+  min-height: 50px;
 }
 
 .contact-form-group textarea {
-  min-height: 105px;
+  min-height: 115px;
 }
 
 .contact-form-group input:hover,
@@ -419,7 +423,7 @@ a.contact-detail:hover {
    ========================= */
 
 .contact-submit {
-  min-height: 50px;
+  min-height: 54px;
 
   margin-top: 4px;
 
@@ -437,7 +441,7 @@ a.contact-detail:hover {
   color: var(--color-white);
 
   font-family: inherit;
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 600;
 
   box-shadow: 0 10px 25px rgba(171, 73, 204, 0.17);
@@ -503,7 +507,7 @@ a.contact-detail:hover {
   .contact-content-inner > p {
     margin-bottom: 28px;
 
-    font-size: 0.86rem;
+    font-size: 1rem;
     line-height: 1.7;
   }
 
@@ -515,22 +519,24 @@ a.contact-detail:hover {
   }
 
   .contact-detail {
-    padding: 11px 12px;
+    padding: 13px 12px;
 
     gap: 11px;
   }
 
   .contact-detail-icon {
-    width: 37px;
-    height: 37px;
+    width: 39px;
+    height: 39px;
+
+    font-size: 1rem;
   }
 
   .contact-detail span {
-    font-size: 0.62rem;
+    font-size: 0.8125rem;
   }
 
   .contact-detail strong {
-    font-size: 0.72rem;
+    font-size: 0.875rem;
   }
 
   .contact-content-decoration {
@@ -550,9 +556,13 @@ a.contact-detail:hover {
     margin-bottom: 10px;
   }
 
+  .contact-card-label {
+    font-size: 0.75rem;
+  }
+
   .contact-card-icon {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
   .contact-card h3 {
@@ -562,19 +572,23 @@ a.contact-detail:hover {
   .contact-card > p {
     margin-bottom: 24px;
 
-    font-size: 0.77rem;
+    font-size: 1rem;
   }
 
   .contact-form {
     gap: 15px;
   }
 
+  .contact-form-group label {
+    font-size: 0.9375rem;
+  }
+
   .contact-form-group input,
   .contact-form-group textarea {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .contact-submit {
-    min-height: 50px;
+    min-height: 54px;
   }
 }

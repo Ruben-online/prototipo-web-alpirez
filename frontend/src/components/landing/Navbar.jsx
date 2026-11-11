@@ -1,5 +1,9 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Menu, UserRound, X } from 'lucide-react'
+
+import butterflyLogo from '../../assets/dermo-clinik-butterfly-transparent.png'
+import wordmarkLogo from '../../assets/dermo-clinik-wordmark.png'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -8,51 +12,105 @@ function Navbar() {
     setIsMenuOpen(false)
   }
 
+  const toggleMenu = () => {
+    setIsMenuOpen((previousState) => !previousState)
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-container">
 
-        <a href="#" className="navbar-logo" onClick={closeMenu}>
-          <span className="navbar-logo-icon">✦</span>
-          <span>
-            DRA. ALPÍREZ
+        {/* LOGOTIPO */}
+
+        <Link
+          to="/#inicio"
+          className="navbar-logo"
+          onClick={closeMenu}
+          aria-label="Dermo Clini-K - Inicio"
+        >
+          <span className="navbar-logo-icon navbar-butterfly-icon">
+            <img
+              src={butterflyLogo}
+              alt=""
+              className="navbar-butterfly-image"
+            />
           </span>
-        </a>
 
-        <nav className={`navbar-links ${isMenuOpen ? 'navbar-links-open' : ''}`}>
-          <a href="#inicio" onClick={closeMenu}>
+          <span className="navbar-brand-text">
+            <img
+              src={wordmarkLogo}
+              alt="Dermo Clini-K"
+              className="navbar-wordmark-image"
+            />
+
+            <small>
+              Dermatología · Medicina Estética Facial y Corporal
+            </small>
+          </span>
+        </Link>
+
+        {/* NAVEGACIÓN */}
+
+        <nav
+          id="navbar-navigation"
+          className={`navbar-links ${
+            isMenuOpen ? 'navbar-links-open' : ''
+          }`}
+          aria-label="Navegación principal"
+        >
+          <Link to="/#inicio" onClick={closeMenu}>
             Inicio
-          </a>
+          </Link>
 
-          <a href="#servicios" onClick={closeMenu}>
+          <Link to="/#servicios" onClick={closeMenu}>
             Servicios
-          </a>
+          </Link>
 
-          <a href="#sobre-mi" onClick={closeMenu}>
+          <Link to="/#sobre-mi" onClick={closeMenu}>
             Sobre mí
-          </a>
+          </Link>
 
-          <a href="#tratamientos" onClick={closeMenu}>
+          <Link to="/#tratamientos" onClick={closeMenu}>
             Tratamientos
-          </a>
+          </Link>
 
-          <a href="#contacto" onClick={closeMenu}>
+          <Link to="/#ubicacion-horarios" onClick={closeMenu}>
+            Ubicación y horarios
+          </Link>
+
+          <Link to="/#contacto" onClick={closeMenu}>
             Contacto
-          </a>
+          </Link>
         </nav>
 
-        <a href="#contacto" className="navbar-appointment">
+        {/* AGENDAR CITA */}
+
+        <Link
+          to="/#contacto"
+          className="navbar-appointment"
+          onClick={closeMenu}
+        >
           <UserRound size={17} />
           <span>Agendar cita</span>
-        </a>
+        </Link>
+
+        {/* MENÚ RESPONSIVE */}
 
         <button
+          type="button"
           className="navbar-menu-button"
-          aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={
+            isMenuOpen ? 'Cerrar menú' : 'Abrir menú'
+          }
           aria-expanded={isMenuOpen}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-controls="navbar-navigation"
+          onClick={toggleMenu}
         >
-          {isMenuOpen ? <X size={25} /> : <Menu size={25} />}
+          {isMenuOpen ? (
+            <X size={25} />
+          ) : (
+            <Menu size={25} />
+          )}
         </button>
 
       </div>

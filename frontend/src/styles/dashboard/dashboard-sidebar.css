@@ -1,0 +1,194 @@
+/* =========================
+   SIDEBAR
+========================= */
+
+.dashboard-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: 285px;
+  padding: 28px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-white);
+  border-right: 1px solid #eee9f0;
+
+  z-index: 20;
+}
+
+/* =========================
+   SIDEBAR HEADER
+========================= */
+
+.dashboard-sidebar-header {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 130px;
+
+  padding: 0 0 18px;
+  border-bottom: 1px solid #f0ecf2;
+}
+
+/* =========================
+   CLINIC LOGO
+========================= */
+
+.dashboard-clinic-logo {
+  display: block;
+
+  width: 100%;
+  max-width: 255px;
+  height: 125px;
+
+  object-fit: contain;
+  object-position: center;
+
+  flex-shrink: 1;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.dashboard-navigation {
+  flex: 1;
+  padding-top: 30px;
+}
+
+.dashboard-navigation-label {
+  display: block;
+
+  padding: 0 12px;
+  margin-bottom: 14px;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+
+  color: #aaa3ad;
+}
+
+.dashboard-navigation-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+/* =========================
+   NAVIGATION ITEMS
+========================= */
+
+.dashboard-nav-item {
+  width: 100%;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 0 13px;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  color: var(--color-text-light);
+
+  transition: var(--transition-fast);
+}
+
+.dashboard-nav-item svg {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+}
+
+.dashboard-nav-item:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.dashboard-nav-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+
+  font-weight: 600;
+}
+
+/* =========================
+   SIDEBAR BOTTOM
+========================= */
+
+.dashboard-sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #f0ecf2;
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+.dashboard-logout {
+  width: 100%;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 0 13px;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  color: #a86a72;
+
+  font-size: 16px;
+
+  transition: var(--transition-fast);
+}
+
+.dashboard-logout svg {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+}
+
+.dashboard-logout:hover {
+  background: #fff4f5;
+}
+
+/* =========================
+   MOBILE NAVIGATION ELEMENTS
+========================= */
+
+.dashboard-sidebar-close {
+  display: none;
+}
+
+.dashboard-sidebar-overlay {
+  display: none;
+}

@@ -9,7 +9,7 @@ import './styles/landing/hero.css'
 import './styles/landing/services.css'
 import './styles/landing/about.css'
 import './styles/landing/treatments.css'
-import './styles/landing/testimonials.css'
+import './styles/landing/location-hours.css'
 import './styles/landing/contact.css'
 import './styles/landing/footer.css'
 

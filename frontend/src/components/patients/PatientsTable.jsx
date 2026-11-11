@@ -19,9 +19,7 @@ function PatientsTable({
 }) {
   return (
     <div className="patients-table-wrapper">
-
       <table className="patients-table">
-
         <thead>
           <tr>
             <th>PACIENTE</th>
@@ -34,139 +32,150 @@ function PatientsTable({
         </thead>
 
         <tbody>
+          {patients.map((patient) => {
+            const isActive = patient.status === 'Activo'
 
-          {patients.map((patient) => (
-            <tr key={patient.id}>
+            return (
+              <tr key={patient.id}>
+                {/* PACIENTE */}
 
-              {/* PACIENTE */}
+                <td data-label="Paciente">
+                  <div className="patients-person">
+                    <div className="patients-avatar">
+                      {patient.initials}
+                    </div>
 
-              <td>
-                <div className="patients-person">
+                    <div className="patients-person-info">
+                      <strong>{patient.name}</strong>
 
-                  <div className="patients-avatar">
-                    {patient.initials}
+                      <span>
+                        ID #{String(patient.id).padStart(4, '0')}
+                      </span>
+                    </div>
                   </div>
+                </td>
 
-                  <div className="patients-person-info">
-                    <strong>{patient.name}</strong>
+                {/* CONTACTO */}
+
+                <td data-label="Contacto">
+                  <div className="patients-contact">
+                    <span>
+                      {patient.email || 'Sin correo registrado'}
+                    </span>
+
+                    <small>
+                      {patient.phone || 'Sin teléfono registrado'}
+                    </small>
+                  </div>
+                </td>
+
+                {/* ÚLTIMA CONSULTA */}
+
+                <td data-label="Última consulta">
+                  <div className="patients-date">
+                    <Clock3 size={17} strokeWidth={1.8} />
 
                     <span>
-                      ID #{String(patient.id).padStart(4, '0')}
+                      {patient.lastVisit || 'Sin consultas'}
                     </span>
                   </div>
+                </td>
 
-                </div>
-              </td>
+                {/* CONSULTAS */}
 
-              {/* CONTACTO */}
+                <td data-label="Consultas">
+                  <span className="patients-consultations">
+                    {patient.consultations ?? 0}
+                  </span>
+                </td>
 
-              <td>
-                <div className="patients-contact">
-                  <span>{patient.email}</span>
-                  <small>{patient.phone}</small>
-                </div>
-              </td>
+                {/* ESTADO */}
 
-              {/* ÚLTIMA CONSULTA */}
-
-              <td>
-                <div className="patients-date">
-                  <Clock3 size={15} strokeWidth={1.8} />
-                  <span>{patient.lastVisit}</span>
-                </div>
-              </td>
-
-              {/* CONSULTAS */}
-
-              <td>
-                <span className="patients-consultations">
-                  {patient.consultations}
-                </span>
-              </td>
-
-              {/* ESTADO */}
-
-              <td>
-                <span
-                  className={`patients-status ${
-                    patient.status === 'Activo'
-                      ? 'active'
-                      : 'inactive'
-                  }`}
-                >
-                  <span className="patients-status-dot" />
-                  {patient.status}
-                </span>
-              </td>
-
-              {/* ACCIONES */}
-
-              <td>
-                <div className="patients-row-actions">
-
-                  {/* VER EXPEDIENTE */}
-
-                  <button
-                    type="button"
-                    className="patients-view-button"
-                    title={`Ver expediente de ${patient.name}`}
-                    onClick={() => onViewPatient(patient.id)}
-                  >
-                    <FileText size={16} strokeWidth={1.8} />
-                    <span>Ver expediente</span>
-                  </button>
-
-                  {/* EDITAR PACIENTE */}
-
-                  <button
-                    type="button"
-                    className="patients-edit-button"
-                    title={`Editar a ${patient.name}`}
-                    aria-label={`Editar a ${patient.name}`}
-                    onClick={() => onEditPatient(patient)}
-                  >
-                    <Pencil size={15} strokeWidth={1.8} />
-                  </button>
-
-                  {/* ACTIVAR / DESACTIVAR */}
-
-                  <button
-                    type="button"
-                    className={`patients-toggle-button ${
-                      patient.status === 'Activo'
-                        ? 'deactivate'
-                        : 'activate'
+                <td data-label="Estado">
+                  <span
+                    className={`patients-status ${
+                      isActive ? 'active' : 'inactive'
                     }`}
-                    title={
-                      patient.status === 'Activo'
-                        ? `Desactivar a ${patient.name}`
-                        : `Activar a ${patient.name}`
-                    }
-                    aria-label={
-                      patient.status === 'Activo'
-                        ? `Desactivar a ${patient.name}`
-                        : `Activar a ${patient.name}`
-                    }
-                    onClick={() => onTogglePatientStatus(patient)}
                   >
-                    {patient.status === 'Activo' ? (
-                      <UserRoundX size={16} strokeWidth={1.8} />
-                    ) : (
-                      <UserRoundCheck size={16} strokeWidth={1.8} />
-                    )}
-                  </button>
+                    <span className="patients-status-dot" />
 
-                </div>
-              </td>
+                    {patient.status}
+                  </span>
+                </td>
 
-            </tr>
-          ))}
+                {/* ACCIONES */}
+
+                <td data-label="Acciones">
+                  <div className="patients-row-actions">
+                    {/* VER EXPEDIENTE */}
+
+                    <button
+                      type="button"
+                      className="patients-view-button"
+                      title={`Ver expediente de ${patient.name}`}
+                      onClick={() => onViewPatient(patient.id)}
+                    >
+                      <FileText size={17} strokeWidth={1.8} />
+
+                      <span>Ver expediente</span>
+                    </button>
+
+                    {/* EDITAR */}
+
+                    <button
+                      type="button"
+                      className="patients-edit-button"
+                      title={`Editar a ${patient.name}`}
+                      aria-label={`Editar a ${patient.name}`}
+                      onClick={() => onEditPatient(patient)}
+                    >
+                      <Pencil size={17} strokeWidth={1.8} />
+
+                      <span>Editar</span>
+                    </button>
+
+                    {/* ACTIVAR / DESACTIVAR */}
+
+                    <button
+                      type="button"
+                      className={`patients-toggle-button ${
+                        isActive ? 'deactivate' : 'activate'
+                      }`}
+                      title={
+                        isActive
+                          ? `Desactivar a ${patient.name}`
+                          : `Activar a ${patient.name}`
+                      }
+                      aria-label={
+                        isActive
+                          ? `Desactivar a ${patient.name}`
+                          : `Activar a ${patient.name}`
+                      }
+                      onClick={() => onTogglePatientStatus(patient)}
+                    >
+                      {isActive ? (
+                        <>
+                          <UserRoundX size={17} strokeWidth={1.8} />
+                          <span>Desactivar</span>
+                        </>
+                      ) : (
+                        <>
+                          <UserRoundCheck size={17} strokeWidth={1.8} />
+                          <span>Activar</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
 
           {/* SIN RESULTADOS */}
 
           {patients.length === 0 && (
-            <tr>
-              <td colSpan="6">
+            <tr className="patients-empty-row">
+              <td colSpan={6}>
                 <div className="patients-empty">
                   <Search size={27} strokeWidth={1.5} />
 
@@ -179,11 +188,8 @@ function PatientsTable({
               </td>
             </tr>
           )}
-
         </tbody>
-
       </table>
-
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   CalendarDays,
@@ -19,13 +19,19 @@ import '../../styles/patients/patient-consultations.css'
 function formatDate(dateString) {
   if (!dateString) return 'No programado'
 
-  const [year, month, day] = dateString.split('-').map(Number)
+  const [year, month, day] = dateString
+    .split('T')[0]
+    .split('-')
+    .map(Number)
 
-  return new Date(year, month - 1, day).toLocaleDateString('es-GT', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  })
+  return new Date(year, month - 1, day).toLocaleDateString(
+    'es-GT',
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }
+  )
 }
 
 // ==========================================
@@ -140,7 +146,66 @@ function ConsultationCard({ consultation, index }) {
 function ConsultationHistory({ patientId }) {
   const { getPatientConsultations } = usePatients()
 
-  const consultations = getPatientConsultations(patientId)
+  // ========================================
+  // ESTADOS
+  // ========================================
+
+  const [consultations, setConsultations] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  // ========================================
+  // CARGAR CONSULTAS DESDE SUPABASE
+  // ========================================
+
+  useEffect(() => {
+    let cancelled = false
+
+    const loadConsultations = async () => {
+      setLoading(true)
+      setError('')
+      setConsultations([])
+
+      try {
+        const data = await getPatientConsultations(patientId)
+
+        if (cancelled) return
+
+        if (!Array.isArray(data)) {
+          throw new Error(
+            'El historial de consultas tiene un formato inválido.'
+          )
+        }
+
+        setConsultations(data)
+      } catch (err) {
+        if (cancelled) return
+
+        console.error(
+          'Error al cargar el historial de consultas:',
+          err
+        )
+
+        setError(
+          'No se pudo cargar el historial de consultas.'
+        )
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadConsultations()
+
+    return () => {
+      cancelled = true
+    }
+  }, [patientId, getPatientConsultations])
+
+  // ========================================
+  // INTERFAZ
+  // ========================================
 
   return (
     <div className="consultation-history">
@@ -162,14 +227,51 @@ function ConsultationHistory({ patientId }) {
         </div>
 
         <span className="consultation-history-count">
-          {consultations.length}{' '}
-          {consultations.length === 1 ? 'consulta' : 'consultas'}
+          {loading
+            ? 'Cargando...'
+            : `${consultations.length} ${
+                consultations.length === 1
+                  ? 'consulta'
+                  : 'consultas'
+              }`}
         </span>
       </div>
 
+      {/* ESTADO DE CARGA */}
+
+      {loading && (
+        <div
+          className="consultation-history-empty"
+          role="status"
+        >
+          <ClipboardList size={32} strokeWidth={1.5} />
+
+          <h4>Cargando consultas...</h4>
+
+          <p>
+            Estamos consultando el historial médico del paciente.
+          </p>
+        </div>
+      )}
+
+      {/* ESTADO DE ERROR */}
+
+      {!loading && error && (
+        <div
+          className="consultation-history-empty"
+          role="alert"
+        >
+          <ClipboardList size={32} strokeWidth={1.5} />
+
+          <h4>No se pudo cargar el historial</h4>
+
+          <p>{error}</p>
+        </div>
+      )}
+
       {/* ESTADO VACÍO */}
 
-      {consultations.length === 0 ? (
+      {!loading && !error && consultations.length === 0 && (
         <div className="consultation-history-empty">
           <ClipboardList size={32} strokeWidth={1.5} />
 
@@ -181,10 +283,11 @@ function ConsultationHistory({ patientId }) {
             aparecerá aquí.
           </p>
         </div>
-      ) : (
+      )}
 
-        /* LÍNEA DE TIEMPO */
+      {/* LÍNEA DE TIEMPO */}
 
+      {!loading && !error && consultations.length > 0 && (
         <div className="consultation-timeline">
           {consultations.map((consultation, index) => (
             <div

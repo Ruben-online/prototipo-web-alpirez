@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 
 import Home from './pages/Home'
+import DoctorProfile from './pages/DoctorProfile'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
@@ -19,6 +20,7 @@ import Users from './pages/Users'
 import DashboardLayout from './layouts/DashboardLayout'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import ModuleRoute from './components/auth/ModuleRoute'
+import PublicScrollManager from './components/landing/PublicScrollManager'
 
 import { AuthProvider } from './context/AuthContext.jsx'
 import { PatientsProvider } from './context/PatientsContext.jsx'
@@ -28,6 +30,8 @@ import { InventoryProvider } from './context/InventoryContext.jsx'
 function App() {
   return (
     <BrowserRouter>
+
+      <PublicScrollManager />
 
       <AuthProvider>
 
@@ -39,10 +43,21 @@ function App() {
 
               <Routes>
 
+                {/* LANDING PAGE */}
+
                 <Route
                   path="/"
                   element={<Home />}
                 />
+
+                {/* PERFIL DE LA DOCTORA */}
+
+                <Route
+                  path="/sobre-la-doctora"
+                  element={<DoctorProfile />}
+                />
+
+                {/* AUTENTICACIÓN */}
 
                 <Route
                   path="/login"
@@ -59,7 +74,8 @@ function App() {
                   element={<ResetPassword />}
                 />
 
-                {/* Solo se puede entrar al panel con sesión abierta */}
+                {/* RUTAS PROTEGIDAS */}
+
                 <Route element={<ProtectedRoute />}>
 
                   <Route
@@ -72,7 +88,8 @@ function App() {
                       element={<Dashboard />}
                     />
 
-                    {/* Cada módulo solo se abre si el admin le dio permiso */}
+                    {/* PACIENTES */}
+
                     <Route element={<ModuleRoute module="pacientes" />}>
 
                       <Route
@@ -87,12 +104,16 @@ function App() {
 
                     </Route>
 
+                    {/* CITAS */}
+
                     <Route element={<ModuleRoute module="citas" />}>
                       <Route
                         path="citas"
                         element={<Appointments />}
                       />
                     </Route>
+
+                    {/* INVENTARIO */}
 
                     <Route element={<ModuleRoute module="inventario" />}>
                       <Route
@@ -101,12 +122,16 @@ function App() {
                       />
                     </Route>
 
+                    {/* REPORTES */}
+
                     <Route element={<ModuleRoute module="reportes" />}>
                       <Route
                         path="reportes"
                         element={<Reports />}
                       />
                     </Route>
+
+                    {/* USUARIOS */}
 
                     <Route element={<ModuleRoute module="usuarios" />}>
                       <Route

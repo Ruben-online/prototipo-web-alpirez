@@ -1,0 +1,240 @@
+/* =========================
+   LOGOUT MODAL - OVERLAY
+========================= */
+
+.dashboard-logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(39, 35, 45, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+/* =========================
+   LOGOUT MODAL
+========================= */
+
+.dashboard-logout-modal {
+  width: 100%;
+  max-width: 460px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 32px;
+
+  border: 1px solid #ece7ee;
+  border-radius: 22px;
+
+  background: var(--color-white);
+
+  box-shadow: 0 24px 70px rgba(39, 35, 45, 0.18);
+
+  text-align: center;
+}
+
+/* =========================
+   ICON
+========================= */
+
+.dashboard-logout-modal-icon {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
+
+  border-radius: 18px;
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.dashboard-logout-modal h2 {
+  margin-bottom: 12px;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+
+  color: var(--color-text);
+}
+
+.dashboard-logout-modal > p {
+  max-width: 360px;
+
+  margin-bottom: 26px;
+
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: var(--color-text-light);
+}
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.dashboard-logout-modal-error {
+  width: 100%;
+
+  margin-bottom: 20px;
+  padding: 12px 14px;
+
+  border: 1px solid #f1cdd3;
+  border-radius: 11px;
+
+  background: #fff4f5;
+  color: #b34d5d;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  text-align: left;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.dashboard-logout-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  width: 100%;
+}
+
+.dashboard-logout-modal-cancel,
+.dashboard-logout-modal-confirm {
+  min-height: 46px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  flex: 1;
+
+  padding: 11px 16px;
+
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition: var(--transition-fast);
+}
+
+/* Cancel button */
+
+.dashboard-logout-modal-cancel {
+  border: 1px solid #e8e2eb;
+
+  background: var(--color-white);
+  color: var(--color-text-light);
+}
+
+.dashboard-logout-modal-cancel:hover:not(:disabled) {
+  background: #f8f5f9;
+  color: var(--color-text);
+}
+
+/* Confirm button */
+
+.dashboard-logout-modal-confirm {
+  border: 1px solid var(--color-primary);
+
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.dashboard-logout-modal-confirm:hover:not(:disabled) {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+}
+
+/* =========================
+   DISABLED STATES
+========================= */
+
+.dashboard-logout-modal-cancel:disabled,
+.dashboard-logout-modal-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+.dashboard-logout-modal-cancel:focus-visible,
+.dashboard-logout-modal-confirm:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 520px) {
+  .dashboard-logout-modal-overlay {
+    padding: 16px;
+  }
+
+  .dashboard-logout-modal {
+    padding: 26px 20px;
+
+    border-radius: 18px;
+  }
+
+  .dashboard-logout-modal-icon {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 18px;
+
+    border-radius: 16px;
+  }
+
+  .dashboard-logout-modal h2 {
+    font-size: 22px;
+  }
+
+  .dashboard-logout-modal > p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .dashboard-logout-modal-actions {
+    gap: 10px;
+  }
+
+  .dashboard-logout-modal-cancel,
+  .dashboard-logout-modal-confirm {
+    padding: 11px 10px;
+
+    font-size: 14px;
+  }
+}

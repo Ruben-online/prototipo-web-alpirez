@@ -1,17 +1,27 @@
 {
   "name": "prototipo-web-alpirez-backend",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Backend API para la gestión de consultorio dermatológico Dra. Marcela Alpírez",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=.env src/server.js",
-    "start": "node --env-file=.env src/server.js"
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
     "cors": "^2.8.6",
+<<<<<<< HEAD
     "express": "^5.3.0",
     "multer": "^2.5.0",
     "xlsx": "^0.18.5"
+=======
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1"
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
   }
 }

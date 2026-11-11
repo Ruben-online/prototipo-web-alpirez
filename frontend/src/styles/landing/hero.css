@@ -1,6 +1,6 @@
 /* =========================
    HERO
-   ========================= */
+========================= */
 
 .hero {
   position: relative;
@@ -42,16 +42,14 @@
 
   display: grid;
   grid-template-columns: 0.9fr 1fr;
-
   align-items: center;
 
   gap: 90px;
 }
 
-
 /* =========================
    CONTENT
-   ========================= */
+========================= */
 
 .hero-content {
   max-width: 570px;
@@ -67,10 +65,10 @@
 
   color: var(--color-primary);
 
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 700;
 
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
 }
 
 .hero-eyebrow::before {
@@ -106,14 +104,13 @@
 
   color: var(--color-text-light);
 
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.8;
 }
 
-
 /* =========================
    BUTTONS
-   ========================= */
+========================= */
 
 .hero-actions {
   display: flex;
@@ -126,9 +123,9 @@
 
 .hero-button-primary,
 .hero-button-secondary {
-  min-height: 50px;
+  min-height: 54px;
 
-  padding: 0 23px;
+  padding: 0 25px;
 
   display: inline-flex;
   align-items: center;
@@ -138,7 +135,7 @@
 
   border-radius: 999px;
 
-  font-size: 0.86rem;
+  font-size: 1rem;
   font-weight: 600;
 
   transition: var(--transition-normal);
@@ -183,10 +180,9 @@
   transform: translateY(-2px);
 }
 
-
 /* =========================
    TRUST
-   ========================= */
+========================= */
 
 .hero-trust {
   width: fit-content;
@@ -196,7 +192,7 @@
 
   gap: 25px;
 
-  padding: 15px 20px;
+  padding: 17px 22px;
 
   background-color: var(--color-white);
 
@@ -210,33 +206,33 @@
   display: flex;
   flex-direction: column;
 
-  gap: 1px;
+  gap: 4px;
 }
 
 .hero-trust-item strong {
   color: var(--color-primary);
 
-  font-size: 1.15rem;
+  font-size: 1.375rem;
   line-height: 1.2;
 }
 
 .hero-trust-item span {
   color: var(--color-text-light);
 
-  font-size: 0.7rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .hero-trust-divider {
   width: 1px;
-  height: 34px;
+  height: 38px;
 
   background-color: rgba(39, 35, 45, 0.1);
 }
 
-
 /* =========================
    VISUAL
-   ========================= */
+========================= */
 
 .hero-visual {
   position: relative;
@@ -247,7 +243,6 @@
   align-items: center;
   justify-content: center;
 }
-
 
 /* Background shape */
 
@@ -267,10 +262,9 @@
   transform: rotate(3deg);
 }
 
-
 /* =========================
    MAIN IMAGE
-   ========================= */
+========================= */
 
 .hero-image-container {
   position: relative;
@@ -291,10 +285,10 @@
 }
 
 .hero-image {
+  display: block;
+
   width: 100%;
   height: 100%;
-
-  display: block;
 
   object-fit: cover;
   object-position: center center;
@@ -311,20 +305,53 @@
 
   inset: 0;
 
-  background:
-    linear-gradient(
-      to top,
-      rgba(29, 23, 32, 0.28),
-      transparent 42%
-    );
+  background: linear-gradient(
+    to top,
+    rgba(29, 23, 32, 0.28),
+    transparent 42%
+  );
 
   pointer-events: none;
 }
 
+/* =========================
+   DERMO CLINI-K LOGO
+========================= */
+
+.hero-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 10px 78px;
+
+  background: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    #fdf9ff 65%,
+    #faf1fc 100%
+  );
+}
+
+.hero-logo-container .hero-clinic-logo {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  filter: none;
+}
+
+.hero-logo-container:hover .hero-clinic-logo {
+  transform: scale(1.025);
+}
 
 /* =========================
    IMAGE CAPTION
-   ========================= */
+========================= */
 
 .hero-image-caption {
   position: absolute;
@@ -336,9 +363,7 @@
   display: flex;
   align-items: center;
 
-  gap: 11px;
-
-  padding: 12px 15px;
+  padding: 14px 17px;
 
   border-radius: 15px;
 
@@ -351,43 +376,30 @@
   box-shadow: 0 12px 30px rgba(39, 35, 45, 0.12);
 }
 
-.hero-caption-icon {
-  width: 35px;
-  height: 35px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
-}
-
 .hero-image-caption > div {
   display: flex;
   flex-direction: column;
+
+  gap: 3px;
 }
 
 .hero-image-caption strong {
   color: var(--color-text);
 
-  font-size: 0.74rem;
+  font-size: 0.9375rem;
+  line-height: 1.3;
 }
 
 .hero-image-caption div span {
   color: var(--color-text-light);
 
-  font-size: 0.65rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
-
 
 /* =========================
    FLOATING CARD
-   ========================= */
+========================= */
 
 .hero-floating-card {
   position: absolute;
@@ -399,9 +411,7 @@
   display: flex;
   align-items: center;
 
-  gap: 11px;
-
-  padding: 14px 17px;
+  padding: 16px 19px;
 
   border-radius: 16px;
 
@@ -414,43 +424,30 @@
   backdrop-filter: blur(12px);
 }
 
-.hero-floating-icon {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-
 .hero-floating-card > div {
   display: flex;
   flex-direction: column;
+
+  gap: 3px;
 }
 
 .hero-floating-card strong {
   color: var(--color-text);
 
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.3;
 }
 
 .hero-floating-card div span {
   color: var(--color-text-light);
 
-  font-size: 0.66rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
-
 
 /* =========================
    SMALL DETAIL
-   ========================= */
+========================= */
 
 .hero-visual-detail {
   position: absolute;
@@ -461,7 +458,7 @@
 
   min-width: 135px;
 
-  padding: 13px 17px;
+  padding: 15px 19px;
 
   display: flex;
   flex-direction: column;
@@ -475,31 +472,34 @@
 }
 
 .hero-visual-detail span {
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 
   color: rgba(255, 255, 255, 0.72);
 
-  font-size: 0.56rem;
+  font-size: 0.75rem;
   font-weight: 700;
 
   letter-spacing: 0.13em;
 }
 
 .hero-visual-detail strong {
-  font-size: 0.78rem;
+  font-size: 0.9375rem;
 }
-
 
 /* =========================
    MOBILE
-   ========================= */
+   600px AND BELOW
+========================= */
 
 @media (max-width: 600px) {
 
+  /* =========================
+     HERO LAYOUT
+  ========================= */
+
   .hero {
     min-height: auto;
-
-    padding: 110px 0 75px;
+    padding: 110px 0 65px;
   }
 
   .hero-container {
@@ -508,84 +508,78 @@
 
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 
-    gap: 50px;
+    gap: 0;
   }
+
+  /*
+   * Permite reorganizar visualmente
+   * los elementos del Hero en móvil
+   * sin modificar el JSX.
+   */
 
   .hero-content {
-    max-width: none;
+    display: contents;
   }
 
+  /* =========================
+     1. EYEBROW
+  ========================= */
+
   .hero-eyebrow {
+    order: 1;
+
     margin-bottom: 17px;
 
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-eyebrow::before {
     width: 20px;
+    flex-shrink: 0;
   }
 
+  /* =========================
+     2. TITLE
+  ========================= */
+
   .hero h1 {
+    order: 2;
+
     margin-bottom: 20px;
 
     font-size: clamp(2.55rem, 12vw, 3.4rem);
   }
 
+  /* =========================
+     3. DESCRIPTION
+  ========================= */
+
   .hero-content > p {
+    order: 3;
+
     max-width: none;
 
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.7;
   }
 
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-
-    gap: 10px;
-
-    margin-bottom: 28px;
-  }
-
-  .hero-button-primary,
-  .hero-button-secondary {
-    width: 100%;
-
-    min-height: 50px;
-  }
-
-  .hero-trust {
-    width: 100%;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    padding: 14px;
-  }
-
-  .hero-trust-item {
-    flex: 1;
-
-    text-align: center;
-  }
-
-  .hero-trust-item strong {
-    font-size: 1.05rem;
-  }
-
-  .hero-trust-item span {
-    font-size: 0.65rem;
-  }
+  /* =========================
+     4. VISUAL
+  ========================= */
 
   .hero-visual {
-    width: 100%;
+    order: 4;
 
-    min-height: 480px;
+    width: 100%;
+    min-height: 0;
+    height: 340px;
+
+    margin-bottom: 32px;
   }
 
   .hero-visual-background {
@@ -597,9 +591,11 @@
     border-radius: 22px;
   }
 
+  /* Main image */
+
   .hero-image-container {
     width: 92%;
-    height: 450px;
+    height: 320px;
 
     border-radius: 22px;
   }
@@ -608,39 +604,104 @@
     object-position: center center;
   }
 
+  /* Clinic logo */
+
+  .hero-logo-container {
+    height: 320px;
+    padding: 15px 8px 65px;
+  }
+
+  /* Image caption */
+
   .hero-image-caption {
-    left: 13px;
-    bottom: 13px;
+    left: 12px;
+    bottom: 12px;
 
-    padding: 10px 12px;
+    padding: 11px 13px;
   }
 
-  .hero-caption-icon {
-    width: 31px;
-    height: 31px;
+  .hero-image-caption strong {
+    font-size: 0.875rem;
   }
+
+  .hero-image-caption div span {
+    font-size: 0.75rem;
+  }
+
+  /* Floating card */
 
   .hero-floating-card {
-    top: 20px;
+    top: 12px;
     right: -5px;
 
-    padding: 10px 12px;
-  }
-
-  .hero-floating-icon {
-    width: 32px;
-    height: 32px;
+    padding: 12px 13px;
   }
 
   .hero-floating-card strong {
-    font-size: 0.68rem;
+    font-size: 0.8125rem;
   }
 
   .hero-floating-card div span {
-    font-size: 0.61rem;
+    font-size: 0.75rem;
   }
+
+  /* Small detail */
 
   .hero-visual-detail {
     display: none;
+  }
+
+  /* =========================
+     5. TRUST
+  ========================= */
+
+  .hero-trust {
+    order: 5;
+
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 12px;
+    padding: 15px 12px;
+
+    margin-bottom: 28px;
+  }
+
+  .hero-trust-item {
+    flex: 1;
+    min-width: 0;
+
+    text-align: center;
+  }
+
+  .hero-trust-item strong {
+    font-size: 1.25rem;
+  }
+
+  .hero-trust-item span {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  /* =========================
+     6. BUTTONS
+  ========================= */
+
+  .hero-actions {
+    order: 6;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+
+    margin-bottom: 0;
+  }
+
+  .hero-button-primary,
+  .hero-button-secondary {
+    width: 100%;
+    min-height: 52px;
   }
 }

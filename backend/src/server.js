@@ -1,13 +1,18 @@
+<<<<<<< HEAD
 import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import authRoutes from './routes/auth.js'
 import usersRoutes from './routes/users.js'
 import { processInventoryImport, processPatientsImport } from './importService.js'
+=======
+import 'dotenv/config';
+import app from './app.js';
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
+<<<<<<< HEAD
 // Configurar multer en memoria para no saturar el disco
 const upload = multer({ storage: multer.memoryStorage() })
 
@@ -51,3 +56,15 @@ app.post('/api/patients/import', upload.single('file'), async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor backend en http://localhost:${PORT}`)
 })
+=======
+app.listen(PORT, () => {
+  console.log('=========================================');
+  console.log(`Servidor Backend activo en http://localhost:${PORT}`);
+  console.log(`Endpoint Auth:        http://localhost:${PORT}/api/auth`);
+  console.log(`Endpoint Users:       http://localhost:${PORT}/api/users`);
+  console.log(`Endpoint Pre-citas:   http://localhost:${PORT}/api/precitas`);
+  console.log(`Endpoint Landing:     http://localhost:${PORT}/api/landing`);
+  console.log(`Healthcheck:          http://localhost:${PORT}/api/health`);
+  console.log('=========================================');
+});
+>>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
