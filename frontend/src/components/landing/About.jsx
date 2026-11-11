@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import aboutImage from '../../assets/doctora-marcela.png'
 
 const EXPERIENCE_START_YEAR = 2017
@@ -96,13 +98,16 @@ function About({ info }) {
             ))}
           </div>
 
-          <a href="#contacto" className="about-button">
+          <Link
+            to="/sobre-la-doctora"
+            className="about-button"
+          >
             <span>Conocer más sobre la doctora</span>
 
             <span className="about-button-arrow">
               ↗
             </span>
-          </a>
+          </Link>
         </div>
 
       </div>

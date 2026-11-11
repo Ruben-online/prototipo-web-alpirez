@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import wordmarkLogo from '../../assets/dermo-clinik-wordmark.png'
 import butterflyLogo from '../../assets/dermo-clinik-butterfly-transparent.png'
 
@@ -15,9 +17,10 @@ function Footer({ info }) {
       <div className="footer-container">
 
         {/* IDENTIDAD DE LA CLÍNICA */}
+
         <div className="footer-brand">
-          <a
-            href="#inicio"
+          <Link
+            to="/#inicio"
             className="footer-logo"
             aria-label="Dermo Clini-K - Volver al inicio"
           >
@@ -32,7 +35,7 @@ function Footer({ info }) {
               alt="Dermo Clini-K"
               className="footer-wordmark-image"
             />
-          </a>
+          </Link>
 
           <p>
             Dermatología · Medicina Estética
@@ -42,15 +45,16 @@ function Footer({ info }) {
         </div>
 
         {/* NAVEGACIÓN */}
+
         <div className="footer-links">
           <div>
             <span className="footer-heading">
               Navegación
             </span>
 
-            <a href="#inicio">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#sobre-mi">Sobre mí</a>
+            <Link to="/#inicio">Inicio</Link>
+            <Link to="/#servicios">Servicios</Link>
+            <Link to="/#sobre-mi">Sobre mí</Link>
           </div>
 
           <div>
@@ -58,13 +62,14 @@ function Footer({ info }) {
               Información
             </span>
 
-            <a href="#tratamientos">Tratamientos</a>
-            <a href="#contacto">Contacto</a>
-            <a href="/login">Iniciar sesión</a>
+            <Link to="/#tratamientos">Tratamientos</Link>
+            <Link to="/#contacto">Contacto</Link>
+            <Link to="/login">Iniciar sesión</Link>
           </div>
         </div>
 
         {/* REDES SOCIALES */}
+
         <div className="footer-social">
           <span className="footer-heading">
             Síguenos
@@ -94,6 +99,7 @@ function Footer({ info }) {
       </div>
 
       {/* DERECHOS DE AUTOR */}
+
       <div className="footer-bottom">
         <span>
           © {new Date().getFullYear()} {brandName}
