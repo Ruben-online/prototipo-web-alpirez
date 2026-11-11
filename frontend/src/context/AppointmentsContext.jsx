@@ -44,6 +44,23 @@ const mapAppointmentFromDB = (a) => ({
 export function AppointmentsProvider({ children }) {
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
+  
+  // Nuevo estado para los días bloqueados
+  const [blockedDays, setBlockedDays] = useState([])
+
+  // ========================================
+  // CARGAR DÍAS BLOQUEADOS
+  // ========================================
+  const fetchBlockedDays = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.from('blocked_days').select('*')
+      if (error) throw error
+      // Formateamos las fechas para tener un arreglo de strings YYYY-MM-DD
+      setBlockedDays(data.map(b => b.blocked_date))
+    } catch (err) {
+      console.error('Error cargando días bloqueados:', err)
+    }
+  }, [])
 
   // ========================================
   // CARGAR CITAS DESDE SUPABASE
@@ -70,9 +87,65 @@ export function AppointmentsProvider({ children }) {
     }
   }, [])
 
+  // Cargar citas y días bloqueados al inicio
   useEffect(() => {
     fetchAppointments()
-  }, [fetchAppointments])
+    fetchBlockedDays()
+  }, [fetchAppointments, fetchBlockedDays])
+
+  // ========================================
+  // LÓGICA DE DÍAS BLOQUEADOS
+  // ========================================
+
+  const toggleBlockDate = async (dateKey, reason = 'No disponible') => {
+    const isBlocked = blockedDays.includes(dateKey)
+    try {
+      if (isBlocked) {
+        // Desbloquear
+        const { error } = await supabase
+          .from('blocked_days')
+          .delete()
+          .eq('blocked_date', dateKey)
+        if (error) throw error
+      } else {
+        // Bloquear
+        const { error } = await supabase
+          .from('blocked_days')
+          .insert([{ blocked_date: dateKey, reason }])
+        if (error) throw error
+      }
+      await fetchBlockedDays() // Refrescar el estado local
+    } catch (err) {
+      console.error('Error cambiando estado del día:', err)
+      alert('Error al actualizar el día: ' + err.message)
+    }
+  }
+
+  const blockWeek = async (startDateKey) => {
+    const [year, month, day] = startDateKey.split('-').map(Number)
+    const start = new Date(year, month - 1, day)
+    
+    const datesToInsert = []
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(start)
+      d.setDate(d.getDate() + i)
+      const y = d.getFullYear()
+      const m = String(d.getMonth() + 1).padStart(2, '0')
+      const dayStr = String(d.getDate()).padStart(2, '0')
+      datesToInsert.push({ blocked_date: `${y}-${m}-${dayStr}`, reason: 'Vacaciones / Viaje' })
+    }
+
+    try {
+      const { error } = await supabase
+        .from('blocked_days')
+        .upsert(datesToInsert, { onConflict: 'blocked_date' })
+      if (error) throw error
+      await fetchBlockedDays()
+    } catch (err) {
+      console.error('Error bloqueando la semana:', err)
+      alert('Error al bloquear la semana: ' + err.message)
+    }
+  }
 
   // ========================================
   // OBTENER CITA POR ID
@@ -107,6 +180,11 @@ export function AppointmentsProvider({ children }) {
   // ========================================
 
   const addAppointment = async (appointmentData) => {
+    // Validación extra: no permitir cita en un día bloqueado
+    if (blockedDays.includes(appointmentData.date)) {
+      return { success: false, message: 'El día seleccionado está bloqueado y no permite nuevas citas.' }
+    }
+
     try {
       const { data, error } = await supabase
         .from('appointments')
@@ -135,6 +213,11 @@ export function AppointmentsProvider({ children }) {
   // ========================================
 
   const updateAppointment = async (appointmentId, updatedData) => {
+    // Validación extra: no permitir mover cita a un día bloqueado
+    if (blockedDays.includes(updatedData.date)) {
+      return { success: false, message: 'La nueva fecha seleccionada está bloqueada.' }
+    }
+
     try {
       const { error } = await supabase
         .from('appointments')
@@ -186,6 +269,9 @@ export function AppointmentsProvider({ children }) {
   // ========================================
 
   const isTimeAvailable = (date, time, duration, excludeId = null) => {
+    // Si el día entero está bloqueado, no hay tiempo disponible
+    if (blockedDays.includes(date)) return false
+
     const newStart = time
     const newEndMinutes = (t) => {
       const [h, m] = t.split(':').map(Number)
@@ -210,6 +296,9 @@ export function AppointmentsProvider({ children }) {
       value={{
         appointments,
         loading,
+        blockedDays,         // <-- EXPUESTO AL FRONTEND
+        toggleBlockDate,     // <-- EXPUESTO AL FRONTEND
+        blockWeek,           // <-- EXPUESTO AL FRONTEND
         getAppointmentById,
         getPatientAppointments,
         getAppointmentsByDate,
