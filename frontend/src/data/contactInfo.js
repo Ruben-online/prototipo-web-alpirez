@@ -10,8 +10,8 @@ export const contactInfoData = {
     {
       id: 'quetzaltenango',
       city: 'Quetzaltenango',
-      number: '36661024',
-      display: '+502 3666-1024',
+      number: '36661924',
+      display: '+502 3666-1924',
     },
     {
       id: 'mazatenango',
