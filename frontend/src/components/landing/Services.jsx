@@ -1,96 +1,163 @@
-function Services({ servicesData }) {
-  // Lista por defecto (fallback) si el backend aún no ha respondido
-  const defaultServices = [
-    {
-      number: '01',
-      title: 'Dermatología clínica',
-      description:
-        'Evaluación y tratamiento especializado para cuidar la salud de tu piel, cabello y uñas.',
-      image:
-        'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1000&q=85',
-    },
-    {
-      number: '02',
-      title: 'Dermatología estética',
-      description:
-        'Procedimientos diseñados para mejorar la apariencia de la piel de forma natural y personalizada.',
-      image:
-        'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=85',
-    },
-    {
-      number: '03',
-      title: 'Cuidado preventivo',
-      description:
-        'Valoración profesional y seguimiento para mantener una piel saludable a largo plazo.',
-      image:
-        'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=85',
-    },
-  ]
+import { useState } from 'react'
+import { servicesCatalog } from '../../data/servicesData'
 
-  const services = servicesData && servicesData.length > 0 ? servicesData : defaultServices
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1000&q=85'
+
+function Services({ servicesData }) {
+  const [expandedService, setExpandedService] = useState(null)
+
+  const backendServices = Array.isArray(servicesData)
+    ? servicesData
+    : []
+
+  const services = servicesCatalog.map((service) => {
+    const backendService = backendServices.find(
+      (item) =>
+        String(item.id) === service.id ||
+        String(item.number) === service.number
+    )
+
+    return {
+      ...backendService,
+      ...service,
+    }
+  })
+
+  const toggleService = (id) => {
+    setExpandedService((current) =>
+      current === id ? null : id
+    )
+  }
 
   return (
-    <section id="servicios" className="services">
+    <section
+      id="servicios"
+      className="services"
+      aria-labelledby="services-title"
+    >
       <div className="services-container">
-
         <div className="services-header">
           <div>
             <span className="section-eyebrow">
               NUESTROS SERVICIOS
             </span>
 
-            <h2>
-              Cuidado especializado
+            <h2 id="services-title">
+              Dermatología Geriátrica
               <br />
-              <span>para tu piel</span>
+              <span>y Medicina Estética</span>
             </h2>
           </div>
 
           <p>
-            Cada piel es diferente. Por eso ofrecemos una atención
-            personalizada que combina experiencia, tecnología y
-            un enfoque centrado en cada paciente.
+            Atención dermatológica especializada en adultos,
+            con procedimientos médicos y estéticos orientados
+            al cuidado, la salud y el bienestar de la piel.
           </p>
         </div>
 
         <div className="services-grid">
-          {services.map((service) => (
-            <article
-              className="service-card"
-              key={service.number || service.id}
-            >
-              <div className="service-image-wrapper">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="service-image"
-                  loading="lazy"
-                />
+          {services.map((service) => {
+            const isExpanded = expandedService === service.id
+            const detailsId = `service-details-${service.id}`
 
-                <div className="service-image-overlay"></div>
+            return (
+              <article
+                className={`service-card ${
+                  isExpanded ? 'service-card-expanded' : ''
+                }`}
+                key={service.id}
+              >
+                <div className="service-image-wrapper">
+                  <img
+                    src={service.image}
+                    alt={service.imageAlt}
+                    className="service-image"
+                    loading="lazy"
+                    onError={(event) => {
+                      if (event.currentTarget.src !== FALLBACK_IMAGE) {
+                        event.currentTarget.src = FALLBACK_IMAGE
+                      }
+                    }}
+                  />
 
-                <span className="service-number">
-                  {service.number}
-                </span>
-              </div>
+                  <div
+                    className="service-image-overlay"
+                    aria-hidden="true"
+                  />
 
-              <div className="service-card-content">
-                <h3>{service.title}</h3>
-
-                <p>{service.description}</p>
-
-                <a href="#contacto" className="service-link">
-                  <span>Conocer más</span>
-
-                  <span className="service-link-arrow">
-                    ↗
+                  <span className="service-number">
+                    {service.number}
                   </span>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                </div>
 
+                <div className="service-card-content">
+                  <h3>{service.title}</h3>
+
+                  <p className="service-description">
+                    {service.description}
+                  </p>
+
+                  <button
+                    type="button"
+                    className="service-link"
+                    aria-expanded={isExpanded}
+                    aria-controls={detailsId}
+                    onClick={() => toggleService(service.id)}
+                  >
+                    <span>
+                      {isExpanded
+                        ? 'Ocultar tratamientos'
+                        : 'Ver tratamientos'}
+                    </span>
+
+                    <span
+                      className={`service-link-arrow ${
+                        isExpanded ? 'is-expanded' : ''
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {isExpanded ? '−' : '+'}
+                    </span>
+                  </button>
+
+                  {isExpanded && (
+                    <div
+                      className="service-details"
+                      id={detailsId}
+                    >
+                      {service.categories.map((category) => (
+                        <div
+                          className="service-category"
+                          key={category.title}
+                        >
+                          <h4>{category.title}</h4>
+
+                          <ul>
+                            {category.treatments.map((treatment) => (
+                              <li key={treatment}>
+                                {treatment}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+
+                      <a
+                        href="#contacto"
+                        className="service-contact-link"
+                      >
+                        Solicitar información
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </article>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
