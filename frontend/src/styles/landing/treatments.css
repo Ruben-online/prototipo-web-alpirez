@@ -31,7 +31,12 @@
 
 .treatments-header .section-eyebrow {
   grid-area: eyebrow;
-}
+  color: var(--color-primary);
+
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;}
 
 .treatments-header h2 {
   grid-area: title;

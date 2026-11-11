@@ -209,7 +209,12 @@
 
 .about-content .section-eyebrow {
   margin-bottom: 18px;
-}
+  color: var(--color-primary);
+
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;}
 
 .about-content h2 {
   margin-bottom: 25px;

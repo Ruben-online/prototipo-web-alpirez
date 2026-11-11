@@ -39,7 +39,12 @@
   display: inline-block;
 
   margin-bottom: 18px;
-}
+  color: var(--color-primary);
+
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;}
 
 .location-hours-content h2 {
   margin-bottom: 25px;
