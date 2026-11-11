@@ -70,15 +70,11 @@
 
 .location-hours-highlights {
   display: grid;
-
-  grid-template-columns: repeat(
-    2,
-    minmax(0, 1fr)
-  );
+  grid-template-columns: minmax(0, 1fr);
 
   gap: 14px;
 
-  margin: 30px 0 30px;
+  margin: 30px 0;
 }
 
 /* =========================
@@ -87,7 +83,6 @@
 
 .location-hours-highlight {
   min-width: 0;
-  min-height: 190px;
 
   padding: 22px;
 
@@ -189,31 +184,72 @@
   display: flex;
   flex-direction: column;
 
-  gap: 7px;
+  gap: 18px;
 }
+
+/* =========================
+   SCHEDULE LOCATIONS
+========================= */
+
+.location-hours-schedule-location {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.location-hours-schedule-location + .location-hours-schedule-location {
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(171, 73, 204, 0.16);
+}
+
+.location-hours-schedule-city {
+  margin: 0 0 2px;
+
+  color: var(--color-primary-dark);
+
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* =========================
+   SCHEDULE ROWS
+========================= */
 
 .location-hours-schedule-row {
   display: flex;
   flex-direction: column;
 
-  gap: 2px;
+  gap: 4px;
 
-  padding-bottom: 7px;
+  padding-bottom: 10px;
 
   border-bottom: 1px solid rgba(39, 35, 45, 0.07);
+}
+
+.location-hours-schedule-row:last-child {
+  padding-bottom: 0;
+
+  border-bottom: none;
 }
 
 .location-hours-schedule-row span {
   color: var(--color-text-light);
 
   font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .location-hours-schedule-row strong {
   color: var(--color-text);
 
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .location-hours-highlight .location-hours-appointment-note {
@@ -416,10 +452,6 @@
   .location-hours-highlights {
     grid-template-columns: 1fr;
   }
-
-  .location-hours-highlight {
-    min-height: 0;
-  }
 }
 
 /* =========================
@@ -450,11 +482,8 @@
   }
 
   /*
-   * Permite reorganizar visualmente
-   * los elementos en móvil.
-   *
-   * La estructura y los estilos
-   * de escritorio permanecen intactos.
+   * Conservamos el orden visual
+   * establecido para dispositivos móviles.
    */
 
   .location-hours-content {
@@ -549,7 +578,6 @@
 
   .location-hours-highlight {
     min-width: 0;
-    min-height: 0;
 
     padding: 22px;
   }
@@ -560,6 +588,18 @@
 
   .location-hours-highlight p {
     font-size: 0.9375rem;
+  }
+
+  .location-hours-schedule {
+    gap: 20px;
+  }
+
+  .location-hours-schedule-location {
+    gap: 10px;
+  }
+
+  .location-hours-schedule-city {
+    font-size: 1rem;
   }
 
   /* =========================
