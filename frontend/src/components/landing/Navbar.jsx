@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Menu, UserRound, X } from 'lucide-react'
 
 import butterflyLogo from '../../assets/dermo-clinik-butterfly-transparent.png'
@@ -21,8 +22,8 @@ function Navbar() {
 
         {/* LOGOTIPO */}
 
-        <a
-          href="#inicio"
+        <Link
+          to="/#inicio"
           className="navbar-logo"
           onClick={closeMenu}
           aria-label="Dermo Clini-K - Inicio"
@@ -46,7 +47,7 @@ function Navbar() {
               Dermatología · Medicina Estética Facial y Corporal
             </small>
           </span>
-        </a>
+        </Link>
 
         {/* NAVEGACIÓN */}
 
@@ -57,41 +58,41 @@ function Navbar() {
           }`}
           aria-label="Navegación principal"
         >
-          <a href="#inicio" onClick={closeMenu}>
+          <Link to="/#inicio" onClick={closeMenu}>
             Inicio
-          </a>
+          </Link>
 
-          <a href="#servicios" onClick={closeMenu}>
+          <Link to="/#servicios" onClick={closeMenu}>
             Servicios
-          </a>
+          </Link>
 
-          <a href="#sobre-mi" onClick={closeMenu}>
+          <Link to="/#sobre-mi" onClick={closeMenu}>
             Sobre mí
-          </a>
+          </Link>
 
-          <a href="#tratamientos" onClick={closeMenu}>
+          <Link to="/#tratamientos" onClick={closeMenu}>
             Tratamientos
-          </a>
+          </Link>
 
-          <a href="#ubicacion-horarios" onClick={closeMenu}>
+          <Link to="/#ubicacion-horarios" onClick={closeMenu}>
             Ubicación y horarios
-          </a>
+          </Link>
 
-          <a href="#contacto" onClick={closeMenu}>
+          <Link to="/#contacto" onClick={closeMenu}>
             Contacto
-          </a>
+          </Link>
         </nav>
 
         {/* AGENDAR CITA */}
 
-        <a
-          href="#contacto"
+        <Link
+          to="/#contacto"
           className="navbar-appointment"
           onClick={closeMenu}
         >
           <UserRound size={17} />
           <span>Agendar cita</span>
-        </a>
+        </Link>
 
         {/* MENÚ RESPONSIVE */}
 

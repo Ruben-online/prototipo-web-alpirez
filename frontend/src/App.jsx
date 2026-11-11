@@ -20,6 +20,7 @@ import Users from './pages/Users'
 import DashboardLayout from './layouts/DashboardLayout'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import ModuleRoute from './components/auth/ModuleRoute'
+import PublicScrollManager from './components/landing/PublicScrollManager'
 
 import { AuthProvider } from './context/AuthContext.jsx'
 import { PatientsProvider } from './context/PatientsContext.jsx'
@@ -29,6 +30,8 @@ import { InventoryProvider } from './context/InventoryContext.jsx'
 function App() {
   return (
     <BrowserRouter>
+
+      <PublicScrollManager />
 
       <AuthProvider>
 
