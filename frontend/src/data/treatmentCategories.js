@@ -2,13 +2,13 @@
  * Catálogo de tratamientos de Dermo Clini-K.
  *
  * Los tratamientos están organizados en seis categorías.
- * Las fotografías son ilustrativas
+ * Las fotografías son ilustrativas.
  */
 
 import evaluacionFacial from '../assets/treatments/evaluacion-facial.webp'
 import mascarillaFacial from '../assets/treatments/aplicacion-mascarilla-facial.webp'
 import evaluacionPies from '../assets/treatments/evaluacion-dermatologica-pies.webp'
-import procedimientoFacialEquipo from '../assets/treatments/procedimiento-facial-equipo.webp'
+import procedimientoEsteticaCorporal from '../assets/treatments/procedimiento-estetica-corporal.webp'
 import procedimientoFacialTecnologia from '../assets/treatments/procedimiento-facial-tecnologia.webp'
 import procedimientoTatuajeLaser from '../assets/treatments/procedimiento-tatuaje-laser.webp'
 
@@ -82,38 +82,46 @@ export const treatmentCategories = [
     ],
   },
   {
-    id: 'dermatologia',
+    id: 'podologia',
     number: '03',
-    title: 'Dermatología y cuidado de la piel',
+    title: 'Servicio podológico general',
     description:
-      'Atención dermatológica para el cuidado de la piel y las uñas.',
+      'Evaluación y cuidado profesional de los pies y las uñas, con tratamientos especializados para distintas necesidades podológicas.',
     image: evaluacionPies,
-    imageAlt: 'Evaluación dermatológica de los pies y las uñas',
+    imageAlt: 'Evaluación profesional de los pies y las uñas',
     imagePosition: 'center 48%',
     treatments: [
       {
-        id: 'cuidados-piel',
-        name: 'Cuidados básicos de la piel',
+        id: 'evaluacion-podologica',
+        name: 'Evaluación podológica y valoración del estado de tus pies',
       },
       {
-        id: 'laser-vitiligo',
-        name: 'Láser de vitíligo',
+        id: 'corte-limpieza-unas',
+        name: 'Tratamiento de corte y limpieza profesional de las uñas',
+      },
+      {
+        id: 'unas-encarnadas',
+        name: 'Tratamiento de uñas encarnadas',
+      },
+      {
+        id: 'unas-engrosadas',
+        name: 'Tratamiento de uñas engrosadas',
+      },
+      {
+        id: 'callos-durezas',
+        name: 'Eliminación de callos y durezas',
+      },
+      {
+        id: 'helomas',
+        name: 'Tratamiento de helomas (ojos de pescado)',
       },
       {
         id: 'tratamiento-onicomicosis',
-        name: 'Tratamiento de onicomicosis',
+        name: 'Tratamiento de onicomicosis (hongos en las uñas)',
       },
       {
-        id: 'laser-onicomicosis',
-        name: 'Láser de onicomicosis',
-      },
-      {
-        id: 'microdermoabrasion',
-        name: 'Microdermoabrasión',
-      },
-      {
-        id: 'peeling-quimico',
-        name: 'Peeling químico',
+        id: 'verrugas-plantares',
+        name: 'Tratamiento de verrugas plantares',
       },
     ],
   },
@@ -128,16 +136,40 @@ export const treatmentCategories = [
     imagePosition: 'center 52%',
     treatments: [
       {
-        id: 'eliminacion-tatuajes',
-        name: 'Eliminación de tatuajes',
+        id: 'laser-acne',
+        name: 'Láser de acné',
       },
       {
-        id: 'laser-co2',
-        name: 'Láser CO₂',
+        id: 'laser-manchas',
+        name: 'Láser de manchas',
       },
       {
-        id: 'plasmalaser',
-        name: 'Plasmaláser',
+        id: 'laser-rejuvenecimiento',
+        name: 'Láser de rejuvenecimiento',
+      },
+      {
+        id: 'laser-co2-cicatrices',
+        name: 'Láser CO₂ para cicatrices',
+      },
+      {
+        id: 'plasma-laser',
+        name: 'Plasma láser',
+      },
+      {
+        id: 'laser-vitiligo',
+        name: 'Láser para vitíligo',
+      },
+      {
+        id: 'laser-rosacea',
+        name: 'Láser para rosácea',
+      },
+      {
+        id: 'laser-picosegundos-tatuajes',
+        name: 'Láser de picosegundos para tatuajes',
+      },
+      {
+        id: 'laser-hongos-unas',
+        name: 'Láser para uñas con hongos',
       },
     ],
   },
@@ -146,18 +178,30 @@ export const treatmentCategories = [
     number: '05',
     title: 'Estética facial',
     description:
-      'Procedimientos enfocados en el cuidado y la armonía facial.',
+      'Procedimientos enfocados en el cuidado, la firmeza y la armonía facial.',
     image: mascarillaFacial,
     imageAlt: 'Profesional aplicando un tratamiento de cuidado facial',
     imagePosition: 'center 75%',
     treatments: [
       {
         id: 'estetica-nariz',
-        name: 'Estética de la nariz',
+        name: 'Estética de nariz',
       },
       {
-        id: 'radiofrecuencia',
-        name: 'Radiofrecuencia',
+        id: 'hifu-flacidez',
+        name: 'Ultrasonido focalizado HIFU para flacidez',
+      },
+      {
+        id: 'radiofrecuencia-facial',
+        name: 'Radiofrecuencia facial',
+      },
+      {
+        id: 'radiofrecuencia-fraccionada',
+        name: 'Radiofrecuencia fraccionada',
+      },
+      {
+        id: 'volumen-facial',
+        name: 'Volumen facial',
       },
     ],
   },
@@ -167,9 +211,10 @@ export const treatmentCategories = [
     title: 'Estética corporal',
     description:
       'Opciones de cuidado estético para diferentes zonas del cuerpo.',
-    image: procedimientoFacialEquipo,
-    imageAlt: 'Equipo especializado utilizado durante un procedimiento estético',
-    imagePosition: 'center 30%',
+    image: procedimientoEsteticaCorporal,
+    imageAlt:
+      'Imagen ilustrativa de un procedimiento estético corporal en la zona abdominal',
+    imagePosition: 'center 50%',
     treatments: [
       {
         id: 'tratamiento-celulitis',
