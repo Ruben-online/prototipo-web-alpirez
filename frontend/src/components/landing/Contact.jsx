@@ -1,18 +1,15 @@
 import { useState } from 'react'
+import { contactInfoData } from '../../data/contactInfo'
 
-function Contact({ info }) {
-  const contactInfo = info?.contact || {
-    email: 'contacto@clinicaalpirez.com',
-    phone: '55550000',
-    phoneDisplay: '+502 5555-0000'
-  }
+function Contact() {
+  const contactInfo = contactInfoData
 
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
-    _gotcha: '' // Honeypot invisible para bots
+    _gotcha: '', // Honeypot invisible para bots
   })
 
   const [loading, setLoading] = useState(false)
@@ -24,9 +21,16 @@ function Contact({ info }) {
     // Permitir únicamente 8 dígitos en el teléfono
     if (name === 'phone') {
       const onlyDigits = value.replace(/\D/g, '').slice(0, 8)
-      setForm((prev) => ({ ...prev, [name]: onlyDigits }))
+
+      setForm((prev) => ({
+        ...prev,
+        [name]: onlyDigits,
+      }))
     } else {
-      setForm((prev) => ({ ...prev, [name]: value }))
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
     }
 
     if (status.message) {
@@ -36,6 +40,7 @@ function Contact({ info }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     setLoading(true)
     setStatus({ type: '', message: '' })
 
@@ -44,7 +49,7 @@ function Contact({ info }) {
     if (cleanedPhone.length !== 8) {
       setStatus({
         type: 'error',
-        message: 'El número de teléfono debe tener exactamente 8 dígitos.'
+        message: 'El número de teléfono debe tener exactamente 8 dígitos.',
       })
 
       setLoading(false)
@@ -60,15 +65,15 @@ function Contact({ info }) {
       const response = await fetch(`${backendUrl}/api/precitas`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
           phone: cleanedPhone,
           message: form.message,
-          _gotcha: form._gotcha
-        })
+          _gotcha: form._gotcha,
+        }),
       })
 
       const data = await response.json()
@@ -80,14 +85,14 @@ function Contact({ info }) {
 
         setStatus({
           type: 'error',
-          message: errorMsg
+          message: errorMsg,
         })
       } else {
         setStatus({
           type: 'success',
           message:
             data.message ||
-            '¡Tu solicitud ha sido recibida con éxito!'
+            '¡Tu solicitud ha sido recibida con éxito!',
         })
 
         setForm({
@@ -95,7 +100,7 @@ function Contact({ info }) {
           email: '',
           phone: '',
           message: '',
-          _gotcha: ''
+          _gotcha: '',
         })
       }
     } catch (err) {
@@ -104,7 +109,7 @@ function Contact({ info }) {
       setStatus({
         type: 'error',
         message:
-          'No pudimos conectar con el servidor. Intenta de nuevo más tarde.'
+          'No pudimos conectar con el servidor. Intenta de nuevo más tarde.',
       })
     } finally {
       setLoading(false)
@@ -137,31 +142,53 @@ function Contact({ info }) {
             {/* INFORMACIÓN DE CONTACTO */}
             <div className="contact-details">
 
+              {/* TELÉFONOS POR SEDE */}
+              {contactInfo.phones.map((phone) => (
+                <a
+                  key={phone.id}
+                  href={`tel:+502${phone.number}`}
+                  className="contact-detail"
+                  aria-label={`Llamar a la sede de ${phone.city}: ${phone.display}`}
+                >
+                  <div
+                    className="contact-detail-icon"
+                    aria-hidden="true"
+                  >
+                    ☎
+                  </div>
+
+                  <div>
+                    <span>
+                      Teléfono · {phone.city}
+                    </span>
+
+                    <strong>
+                      {phone.display}
+                    </strong>
+                  </div>
+                </a>
+              ))}
+
+              {/* CORREO ELECTRÓNICO */}
               <a
                 href={`mailto:${contactInfo.email}`}
                 className="contact-detail"
               >
-                <div className="contact-detail-icon">
+                <div
+                  className="contact-detail-icon"
+                  aria-hidden="true"
+                >
                   ✉
                 </div>
 
                 <div>
-                  <span>Correo electrónico</span>
-                  <strong>{contactInfo.email}</strong>
-                </div>
-              </a>
+                  <span>
+                    Correo electrónico
+                  </span>
 
-              <a
-                href={`tel:+502${contactInfo.phone}`}
-                className="contact-detail"
-              >
-                <div className="contact-detail-icon">
-                  ☎
-                </div>
-
-                <div>
-                  <span>Teléfono</span>
-                  <strong>{contactInfo.phoneDisplay}</strong>
+                  <strong>
+                    {contactInfo.email}
+                  </strong>
                 </div>
               </a>
 
@@ -291,6 +318,7 @@ function Contact({ info }) {
             {/* ESTADO DEL FORMULARIO */}
             {status.message && (
               <div
+                role={status.type === 'error' ? 'alert' : 'status'}
                 style={{
                   padding: '0.75rem 1rem',
                   borderRadius: '6px',
@@ -308,7 +336,7 @@ function Contact({ info }) {
                     status.type === 'error'
                       ? '#fca5a5'
                       : '#a7f3d0'
-                  }`
+                  }`,
                 }}
               >
                 {status.message}
@@ -322,7 +350,7 @@ function Contact({ info }) {
               disabled={loading}
               style={{
                 opacity: loading ? 0.7 : 1,
-                cursor: loading ? 'not-allowed' : 'pointer'
+                cursor: loading ? 'not-allowed' : 'pointer',
               }}
             >
               {loading ? 'Enviando...' : 'Solicitar pre-cita'}
