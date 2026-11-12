@@ -135,6 +135,7 @@ function AppointmentFormModal({
     addAppointment,
     updateAppointment,
     isTimeAvailable,
+    blockedDays = [],
   } = useAppointments()
 
   // ========================================
@@ -175,9 +176,6 @@ function AppointmentFormModal({
   // SERVICIOS DISPONIBLES
   // ========================================
 
-  // Conservar el servicio de una cita antigua
-  // aunque ya no aparezca en el catálogo actual.
-
   const availableServices = [...services]
 
   if (
@@ -217,6 +215,7 @@ function AppointmentFormModal({
   const clinicEndMinutes = CLINIC_END_HOUR * 60
 
   const selectedDuration = Number(formData.duration)
+  const isDateBlocked = blockedDays.includes(formData.date)
 
   const timeOptions = []
 
@@ -240,9 +239,6 @@ function AppointmentFormModal({
       available,
     })
   }
-
-  // Si una cita antigua tiene una hora fuera del
-  // horario configurado, permitimos visualizarla.
 
   if (
     isEditing &&
@@ -282,9 +278,6 @@ function AppointmentFormModal({
 
   const handleClose = () => {
     if (submittingRef.current) return
-
-    // Notificar a la agenda cuando una operación
-    // se completó correctamente.
 
     if (savedAppointment) {
       if (isEditing) {
@@ -340,15 +333,11 @@ function AppointmentFormModal({
         [name]: value,
       }
 
-      // Si cambia la fecha o duración, limpiamos
-      // el horario cuando deja de estar disponible.
-
       if (
         name === 'date' ||
         name === 'duration'
       ) {
         const duration = Number(updated.duration)
-
         const currentTime = updated.time
 
         if (currentTime) {
@@ -385,86 +374,34 @@ function AppointmentFormModal({
   }
 
   // ========================================
-  // GUARDAR CITA
+  // GUARDAR CITA (ASYNC)
   // ========================================
 
-  const handleSubmit = (event) => {
+  // ========================================
+  // GUARDAR CITA (ASYNC)
+  // ========================================
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (
-      submittingRef.current ||
-      savedAppointment
-    ) {
-      return
-    }
+    if (submittingRef.current || savedAppointment) return
 
     setError('')
     setSuccess('')
 
     // ========================================
-    // VALIDAR PACIENTE
+    // VALIDACIONES
     // ========================================
+    if (!formData.patientId) return setError('Selecciona un paciente.')
+    if (!formData.service) return setError('Selecciona el tipo de consulta.')
+    if (!formData.date) return setError('Selecciona una fecha.')
+    if (blockedDays.includes(formData.date)) return setError('La fecha seleccionada está deshabilitada.')
+    if (!formData.time) return setError('Selecciona un horario disponible.')
 
-    if (!formData.patientId) {
-      setError('Selecciona un paciente.')
-      return
+    const selectedTimeOption = timeOptions.find((o) => o.value === formData.time)
+    if (!selectedTimeOption || !selectedTimeOption.available) {
+      return setError('El horario seleccionado ya no está disponible. Elige otra hora.')
     }
-
-    const selectedPatient = availablePatients.find(
-      (patient) =>
-        String(patient.id) === formData.patientId
-    )
-
-    if (!selectedPatient) {
-      setError('Selecciona un paciente válido.')
-      return
-    }
-
-    // ========================================
-    // VALIDAR SERVICIO
-    // ========================================
-
-    if (!formData.service) {
-      setError('Selecciona el tipo de consulta.')
-      return
-    }
-
-    // ========================================
-    // VALIDAR FECHA
-    // ========================================
-
-    if (!formData.date) {
-      setError('Selecciona una fecha.')
-      return
-    }
-
-    // ========================================
-    // VALIDAR HORA
-    // ========================================
-
-    if (!formData.time) {
-      setError('Selecciona un horario disponible.')
-      return
-    }
-
-    const selectedTimeOption = timeOptions.find(
-      (option) =>
-        option.value === formData.time
-    )
-
-    if (
-      !selectedTimeOption ||
-      !selectedTimeOption.available
-    ) {
-      setError(
-        'El horario seleccionado ya no está disponible. Elige otra hora.'
-      )
-      return
-    }
-
-    // ========================================
-    // PREPARAR DATOS
-    // ========================================
 
     const appointmentData = {
       patientId: Number(formData.patientId),
@@ -472,72 +409,50 @@ function AppointmentFormModal({
       date: formData.date,
       time: formData.time,
       duration: Number(formData.duration),
+      status: appointment?.status || 'Confirmada',
       notes: formData.notes.trim(),
     }
-
-    // ========================================
-    // BLOQUEAR DOBLE ENVÍO
-    // ========================================
 
     submittingRef.current = true
     setIsSubmitting(true)
 
     try {
-      // ========================================
-      // CREAR O ACTUALIZAR
-      // ========================================
+      // 1. Declaramos result aquí para que exista en todo el bloque try
+      let result; 
+      
+      // 2. Asignamos el valor dependiendo de si editamos o creamos
+      if (isEditing) {
+        result = await updateAppointment(appointment.id, appointmentData)
+      } else {
+        result = await addAppointment(appointmentData)
+      }
 
-      const result = isEditing
-        ? updateAppointment(
-            appointment.id,
-            appointmentData
-          )
-        : addAppointment(appointmentData)
-
-      // ========================================
-      // OPERACIÓN FALLIDA
-      // ========================================
-
-      if (!result.success) {
-        if (
-          result.message
-            .toLowerCase()
-            .includes('horario')
-        ) {
-          setError(
-            'El horario seleccionado ya está ocupado. Elige otra hora para continuar.'
-          )
+      // 3. Validamos el resultado
+      if (!result || !result.success) {
+        const msg = result?.message || 'No se pudo guardar la cita.'
+        if (msg.toLowerCase().includes('horario') || msg.includes('appointments_no_overlap')) {
+          setError('El horario seleccionado ya está ocupado o se traslapa con otra cita. Elige otra hora.')
         } else {
-          setError(result.message)
+          setError(msg)
         }
-
         return
       }
 
-      // ========================================
-      // OPERACIÓN EXITOSA
-      // ========================================
+      // 4. Éxito
+      const normalizedSaved = {
+        ...(appointment || {}),
+        ...appointmentData,
+        id: result.appointment?.id ?? appointment?.id,
+        date: result.appointment?.appointment_date || appointmentData.date,
+      }
 
-      setSavedAppointment(result.appointment)
-
-      setSuccess(
-        isEditing
-          ? 'Los cambios de la cita se han guardado correctamente.'
-          : 'La cita se ha registrado correctamente.'
-      )
-
+      setSavedAppointment(normalizedSaved)
+      setSuccess(isEditing ? 'Los cambios se han guardado correctamente.' : 'La cita se ha registrado correctamente.')
       setError('')
 
     } catch (submitError) {
-      console.error(
-        'Error al guardar la cita:',
-        submitError
-      )
-
-      setError(
-        'No se pudo guardar la cita. Inténtalo nuevamente.'
-      )
-
+      console.error('Error al guardar la cita:', submitError)
+      setError('No se pudo guardar la cita. Inténtalo nuevamente.')
     } finally {
       submittingRef.current = false
       setIsSubmitting(false)
@@ -579,14 +494,9 @@ function AppointmentFormModal({
         }}
       >
 
-        {/* ========================================
-            ENCABEZADO
-        ======================================== */}
-
+        {/* ENCABEZADO */}
         <div className="appointment-form-header">
-
           <div className="appointment-form-header-info">
-
             <div className="appointment-form-header-icon">
               <CalendarDays size={22} />
             </div>
@@ -608,7 +518,6 @@ function AppointmentFormModal({
                   : 'Programa una nueva cita médica.'}
               </p>
             </div>
-
           </div>
 
           <button
@@ -619,13 +528,9 @@ function AppointmentFormModal({
           >
             <X size={20} />
           </button>
-
         </div>
 
-        {/* ========================================
-            FORMULARIO
-        ======================================== */}
-
+        {/* FORMULARIO */}
         <form
           id="appointment-create-form"
           className="appointment-form"
@@ -639,19 +544,14 @@ function AppointmentFormModal({
             }
           >
 
-            {/* ========================================
-                PACIENTE
-            ======================================== */}
-
+            {/* PACIENTE */}
             <div className="appointment-form-section">
-
               <div className="appointment-form-section-title">
                 <UserRound size={17} />
                 <h3>Información del paciente</h3>
               </div>
 
               <div className="appointment-form-field">
-
                 <label htmlFor="appointment-patient">
                   Paciente *
                 </label>
@@ -681,24 +581,17 @@ function AppointmentFormModal({
                   Selecciona un paciente registrado
                   en el sistema.
                 </small>
-
               </div>
-
             </div>
 
-            {/* ========================================
-                SERVICIO
-            ======================================== */}
-
+            {/* SERVICIO */}
             <div className="appointment-form-section">
-
               <div className="appointment-form-section-title">
                 <Stethoscope size={17} />
                 <h3>Información de la consulta</h3>
               </div>
 
               <div className="appointment-form-field">
-
                 <label htmlFor="appointment-service">
                   Tipo de consulta *
                 </label>
@@ -723,28 +616,18 @@ function AppointmentFormModal({
                     </option>
                   ))}
                 </select>
-
               </div>
-
             </div>
 
-            {/* ========================================
-                FECHA Y HORARIO
-            ======================================== */}
-
+            {/* FECHA Y HORARIO */}
             <div className="appointment-form-section">
-
               <div className="appointment-form-section-title">
                 <Clock3 size={17} />
                 <h3>Fecha y horario</h3>
               </div>
 
               <div className="appointment-form-grid">
-
-                {/* FECHA */}
-
                 <div className="appointment-form-field">
-
                   <label htmlFor="appointment-date">
                     Fecha *
                   </label>
@@ -757,13 +640,9 @@ function AppointmentFormModal({
                     onChange={handleChange}
                     required
                   />
-
                 </div>
 
-                {/* HORARIO DESPLEGABLE */}
-
                 <div className="appointment-form-field">
-
                   <label htmlFor="appointment-time">
                     Hora *
                   </label>
@@ -774,9 +653,12 @@ function AppointmentFormModal({
                     value={formData.time}
                     onChange={handleChange}
                     required
+                    disabled={isDateBlocked}
                   >
                     <option value="">
-                      Seleccionar horario
+                      {isDateBlocked
+                        ? 'Día deshabilitado'
+                        : 'Seleccionar horario'}
                     </option>
 
                     {timeOptions.map((option) => (
@@ -792,15 +674,10 @@ function AppointmentFormModal({
                       </option>
                     ))}
                   </select>
-
                 </div>
-
               </div>
 
-              {/* DURACIÓN */}
-
               <div className="appointment-form-field">
-
                 <label htmlFor="appointment-duration">
                   Duración estimada *
                 </label>
@@ -826,24 +703,17 @@ function AppointmentFormModal({
                   Los horarios ocupados se muestran
                   deshabilitados según la fecha y duración.
                 </small>
-
               </div>
-
             </div>
 
-            {/* ========================================
-                OBSERVACIONES
-            ======================================== */}
-
+            {/* OBSERVACIONES */}
             <div className="appointment-form-section">
-
               <div className="appointment-form-section-title">
                 <FileText size={17} />
                 <h3>Observaciones</h3>
               </div>
 
               <div className="appointment-form-field">
-
                 <label htmlFor="appointment-notes">
                   Notas adicionales
                 </label>
@@ -862,27 +732,20 @@ function AppointmentFormModal({
                   Opcional. Evita incluir
                   información médica sensible.
                 </small>
-
               </div>
-
             </div>
 
           </fieldset>
         </form>
 
-        {/* ========================================
-            NOTIFICACIÓN DE ERROR
-        ======================================== */}
-
+        {/* NOTIFICACIÓN DE ERROR */}
         {error && (
           <div
             className="appointment-form-notification"
             role="alert"
           >
             <AlertCircle size={19} strokeWidth={2} />
-
             <span>{error}</span>
-
             <button
               type="button"
               aria-label="Cerrar mensaje de error"
@@ -893,19 +756,14 @@ function AppointmentFormModal({
           </div>
         )}
 
-        {/* ========================================
-            NOTIFICACIÓN DE ÉXITO
-        ======================================== */}
-
+        {/* NOTIFICACIÓN DE ÉXITO */}
         {success && (
           <div
             className="appointment-form-notification appointment-form-notification-success"
             role="status"
           >
             <CheckCircle2 size={19} strokeWidth={2} />
-
             <span>{success}</span>
-
             <button
               type="button"
               aria-label="Cerrar mensaje de confirmación"
@@ -916,12 +774,8 @@ function AppointmentFormModal({
           </div>
         )}
 
-        {/* ========================================
-            PIE DEL MODAL
-        ======================================== */}
-
+        {/* PIE DEL MODAL */}
         <div className="appointment-form-footer">
-
           {appointmentSaved ? (
             <>
               <button
@@ -959,7 +813,6 @@ function AppointmentFormModal({
                 disabled={isSubmitting}
               >
                 <CheckCircle2 size={18} />
-
                 {isSubmitting
                   ? 'Guardando...'
                   : isEditing
@@ -968,7 +821,6 @@ function AppointmentFormModal({
               </button>
             </>
           )}
-
         </div>
 
       </div>

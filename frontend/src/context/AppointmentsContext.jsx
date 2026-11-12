@@ -46,7 +46,7 @@ const mapAppointmentFromDB = (a) => ({
 export function AppointmentsProvider({ children }) {
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
-<<<<<<< HEAD
+  const [error, setError] = useState(null) // <-- ¡AQUÍ ESTÁ LA SOLUCIÓN!
   
   // Nuevo estado para los días bloqueados
   const [blockedDays, setBlockedDays] = useState([])
@@ -64,9 +64,6 @@ export function AppointmentsProvider({ children }) {
       console.error('Error cargando días bloqueados:', err)
     }
   }, [])
-=======
-  const [error, setError] = useState(null)
->>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
 
   // ========================================
   // CARGAR CITAS DESDE SUPABASE
@@ -325,20 +322,11 @@ export function AppointmentsProvider({ children }) {
   // CONSULTAR DISPONIBILIDAD
   // ========================================
 
-<<<<<<< HEAD
   const isTimeAvailable = (date, time, duration, excludeId = null) => {
     // Si el día entero está bloqueado, no hay tiempo disponible
     if (blockedDays.includes(date)) return false
 
     const newStart = time
-=======
-  const isTimeAvailable = (
-    date,
-    time,
-    duration,
-    excludeId = null
-  ) => {
->>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
     const newEndMinutes = (t) => {
       const [h, m] = t.split(':').map(Number)
 
@@ -383,13 +371,10 @@ export function AppointmentsProvider({ children }) {
       value={{
         appointments,
         loading,
-<<<<<<< HEAD
-        blockedDays,         // <-- EXPUESTO AL FRONTEND
-        toggleBlockDate,     // <-- EXPUESTO AL FRONTEND
-        blockWeek,           // <-- EXPUESTO AL FRONTEND
-=======
-        error,
->>>>>>> 472e1e44bc8586405e45f82967bb32b5cf26146b
+        error,               // <-- También exponemos el error por si la vista lo necesita
+        blockedDays,         
+        toggleBlockDate,     
+        blockWeek,           
         getAppointmentById,
         getPatientAppointments,
         getAppointmentsByDate,

@@ -322,13 +322,13 @@ export async function exportReportToPdf(reportData) {
   // Cargar las bibliotecas solamente cuando
   // el usuario solicite un documento PDF.
 
-  const [
-    { jsPDF },
-    { autoTable },
-  ] = await Promise.all([
+  const [jsPdfModule, autoTableModule] = await Promise.all([
     import('jspdf'),
     import('jspdf-autotable'),
   ])
+
+  const jsPDF = jsPdfModule.jsPDF || jsPdfModule.default
+  const autoTable = autoTableModule.autoTable || autoTableModule.default
 
   // Utilizar orientación horizontal para
   // reportes con muchas columnas.
